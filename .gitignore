@@ -1,4 +1,4 @@
 #Custom ignores
-/.idea
 /out
 *.iml
+/.idea
