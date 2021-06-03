@@ -49,7 +49,7 @@ public class LoginActivity extends JFrame implements MouseListener {
 
         jPanel_mainBody = new JPanel();
         jPanel_container = new JPanel();
-        icon = new ImageIcon("/images/login_icon.png");
+        icon = new ImageIcon("/img/login_icon.png");
 
         jLabel_loginImage = new JLabel(icon);
         jTextField_username = new JTextField();
@@ -88,7 +88,7 @@ public class LoginActivity extends JFrame implements MouseListener {
 
 //->|-| JLabel Login Image |---------------------------------------------------------------------------------------|<-//
 
-        icon = new ImageIcon("images/login_icon.png");
+        icon = new ImageIcon("img/login_icon.png");
 
         jLabel_loginImage.setBounds(500,350,150,150);
         jLabel_loginImage.setBackground(null);
@@ -130,7 +130,7 @@ public class LoginActivity extends JFrame implements MouseListener {
 
 //->|-| JLabel Password Image |------------------------------------------------------------------------------------|<-//
 
-        icon = new ImageIcon("images/pass_icon.png");
+        icon = new ImageIcon("img/pass_icon.png");
 
         jLabel_passwordImage.setForeground(textColor_white);
         jLabel_passwordImage.setIcon(icon); // NOI18N
@@ -138,7 +138,7 @@ public class LoginActivity extends JFrame implements MouseListener {
 
 //->|-| JLabel Username Image |------------------------------------------------------------------------------------|<-//
 
-        icon = new ImageIcon("images/user_icon.png");
+        icon = new ImageIcon("img/user_icon.png");
 
         jLabel_usernameImage.setForeground(textColor_white);
         jLabel_usernameImage.setIcon(icon); // NOI18N
@@ -313,7 +313,7 @@ public class LoginActivity extends JFrame implements MouseListener {
         jPanel_titleBar.setBackground(new Color(0, 102, 204));
 
         font = new Font("Dialog", Font.BOLD, 24);
-        icon = new ImageIcon("images/v_library_logo.png");
+        icon = new ImageIcon("img/v_library_logo.png");
 
         jLabel_title.setFont(font); // NOI18N
         jLabel_title.setForeground(textColor_white);
