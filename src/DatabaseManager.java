@@ -34,7 +34,7 @@ public class DatabaseManager {
 
     // Reference SignUp
     public void addUser(User user) {
-        String query = "INSERT INTO Users (username,password,firstName,lastName,address,phoneNumber,cnic) VALUES(?,?,?,?,?,?,?)";
+        String query = "INSERT INTO Users (username,password,first_name,last_name,address,phoneNumber,cnic) VALUES(?,?,?,?,?,?,?)";
         try {
             PreparedStatement ppStatement = connection.prepareStatement(query);
             ppStatement.setString(1, user.getEmail());
