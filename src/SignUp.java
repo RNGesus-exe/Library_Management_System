@@ -337,6 +337,22 @@ public class SignUp extends JFrame implements ActionListener {
 
     }
 
+    public User createUser(){
+        // Creation of User Object
+        User user = new User();
+
+        // Adding Data in User object from Sign Up Form
+        user.setFirstName(txt_firstName.getText().trim());
+        user.setLastName(txt_lastName.getText().trim());
+        user.setMobileNumber(txt_mobileNumber.getText().trim());
+        user.setAddress(textArea_address.getText());
+        user.setCnic(txt_cnic.getText().trim());
+        user.setEmail(txt_email.getText().trim());
+        user.setPassword(txt_password.getText().trim());
+
+        return user;
+    }
+
     public boolean isSignUpValid(){
 
         if(txt_firstName.getText().trim().isEmpty() ||
@@ -349,18 +365,23 @@ public class SignUp extends JFrame implements ActionListener {
         txt_confirmPassword.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null,"Please Fill all the Fields","Incomplete Information",JOptionPane.ERROR_MESSAGE);
         }
-        else if(!txt_password.getText().trim().equals(txt_confirmPassword.getText().trim()))
-        {
+        else if(!txt_password.getText().trim().equals(txt_confirmPassword.getText().trim())){
             JOptionPane.showMessageDialog(null,"Password and Confirm Password not matched","Password Error",JOptionPane.ERROR_MESSAGE);
         }
-        else if(!isPasswordStrong(txt_password.getText().trim()))
-        {
+        else if(!isPasswordStrong(txt_password.getText().trim())){
             JOptionPane.showMessageDialog(null, "Error! Your password must contain Uppercase Lowercase and Special Characters\nFor Example, ABCde12@", "Weak Password!", JOptionPane.ERROR_MESSAGE);
-        }else{
-            System.out.println("Sign Up Successful");
         }
-        return true;
+        else if(Driver.dataAgent.checkCnicRepetition(txt_cnic.getText().trim())){
+            JOptionPane.showMessageDialog(null,"CNIC already exits","CNIC Duplication",JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+                // Sign Up Valid
+                return true;
+        }
+
+        return false;
     }
+
 
     public static void main(String[] args) throws IOException {
         new SignUp();
@@ -375,7 +396,10 @@ public class SignUp extends JFrame implements ActionListener {
         }else if(e.getSource()==btn_cancel){
             clearAllFields();
         }else if(e.getSource()==btn_signUp){
-            isSignUpValid();
+            if(isSignUpValid()){
+                Driver.dataAgent.addUser(createUser());
+                JOptionPane.showMessageDialog(null,"Sign Up completed successfully","Sign Up Successful",JOptionPane.INFORMATION_MESSAGE);
+            }
         }
 
     }
