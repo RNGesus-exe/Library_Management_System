@@ -11,8 +11,7 @@ public class Home extends JFrame implements ActionListener {
     private final int FRAME_WIDTH = 1200;
     private final int FRAME_HEIGHT = 900;
     private final ImageIcon bgIcon = new ImageIcon("img/bg8.jpg");
-    private final Font textFieldFont = new Font("Arial", Font.PLAIN, 16);
-    private final Font labelFont = new Font("Arial", Font.BOLD, 16);
+    private final Font sidebarMenuFont = new Font("Arial", Font.BOLD, 26);
 
 
     private JPanel panel_titleBar;
@@ -100,7 +99,7 @@ public class Home extends JFrame implements ActionListener {
         JLabel lb_home = new JLabel("Home");
         lb_home.setBounds(70,0,190, 60);
         lb_home.setBorder(BorderFactory.createLineBorder(Color.black));
-        lb_home.setFont(new Font("Arial", Font.BOLD, 26));
+        lb_home.setFont(sidebarMenuFont);
         panel_home.add(lb_home);
 
 //<<<<< Menu >>>>>>
@@ -137,7 +136,7 @@ public class Home extends JFrame implements ActionListener {
         JLabel lb_menu = new JLabel("Menu");
         lb_menu.setBounds(70,0,190, 60);
         lb_menu.setBorder(BorderFactory.createLineBorder(Color.black));
-        lb_menu.setFont(new Font("Arial", Font.BOLD, 26));
+        lb_menu.setFont(sidebarMenuFont);
         panel_menu.add(lb_menu);
 
 //<<<<< Help >>>>>>
@@ -174,7 +173,7 @@ public class Home extends JFrame implements ActionListener {
         JLabel lb_help = new JLabel("Help");
         lb_help.setBounds(70,0,190, 60);
         lb_help.setBorder(BorderFactory.createLineBorder(Color.black));
-        lb_help.setFont(new Font("Arial", Font.BOLD, 26));
+        lb_help.setFont(sidebarMenuFont);
         panel_help.add(lb_help);
 
 //<<<<< Info >>>>>>
@@ -211,7 +210,7 @@ public class Home extends JFrame implements ActionListener {
         JLabel lb_info = new JLabel("Info");
         lb_info.setBounds(70,0,190, 60);
         lb_info.setBorder(BorderFactory.createLineBorder(Color.black));
-        lb_info.setFont(new Font("Arial", Font.BOLD, 26));
+        lb_info.setFont(sidebarMenuFont);
         panel_info.add(lb_info);
 
 //<<<<< Log Out >>>>>>
@@ -248,7 +247,7 @@ public class Home extends JFrame implements ActionListener {
         JLabel lb_logout = new JLabel("Log Out");
         lb_logout.setBounds(70,0,190, 60);
         lb_logout.setBorder(BorderFactory.createLineBorder(Color.black));
-        lb_logout.setFont(new Font("Arial", Font.BOLD, 26));
+        lb_logout.setFont(sidebarMenuFont);
         panel_logout.add(lb_logout);
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Top Title Bar }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
