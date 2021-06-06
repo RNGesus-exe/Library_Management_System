@@ -70,31 +70,186 @@ public class Home extends JFrame implements ActionListener {
         panel_home = new JPanel();
         panel_home.setBounds(20,260,260,60);
         panel_home.setBackground(Color.BLUE);
+        panel_home.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_home.setLayout(null);
         panel_sidebar.add(panel_home);
+        panel_home.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_home.setBackground(Color.RED);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_home.setBackground(Color.BLUE);
+            }
+        });
+
+        //Home Icon
+        JLabel lb_homeIcon = new JLabel("icon");
+        lb_homeIcon.setBounds(0,0,60,60);
+        lb_homeIcon.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel_home.add(lb_homeIcon);
+
+        // Home Label
+        JLabel lb_home = new JLabel("Home");
+        lb_home.setBounds(70,0,190, 60);
+        lb_home.setBorder(BorderFactory.createLineBorder(Color.black));
+        lb_home.setFont(new Font("Arial", Font.BOLD, 26));
+        panel_home.add(lb_home);
 
 //<<<<< Menu >>>>>>
         panel_menu = new JPanel();
         panel_menu.setBounds(20,325,260,60);
         panel_menu.setBackground(Color.BLUE);
+        panel_menu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_menu.setLayout(null);
         panel_sidebar.add(panel_menu);
+        panel_menu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_menu.setBackground(Color.RED);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_menu.setBackground(Color.BLUE);
+            }
+        });
+
+        //Menu Icon
+        JLabel lb_menuIcon = new JLabel("icon");
+        lb_menuIcon.setBounds(0,0,60,60);
+        lb_menuIcon.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel_menu.add(lb_menuIcon);
+
+        // Menu Label
+        JLabel lb_menu = new JLabel("Menu");
+        lb_menu.setBounds(70,0,190, 60);
+        lb_menu.setBorder(BorderFactory.createLineBorder(Color.black));
+        lb_menu.setFont(new Font("Arial", Font.BOLD, 26));
+        panel_menu.add(lb_menu);
 
 //<<<<< Help >>>>>>
         panel_help = new JPanel();
         panel_help.setBounds(20,390,260,60);
         panel_help.setBackground(Color.BLUE);
+        panel_help.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_help.setLayout(null);
         panel_sidebar.add(panel_help);
+        panel_help.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_help.setBackground(Color.RED);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_help.setBackground(Color.BLUE);
+            }
+        });
+
+        //Home Icon
+        JLabel lb_helpIcon = new JLabel("icon");
+        lb_helpIcon.setBounds(0,0,60,60);
+        lb_helpIcon.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel_help.add(lb_helpIcon);
+
+        // Home Menu
+        JLabel lb_help = new JLabel("Help");
+        lb_help.setBounds(70,0,190, 60);
+        lb_help.setBorder(BorderFactory.createLineBorder(Color.black));
+        lb_help.setFont(new Font("Arial", Font.BOLD, 26));
+        panel_help.add(lb_help);
 
 //<<<<< Info >>>>>>
         panel_info = new JPanel();
         panel_info.setBounds(20,455,260,60);
         panel_info.setBackground(Color.BLUE);
+        panel_info.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_info.setLayout(null);
         panel_sidebar.add(panel_info);
+        panel_info.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_info.setBackground(Color.RED);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_info.setBackground(Color.BLUE);
+            }
+        });
+
+        //Home Icon
+        JLabel lb_infoIcon = new JLabel("icon");
+        lb_infoIcon.setBounds(0,0,60,60);
+        lb_infoIcon.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel_info.add(lb_infoIcon);
+
+        // Home Menu
+        JLabel lb_info = new JLabel("Info");
+        lb_info.setBounds(70,0,190, 60);
+        lb_info.setBorder(BorderFactory.createLineBorder(Color.black));
+        lb_info.setFont(new Font("Arial", Font.BOLD, 26));
+        panel_info.add(lb_info);
 
 //<<<<< Log Out >>>>>>
         panel_logout = new JPanel();
         panel_logout.setBounds(20,520,260,60);
         panel_logout.setBackground(Color.BLUE);
+        panel_logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_logout.setLayout(null);
         panel_sidebar.add(panel_logout);
+        panel_logout.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_logout.setBackground(Color.RED);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_logout.setBackground(Color.BLUE);
+            }
+        });
+
+        //Home Icon
+        JLabel lb_logoutIcon = new JLabel("icon");
+        lb_logoutIcon.setBounds(0,0,60,60);
+        lb_logoutIcon.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel_logout.add(lb_logoutIcon);
+
+        // Home Menu
+        JLabel lb_logout = new JLabel("Log Out");
+        lb_logout.setBounds(70,0,190, 60);
+        lb_logout.setBorder(BorderFactory.createLineBorder(Color.black));
+        lb_logout.setFont(new Font("Arial", Font.BOLD, 26));
+        panel_logout.add(lb_logout);
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Top Title Bar }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -129,7 +284,7 @@ public class Home extends JFrame implements ActionListener {
         btn_close.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Home.super.setState(JFrame.ICONIFIED);
+                dispose();
             }
 
             @Override
