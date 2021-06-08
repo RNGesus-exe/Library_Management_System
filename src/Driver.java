@@ -1,13 +1,20 @@
+import javax.swing.*;
 import java.sql.Connection;
 
 public class Driver {
+
+    public static DatabaseManager dataAgent = null;        //This agent helps in managing database
+
     public static void main(String[] args) {
-        Connection connection = ConnectionConfiguration.getConnection();
-        if(connection != null){
-            System.out.println("Connected with Database");
-        }
-        else{
-            System.out.println("Not connected with database");
+
+        Connection connectionAgent = ConnectionConfiguration.getConnection();  //Connects to MySql through Xampp
+        if (connectionAgent != null) {
+            dataAgent = new DatabaseManager(connectionAgent);
+            dataAgent.createTables();
+            //Login GUI
+        } else {   //In case Connection is not established
+            JOptionPane.showMessageDialog(null, "Connection was not established!",
+                    "Database connection Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 }
