@@ -204,7 +204,7 @@ public class UserInfo extends JFrame implements ActionListener {
         panel_setting.add(lb_settingIcon);
 
         // Label
-        JLabel lb_setting = new JLabel("User Info");
+        JLabel lb_setting = new JLabel("Setting");
         lb_setting.setBounds(70,0,190, 60);
         lb_setting.setFont(sidebarMenuFont);
         panel_setting.add(lb_setting);
