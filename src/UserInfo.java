@@ -345,11 +345,11 @@ public class UserInfo extends JFrame implements ActionListener {
 
         //<<<<<< Details >>>>>>>>
 
-        JLabel lb_username = new JLabel("Username");
-        lb_username.setBounds(100,100,200,25);
-        lb_username.setFont(labelFonts);
-        lb_username.setForeground(Color.red);
-        panel_bookDetails.add(lb_username);
+        JLabel lb_name = new JLabel("Name");
+        lb_name.setBounds(100,100,200,25);
+        lb_name.setFont(labelFonts);
+        lb_name.setForeground(Color.red);
+        panel_bookDetails.add(lb_name);
 
         JLabel lb_mobileNumber = new JLabel("Mobile Number");
         lb_mobileNumber.setBounds(100,150,200,25);
@@ -383,49 +383,51 @@ public class UserInfo extends JFrame implements ActionListener {
 
         //<<<<<< Data Fetch From Database >>>>>>>>
 
-        JTextField txt_username = new JTextField();
-        txt_username.setBounds(400,95,300,30);
-        txt_username.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_username.setEditable(false);
-        panel_bookDetails.add(txt_username);
+        JTextField txt_name = new JTextField();
+        txt_name.setBounds(400,95,300,30);
+        txt_name.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        txt_name.setEditable(false);
+        txt_name.setText(Driver.currentUser.getFirstName()+Driver.currentUser.getLastName());
+        panel_bookDetails.add(txt_name);
 
         JTextField txt_mobileNumber = new JTextField();
         txt_mobileNumber.setBounds(400,145,300,30);
         txt_mobileNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_mobileNumber.setEditable(false);
+        txt_mobileNumber.setText(Driver.currentUser.getMobileNumber());
         panel_bookDetails.add(txt_mobileNumber);
 
         JTextArea textArea_address = new JTextArea();
         textArea_address.setBounds(400,195,300,50);
         textArea_address.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         textArea_address.setEditable(false);
+        textArea_address.setText(Driver.currentUser.getAddress());
         panel_bookDetails.add(textArea_address);
 
         JTextField txt_cnic = new JTextField();
         txt_cnic.setBounds(400,265,300,30);
         txt_cnic.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_cnic.setEditable(false);
+        txt_cnic.setText(Driver.currentUser.getCnic());
         panel_bookDetails.add(txt_cnic);
 
         JTextField txt_email = new JTextField();
         txt_email.setBounds(400,315,300,30);
         txt_email.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_email.setEditable(false);
+        txt_email.setText(Driver.currentUser.getEmail());
         panel_bookDetails.add(txt_email);
 
         JPasswordField txt_password = new JPasswordField();
         txt_password.setBounds(400,365,300,30);
         txt_password.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_password.setEditable(false);
+        txt_password.setText(Driver.currentUser.getEmail());
         panel_bookDetails.add(txt_password);
 
 
 
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new UserInfo();
     }
 
     @Override

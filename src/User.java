@@ -1,4 +1,5 @@
 public class User {
+    private int user_id;
     private String firstName;
     private String lastName;
     private String email;
@@ -10,6 +11,7 @@ public class User {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@( Parameterized Constructor )@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     public User() {
+        this.user_id = -1;
         this.firstName = "";
         this.lastName = "";
         this.email = "";
@@ -22,7 +24,8 @@ public class User {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@( Parameterized Constructor )@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-    public User(String firstName, String lastName, String email, String address, String mobileNumber, String cnic, String password) {
+    public User(int user_id,String firstName, String lastName, String email, String address, String mobileNumber, String cnic, String password) {
+        this.user_id = user_id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -33,6 +36,11 @@ public class User {
     }
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@( Setters )@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -63,6 +71,11 @@ public class User {
     }
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@( Getters )@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+    public int getUser_id() {
+        return user_id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -95,7 +108,8 @@ public class User {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@( Data String )@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     public String toString(){
-        return "[ First Name : "+this.firstName+", Last Name : "+this.lastName+", Mobile No. : "+this.mobileNumber+
+        return "[ UserID : "+this.user_id +"First Name : "+this.firstName+", Last Name : " +this.lastName +
+                ", Mobile No. : "+this.mobileNumber+
                 ", CNIC : "+this.cnic+", Email : "+this.email+", Password : "+this.password+" ]";
     }
 

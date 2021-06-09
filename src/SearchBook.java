@@ -493,10 +493,6 @@ public class SearchBook extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new SearchBook();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btn_search){

@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.*;
 import java.awt.geom.*;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.*;
 import javax.swing.*;
@@ -273,24 +276,6 @@ public class LoginMenu extends JFrame implements MouseListener {
         setLocationRelativeTo(null);
     }
 
-//-> |-| Public Static Void Main |--------------------------------------------------------------------------------| <-\\
-
-    public static void main(String[] args) {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException |
-                 IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(LoginMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        EventQueue.invokeLater(() -> new LoginMenu().setVisible(true));
-    }
-
 //-> |-| GroupLayouts Code |--------------------------------------------------------------------------------------| <-\\
 
     protected void setJPanel_contentsLayout() {
@@ -496,14 +481,13 @@ public class LoginMenu extends JFrame implements MouseListener {
                                         GroupLayout.DEFAULT_SIZE,
                                         Short.MAX_VALUE))
         );
+        setVisible(true);
     }
 
 //-> |-| Input Validations Code |---------------------------------------------------------------------------------| <-\\
 
-    protected boolean isDataValid() {
-        User user = new User();
-        return jTextField_username.getText().trim().equals(user.getEmail()) &&
-                jPasswordField_pass.getText().trim().equals(user.getPassword());
+    protected int isDataValid() {
+        return Driver.dataAgent.getId(jTextField_username.getText().trim(),jPasswordField_pass.getText().trim());
     }
 
 //-> |-| Override Methods Code |----------------------------------------------------------------------------------| <-\\
@@ -515,8 +499,22 @@ public class LoginMenu extends JFrame implements MouseListener {
         } else if (e.getSource () == jLabel_close) {
             dispose();
         } else if (e.getSource () == jButton_signIn) {
-            if (isDataValid()) {
+            int userId = isDataValid();
+            if (userId != -1) {
                 dispose();
+                try {
+                    Driver.currentUser = Driver.dataAgent.loadUserInfoFromDataBase(new FileManager().readUserId());
+                } catch (IOException | SQLException ioException) {
+                    ioException.printStackTrace();
+                }
+                new Dashboard();
+                if(jCheckBox_rememberMe.isSelected()){
+                    try {
+                        new FileManager().writeUserId(userId);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
             } else {
                 JOptionPane.showMessageDialog(this,
                                               "Invalid Username or Password Entered!",
@@ -524,7 +522,7 @@ public class LoginMenu extends JFrame implements MouseListener {
             }
         } else if (e.getSource() == jLabel_forgottenPass) {
             dispose();
-            //new ForgottenPassMenu();
+            //TODO invoke ForgottenPassMenu();
         } else if (e.getSource() == jLabel_signUp) {
             dispose();
             new SignUp();

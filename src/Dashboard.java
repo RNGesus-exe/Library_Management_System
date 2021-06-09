@@ -41,13 +41,13 @@ public class Dashboard extends JFrame implements ActionListener {
         init();
     }
 
-    public void init(){
+    public void init() {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Main Frame }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(FRAME_WIDTH,FRAME_HEIGHT);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.decode("#ede2e1"));
         setUndecorated(true);
@@ -68,28 +68,28 @@ public class Dashboard extends JFrame implements ActionListener {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Body }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         panel_body = new JPanel();
-        panel_body.setBounds(300,70,900,830);
+        panel_body.setBounds(300, 70, 900, 830);
         panel_body.setLayout(null);
         panel_body.setBackground(Color.decode("#ebebeb"));
         add(panel_body);
 
         //<<< Row 1 >>>>
         JPanel panel_issueBook = new JPanel();
-        panel_issueBook.setBounds(100,230,700,100);
+        panel_issueBook.setBounds(100, 230, 700, 100);
         panel_issueBook.setBackground(dashboardItemColor);
         panel_issueBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_issueBook.setLayout(null);
         panel_body.add(panel_issueBook);
 
         JLabel lb_issueBook = new JLabel("Issue Book");
-        lb_issueBook.setBounds(25,40,200,25);
+        lb_issueBook.setBounds(25, 40, 200, 25);
         lb_issueBook.setFont(new Font("Arial", Font.BOLD, 30));
         panel_issueBook.add(lb_issueBook);
 
 
-        img = new ImageIcon("img/book-exchange.png").getImage().getScaledInstance(80,80,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/book-exchange.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         JLabel lb_icon1 = new JLabel(new ImageIcon(img));
-        lb_icon1.setBounds(595,10,80,80);
+        lb_icon1.setBounds(595, 10, 80, 80);
         lb_icon1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panel_issueBook.add(lb_icon1);
 
@@ -113,20 +113,20 @@ public class Dashboard extends JFrame implements ActionListener {
         //-------------------------------------------------
 
         JPanel panel_returnBook = new JPanel();
-        panel_returnBook.setBounds(100,380,700,100);
+        panel_returnBook.setBounds(100, 380, 700, 100);
         panel_returnBook.setBackground(dashboardItemColor);
         panel_returnBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_returnBook.setLayout(null);
         panel_body.add(panel_returnBook);
 
         JLabel lb_returnBook = new JLabel("Return Book");
-        lb_returnBook.setBounds(25,40,200,25);
+        lb_returnBook.setBounds(25, 40, 200, 25);
         lb_returnBook.setFont(new Font("Arial", Font.BOLD, 30));
         panel_returnBook.add(lb_returnBook);
 
-        img = new ImageIcon("img/book-return.png").getImage().getScaledInstance(80,80,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/book-return.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         JLabel lb_icon2 = new JLabel(new ImageIcon(img));
-        lb_icon2.setBounds(595,10,80,80);
+        lb_icon2.setBounds(595, 10, 80, 80);
         lb_icon2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panel_returnBook.add(lb_icon2);
 
@@ -150,20 +150,20 @@ public class Dashboard extends JFrame implements ActionListener {
 
         //<<< Row 2 >>>>
         JPanel panel_issuedBook = new JPanel();
-        panel_issuedBook.setBounds(100,530,700,100);
+        panel_issuedBook.setBounds(100, 530, 700, 100);
         panel_issuedBook.setBackground(dashboardItemColor);
         panel_issuedBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_issuedBook.setLayout(null);
         panel_body.add(panel_issuedBook);
 
-        img = new ImageIcon("img/book-log.png").getImage().getScaledInstance(80,80,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/book-log.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         JLabel lb_icon4 = new JLabel(new ImageIcon(img));
-        lb_icon4.setBounds(595,10,80,80);
+        lb_icon4.setBounds(595, 10, 80, 80);
         lb_icon4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panel_issuedBook.add(lb_icon4);
 
         JLabel lb_issuedBook = new JLabel("Book Logs");
-        lb_issuedBook.setBounds(25,40,200,30);
+        lb_issuedBook.setBounds(25, 40, 200, 30);
         lb_issuedBook.setFont(new Font("Arial", Font.BOLD, 30));
         panel_issuedBook.add(lb_issuedBook);
 
@@ -187,9 +187,9 @@ public class Dashboard extends JFrame implements ActionListener {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Logo }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-        img = new ImageIcon("img/books.jpg").getImage().getScaledInstance(200,200,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/books.jpg").getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         lb_logo = new JLabel(new ImageIcon(img));
-        lb_logo.setBounds(50,30,200,200);
+        lb_logo.setBounds(50, 30, 200, 200);
         lb_logo.setBackground(Color.BLACK);
         lb_logo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panel_sidebar.add(lb_logo);
@@ -198,27 +198,27 @@ public class Dashboard extends JFrame implements ActionListener {
 
 //<<<<< Home >>>>>>
         panel_dashboard = new JPanel();
-        panel_dashboard.setBounds(20,260,260,60);
+        panel_dashboard.setBounds(20, 260, 260, 60);
         panel_dashboard.setBackground(sidebarHoverColor);
         panel_dashboard.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_dashboard.setLayout(null);
         panel_sidebar.add(panel_dashboard);
 
         //Home Icon
-        img = new ImageIcon("img/dashboard.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/dashboard.jpg").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         JLabel lb_dashboardIcon = new JLabel(new ImageIcon(img));
-        lb_dashboardIcon.setBounds(0,0,60,60);
+        lb_dashboardIcon.setBounds(0, 0, 60, 60);
         panel_dashboard.add(lb_dashboardIcon);
 
         // Home Label
         JLabel lb_dashboard = new JLabel("Dashboard");
-        lb_dashboard.setBounds(70,0,190, 60);
+        lb_dashboard.setBounds(70, 0, 190, 60);
         lb_dashboard.setFont(sidebarMenuFont);
         panel_dashboard.add(lb_dashboard);
 
-//<<<<< Search Book >>>>>>
+        //<<<<< Search Book >>>>>>
         panel_search = new JPanel();
-        panel_search.setBounds(20,325,260,60);
+        panel_search.setBounds(20, 325, 260, 60);
         panel_search.setBackground(sidebarItemColor);
         panel_search.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_search.setLayout(null);
@@ -242,20 +242,20 @@ public class Dashboard extends JFrame implements ActionListener {
         });
 
         //Search Book Icon
-        img = new ImageIcon("img/book-search.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/book-search.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         JLabel lb_menuIcon = new JLabel(new ImageIcon(img));
-        lb_menuIcon.setBounds(0,0,60,60);
+        lb_menuIcon.setBounds(0, 0, 60, 60);
         panel_search.add(lb_menuIcon);
 
         // Search Book Label
         JLabel lb_menu = new JLabel("Search Book");
-        lb_menu.setBounds(70,0,190, 60);
+        lb_menu.setBounds(70, 0, 190, 60);
         lb_menu.setFont(sidebarMenuFont);
         panel_search.add(lb_menu);
 
-//<<<<< User Info >>>>>>
+        //<<<<< User Info >>>>>>
         panel_userInfo = new JPanel();
-        panel_userInfo.setBounds(20,390,260,60);
+        panel_userInfo.setBounds(20, 390, 260, 60);
         panel_userInfo.setBackground(sidebarItemColor);
         panel_userInfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_userInfo.setLayout(null);
@@ -279,20 +279,20 @@ public class Dashboard extends JFrame implements ActionListener {
         });
 
         //User Info Icon
-        img = new ImageIcon("img/user-info.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/user-info.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         JLabel lb_userInfoIcon = new JLabel(new ImageIcon(img));
-        lb_userInfoIcon.setBounds(0,0,60,60);
+        lb_userInfoIcon.setBounds(0, 0, 60, 60);
         panel_userInfo.add(lb_userInfoIcon);
 
         // User Info Menu
         JLabel lb_userInfo = new JLabel("User Info");
-        lb_userInfo.setBounds(70,0,190, 60);
+        lb_userInfo.setBounds(70, 0, 190, 60);
         lb_userInfo.setFont(sidebarMenuFont);
         panel_userInfo.add(lb_userInfo);
 
-//<<<<< Info >>>>>>
+        //<<<<< Info >>>>>>
         panel_setting = new JPanel();
-        panel_setting.setBounds(20,455,260,60);
+        panel_setting.setBounds(20, 455, 260, 60);
         panel_setting.setBackground(sidebarItemColor);
         panel_setting.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_setting.setLayout(null);
@@ -315,20 +315,20 @@ public class Dashboard extends JFrame implements ActionListener {
         });
 
         //Home Icon
-        img = new ImageIcon("img/cog.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/cog.jpg").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         JLabel lb_settingIcon = new JLabel(new ImageIcon(img));
-        lb_settingIcon.setBounds(0,0,60,60);
+        lb_settingIcon.setBounds(0, 0, 60, 60);
         panel_setting.add(lb_settingIcon);
 
         // Home Menu
         JLabel lb_setting = new JLabel("Setting");
-        lb_setting.setBounds(70,0,190, 60);
+        lb_setting.setBounds(70, 0, 190, 60);
         lb_setting.setFont(sidebarMenuFont);
         panel_setting.add(lb_setting);
 
 //<<<<< Log Out >>>>>>
         panel_logout = new JPanel();
-        panel_logout.setBounds(20,520,260,60);
+        panel_logout.setBounds(20, 520, 260, 60);
         panel_logout.setBackground(sidebarItemColor);
         panel_logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_logout.setLayout(null);
@@ -352,14 +352,14 @@ public class Dashboard extends JFrame implements ActionListener {
         });
 
         //Home Icon
-        img = new ImageIcon("img/logout.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/logout.jpg").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         JLabel lb_logoutIcon = new JLabel(new ImageIcon(img));
-        lb_logoutIcon.setBounds(0,0,60,60);
+        lb_logoutIcon.setBounds(0, 0, 60, 60);
         panel_logout.add(lb_logoutIcon);
 
         // Home Menu
         JLabel lb_logout = new JLabel("Log Out");
-        lb_logout.setBounds(70,0,190, 60);
+        lb_logout.setBounds(70, 0, 190, 60);
         lb_logout.setFont(sidebarMenuFont);
         panel_logout.add(lb_logout);
 
@@ -367,14 +367,14 @@ public class Dashboard extends JFrame implements ActionListener {
 
         panel_titleBar = new JPanel();
         panel_titleBar.setLayout(null);
-        panel_titleBar.setBounds(0,0,FRAME_WIDTH,70);
+        panel_titleBar.setBounds(0, 0, FRAME_WIDTH, 70);
         panel_titleBar.setBackground(topbarColor);
         add(panel_titleBar);
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Topbar Title }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         lb_topbarTitle = new JLabel("Dashboard");
-        lb_topbarTitle.setBounds(320,20,300,30);
+        lb_topbarTitle.setBounds(320, 20, 300, 30);
         lb_topbarTitle.setForeground(Color.WHITE);
         lb_topbarTitle.setFont(new Font("Arial", Font.BOLD, 34));
         panel_titleBar.add(lb_topbarTitle);
@@ -385,7 +385,7 @@ public class Dashboard extends JFrame implements ActionListener {
         btn_close.setBounds(1150, 25, 20, 20);
         btn_close.setBackground(null);
         btn_close.setForeground(Color.red);
-        btn_close.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        btn_close.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         btn_close.setToolTipText("Close");
         btn_close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_close.setFocusPainted(false);
@@ -415,7 +415,7 @@ public class Dashboard extends JFrame implements ActionListener {
         btn_minimize.setBounds(1120, 25, 20, 20);
         btn_minimize.setBackground(null);
         btn_minimize.setForeground(Color.red);
-        btn_minimize.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        btn_minimize.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         btn_minimize.setToolTipText("Minimize");
         btn_minimize.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_minimize.setFocusPainted(false);
@@ -440,12 +440,7 @@ public class Dashboard extends JFrame implements ActionListener {
         });
 
 
-
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new Dashboard();
     }
 
     @Override

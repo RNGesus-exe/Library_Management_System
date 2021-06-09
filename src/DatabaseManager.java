@@ -18,7 +18,7 @@ public class DatabaseManager {
     public void createTables() {
         try {
              Statement statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS Users (id INT PRIMARY KEY AUTO_INCREMENT,\n" +
+            statement.execute("CREATE TABLE IF NOT EXISTS Users (user_id INT PRIMARY KEY AUTO_INCREMENT,\n" +
                     "                    first_name VARCHAR(255) NOT NULL\n" +
                     "                   ,last_name VARCHAR(255) NOT NULL\n" +
                     "                   ,password VARCHAR(255) NOT NULL\n" +
@@ -96,6 +96,29 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    //Reference Driver && LoginMenu
+    public User loadUserInfoFromDataBase(int user_id) throws SQLException {
+        //-----------------------------------------------user-MAIL is loaded--------------------------------------------------
+        PreparedStatement ppStatement = connection.prepareStatement("SELECT * FROM Users where user_id=?");
+        ppStatement.setInt(1, user_id);
+        ResultSet rs = ppStatement.executeQuery();
+
+        User user = new User();
+        if (rs.next()) {
+            user.setUser_id(user_id);
+            user.setEmail(rs.getString(8));
+            user.setPassword(rs.getString(4));
+            user.setFirstName(rs.getString(2));
+            user.setLastName(rs.getString(3));
+            user.setAddress(rs.getString(7));
+            user.setCnic(rs.getString(6));
+            user.setMobileNumber(rs.getString(9));
+            return user;
+        } else {
+            return null;
+        }
     }
 
 }

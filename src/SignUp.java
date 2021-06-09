@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 
@@ -279,7 +276,7 @@ public class SignUp extends JFrame implements ActionListener {
         });
         btn_signUp.addActionListener(this);
 
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Forgot Password Label }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Log In Menu Label }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         lb_alreadyAccount = new JLabel("Already have an account?");
         lb_alreadyAccount.setBounds(60,595,200,15);
@@ -296,6 +293,13 @@ public class SignUp extends JFrame implements ActionListener {
             @Override
             public void mouseExited(MouseEvent e) {
                 lb_alreadyAccount.setForeground(Color.decode("#bf1b1b"));
+            }
+        });
+        lb_alreadyAccount.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new LoginMenu();
             }
         });
 
@@ -375,16 +379,10 @@ public class SignUp extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null,"CNIC already exits","CNIC Duplication",JOptionPane.ERROR_MESSAGE);
         }
         else{
-                // Sign Up Valid
                 return true;
         }
 
         return false;
-    }
-
-
-    public static void main(String[] args) throws IOException {
-        new SignUp();
     }
 
     @Override
@@ -399,6 +397,8 @@ public class SignUp extends JFrame implements ActionListener {
             if(isSignUpValid()){
                 Driver.dataAgent.addUser(createUser());
                 JOptionPane.showMessageDialog(null,"Sign Up completed successfully","Sign Up Successful",JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+                new LoginMenu();
             }
         }
 
