@@ -320,6 +320,45 @@ public class SignUp extends JFrame implements ActionListener {
         txt_confirmPassword.setText("");
     }
 
+    public boolean isUsernameValid(String firstName, String lastName){
+        if(firstName.matches("(.*)[0-9](.*)") || lastName.matches("(.*)[0-9](.*)")){
+            System.out.println("Yes");
+            return false;
+        }
+        else if(firstName.matches("(?=.*[~!@#$%^&*()_-]).*") || lastName.matches("(?=.*[~!@#$%^&*()_-]).*")){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public boolean isMobileNumberValid(String mobileNumber){
+        if(mobileNumber.matches("(.*)[A-Z](.*)")
+            || mobileNumber.matches("(.*)[a-z](.*)")
+            || mobileNumber.matches("(?=.*[~!@#$%^&*()_-]).*")
+            || mobileNumber.length()!=11){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public boolean isCnicValid(String cnic){
+
+        if(cnic.matches("(.*)[A-Z](.*)")
+            || cnic.matches("(?=.*[~!@#$%^&*()_-]).*")
+            || cnic.matches("(.*)[a-z](.*)")
+            || cnic.length()!=13) {
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
     public boolean isPasswordStrong(String str){
         if(str.matches("(.*)[A-Z](.*)")) // Uppercase Checking
         {
@@ -360,25 +399,38 @@ public class SignUp extends JFrame implements ActionListener {
     public boolean isSignUpValid(){
 
         if(txt_firstName.getText().trim().isEmpty() ||
-        txt_lastName.getText().trim().isEmpty() ||
-        txt_mobileNumber.getText().trim().isEmpty() ||
-        textArea_address.getText().trim().isEmpty() ||
-        txt_cnic.getText().trim().isEmpty() ||
-        txt_email.getText().trim().isEmpty() ||
-        txt_password.getText().trim().isEmpty() ||
-        txt_confirmPassword.getText().trim().isEmpty()){
+                txt_lastName.getText().trim().isEmpty() ||
+                txt_mobileNumber.getText().trim().isEmpty() ||
+                textArea_address.getText().trim().isEmpty() ||
+                txt_cnic.getText().trim().isEmpty() ||
+                txt_email.getText().trim().isEmpty() ||
+                txt_password.getText().trim().isEmpty() ||
+                txt_confirmPassword.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null,"Please Fill all the Fields","Incomplete Information",JOptionPane.ERROR_MESSAGE);
         }
-        else if(!txt_password.getText().trim().equals(txt_confirmPassword.getText().trim())){
-            JOptionPane.showMessageDialog(null,"Password and Confirm Password not matched","Password Error",JOptionPane.ERROR_MESSAGE);
+        else if(!isUsernameValid(txt_firstName.getText().trim(), txt_lastName.getText().trim())){
+            JOptionPane.showMessageDialog(null,"Invalid First Name or Last Name. Don't use Spcial Characters or Numbers in Name","Invalid Username",JOptionPane.ERROR_MESSAGE);
         }
-        else if(!isPasswordStrong(txt_password.getText().trim())){
+        else if(!isMobileNumberValid(txt_mobileNumber.getText().trim())){
+            JOptionPane.showMessageDialog(null,"Invalid Mobile Number! Length should be 11 Digits and No Special Characters e.g. \"-\"","Invalid Mobile Number",JOptionPane.ERROR_MESSAGE);
+        }
+        else if(!isCnicValid(txt_cnic.getText().trim())){
+            JOptionPane.showMessageDialog(null,"Your CNIC is not valid. Don't use alphabets or special characters. Enter Valid CNIC\nExample: XXXXXXXXXXXXX","Invalid CNIC",JOptionPane.ERROR_MESSAGE);
+        } // Email Validation
+        else if(!EmailValidator.isEmailValid(txt_email.getText().trim())){
+            JOptionPane.showMessageDialog(null,"Invalid Email Address! Please enter valid Email Address","Invalid Email Address",JOptionPane.ERROR_MESSAGE);
+        }
+        else if(!txt_password.getText().trim().equals(txt_confirmPassword.getText().trim())) {
+            JOptionPane.showMessageDialog(null,"Password and Confirm Password not matched","Password Error",JOptionPane.ERROR_MESSAGE);
+        }// Password Strength
+        else if(!isPasswordStrong(txt_password.getText().trim())) {
             JOptionPane.showMessageDialog(null, "Error! Your password must contain Uppercase Lowercase and Special Characters\nFor Example, ABCde12@", "Weak Password!", JOptionPane.ERROR_MESSAGE);
         }
-        else if(Driver.dataAgent.checkCnicRepetition(txt_cnic.getText().trim())){
+        else if(Driver.dataAgent.checkCnicRepetition(txt_cnic.getText().trim())) {
             JOptionPane.showMessageDialog(null,"CNIC already exits","CNIC Duplication",JOptionPane.ERROR_MESSAGE);
         }
-        else{
+        else
+        {
                 return true;
         }
 
@@ -402,5 +454,9 @@ public class SignUp extends JFrame implements ActionListener {
             }
         }
 
+    }
+
+    public static void main(String[] args) {
+        new SignUp();
     }
 }
