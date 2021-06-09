@@ -20,6 +20,9 @@ public class Driver {
                 new LoginMenu();
             }
             else{
+                if(dataAgent.isBookTableEmpty()){
+                    dataAgent.uploadBooksToDatabase();
+                }
                 currentUser = dataAgent.loadUserInfoFromDataBase(new FileManager().readUserId());
                 new Dashboard();
             }

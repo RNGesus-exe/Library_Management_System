@@ -1,4 +1,7 @@
+import javax.swing.*;
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseManager {
     private Connection connection;
@@ -18,17 +21,108 @@ public class DatabaseManager {
     public void createTables() {
         try {
              Statement statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS Users (user_id INT PRIMARY KEY AUTO_INCREMENT,\n" +
-                    "                    first_name VARCHAR(255) NOT NULL\n" +
-                    "                   ,last_name VARCHAR(255) NOT NULL\n" +
-                    "                   ,password VARCHAR(255) NOT NULL\n" +
-                    "                   ,dateTime TIMESTAMP\n" +
-                    "                   ,cnic VARCHAR(255)\t  UNIQUE NOT NULL\n" +
-                    "                   ,address VARCHAR(255)  NOT NULL\n" +
-                    "                   ,username VARCHAR(255) UNIQUE NOT NULL\n" +
-                    "                   ,phoneNumber VARCHAR(55) NOT NULL);");
+             //Users Table
+             statement.execute("""
+                    CREATE TABLE IF NOT EXISTS Users (user_id INT PRIMARY KEY AUTO_INCREMENT,
+                                        first_name VARCHAR(255) NOT NULL
+                                       ,last_name VARCHAR(255) NOT NULL
+                                       ,password VARCHAR(255) NOT NULL
+                                       ,dateTime TIMESTAMP
+                                       ,cnic VARCHAR(255)\t  UNIQUE NOT NULL
+                                       ,address VARCHAR(255)  NOT NULL
+                                       ,username VARCHAR(255) UNIQUE NOT NULL
+                                       ,phoneNumber VARCHAR(55) NOT NULL);""");
+            //Books Table
+            statement.execute("""
+                    CREATE TABLE IF NOT EXISTS Books (book_id INT PRIMARY KEY AUTO_INCREMENT,
+                                        book_title VARCHAR(255) NOT NULL
+                                       ,book_author VARCHAR(255) NOT NULL
+                                       ,book_genre VARCHAR(255) NOT NULL
+                                       ,book_copies_sold VARCHAR(255)
+                                       ,book_rating FLOAT
+                                       ,book_release_year INT);""");
          } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    //Reference SearchBook
+    public ArrayList<Book> searchBooks(String keyword){
+        String query = "SELECT * FROM Books WHERE book_title LIKE '%"+keyword+"%'";
+        try{
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ResultSet rs = ppStatement.executeQuery();
+            ArrayList<Book> books = null;
+            Book book = null;
+            if(rs.next()){
+                books = new ArrayList<>();
+                do{
+                    book = new Book();
+                    book.setBook_id(rs.getInt(1));
+                    book.setAuthor(rs.getString(3));
+                    book.setTitle(rs.getString(2));
+                    book.setGenre(rs.getString(4));
+                    book.setNoOfCopies(rs.getInt(5));
+                    book.setRating(rs.getFloat(6));
+                    book.setDateOfRelease(rs.getString(7));
+                    books.add(book);
+                }while(rs.next());
+            }
+            return books;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //Reference Driver
+    public boolean isBookTableEmpty(){
+        String query = "SELECT COUNT(*) FROM Books";
+        try{
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ResultSet rs = ppStatement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) == 0;
+            } else {
+                return false;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //INSERT all books into mySQL Books Table
+    //Reference Driver
+    public void uploadBooksToDatabase(){
+        FileManager fileManager = new FileManager();
+        ArrayList<Book> books = null;
+        try {
+            books = fileManager.readBooksData();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        if(books != null) {
+            String query = "INSERT INTO Books (book_title,book_author,book_genre," +
+                    "book_copies_sold,book_rating,book_release_year) VALUES(?,?,?,?,?,?)";
+            try {
+                for (Book book : books) {
+                    PreparedStatement ppStatement = connection.prepareStatement(query);
+                    ppStatement.setString(1, book.getTitle());
+                    ppStatement.setString(2, book.getAuthor());
+                    ppStatement.setString(3, book.getGenre());
+                    ppStatement.setString(4, Integer.toString(book.getNoOfCopies()));
+                    ppStatement.setString(5, Float.toString(book.getRating()));
+                    ppStatement.setString(6, book.getDateOfRelease());
+                    ppStatement.execute();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "There was an issue with the File Manager!",
+                    "File Upload Error to DB", JOptionPane.WARNING_MESSAGE);
         }
     }
 

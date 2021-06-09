@@ -3,16 +3,16 @@ public class Book {
     private int book_id;
     private String title;
     private String author;
-    private int noOfPages;
     private int noOfCopies;
     private String genre;
     private float rating;
     private String dateOfRelease;
 
-    public Book(int book_id,int noOfCopies,String title, String author, int noOfPages, String genre, float rating, String dateOfRelease) {
+    public Book() { }
+
+    public Book(int book_id, int noOfCopies, String title, String author, String genre, float rating, String dateOfRelease) {
         this.title = title;
         this.author = author;
-        this.noOfPages = noOfPages;
         this.genre = genre;
         this.rating = rating;
         this.dateOfRelease = dateOfRelease;
@@ -34,14 +34,6 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public int getNoOfPages() {
-        return noOfPages;
-    }
-
-    public void setNoOfPages(int noOfPages) {
-        this.noOfPages = noOfPages;
     }
 
     public String getGenre() {
@@ -82,5 +74,18 @@ public class Book {
 
     public void setNoOfCopies(int noOfCopies) {
         this.noOfCopies = noOfCopies;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "book_id=" + book_id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", noOfCopies=" + noOfCopies +
+                ", genre='" + genre + '\'' +
+                ", rating=" + rating +
+                ", dateOfRelease='" + dateOfRelease + '\'' +
+                '}';
     }
 }

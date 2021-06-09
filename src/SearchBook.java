@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
 
 public class SearchBook extends JFrame implements ActionListener {
 
@@ -14,6 +15,16 @@ public class SearchBook extends JFrame implements ActionListener {
     private final int FRAME_HEIGHT = 900;
     private final Font sidebarMenuFont = new Font("Arial", Font.BOLD, 26);
 
+    private DefaultListModel<String> listModel = new DefaultListModel<>();
+
+    private ArrayList<Book> books = null;
+
+    private JTextField txt_releaseDate = null;
+    private JTextField txt_rating = null;
+    private JTextField txt_pages = null;
+    private JTextField txt_genre = null;
+    private JTextField txt_author = null;
+    private JTextField txt_title = null;
 
     private JPanel panel_titleBar;
     private JPanel panel_sidebar;
@@ -118,7 +129,7 @@ public class SearchBook extends JFrame implements ActionListener {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Sidebar Menu Items }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-//<<<<< Home >>>>>>
+        //<<<<< Home >>>>>>
         panel_dashboard = new JPanel();
         panel_dashboard.setBounds(20,260,260,60);
         panel_dashboard.setBackground(sidebarItemColor);
@@ -155,7 +166,7 @@ public class SearchBook extends JFrame implements ActionListener {
         lb_home.setFont(sidebarMenuFont);
         panel_dashboard.add(lb_home);
 
-//<<<<< Menu >>>>>>
+        //<<<<< Menu >>>>>>
         panel_search = new JPanel();
         panel_search.setBounds(20,325,260,60);
         panel_search.setBackground(sidebarHoverColor);
@@ -175,7 +186,7 @@ public class SearchBook extends JFrame implements ActionListener {
         lb_searchBook.setFont(sidebarMenuFont);
         panel_search.add(lb_searchBook);
 
-//<<<<< User Info >>>>>>
+        //<<<<< User Info >>>>>>
         panel_userinfo = new JPanel();
         panel_userinfo.setBounds(20,390,260,60);
         panel_userinfo.setBackground(sidebarItemColor);
@@ -367,37 +378,28 @@ public class SearchBook extends JFrame implements ActionListener {
         panel_resultArea.setBackground(Color.lightGray);
         panel_body.add(panel_resultArea);
 
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        listModel.addElement("Item1");
-        listModel.addElement("Item2");
-        listModel.addElement("Item3");
-        listModel.addElement("Item4");
-        listModel.addElement("Item5");
-        listModel.addElement("Item1");
-        listModel.addElement("Item2");
-        listModel.addElement("Item3");
-        listModel.addElement("Item4");
-        listModel.addElement("Item5");
-        listModel.addElement("Item5");
-        listModel.addElement("Item1");
-        listModel.addElement("Item2");
-        listModel.addElement("Item3");
-        listModel.addElement("Item4");
-        listModel.addElement("Item5");
-
-
-
-
         JList list = new JList(listModel);
-//        list.setFixedCellWidth(100);
+        this.books = Driver.dataAgent.searchBooks("");
+        if(this.books == null) {
+            JOptionPane.showMessageDialog(null,"No book related to your keyword exists ;(",
+                    "No result Found!",JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            for (Book book : books) {
+                this.listModel.addElement(book.getTitle());
+            }
+        }
+
+        //       list.setFixedCellWidth(100);
         list.setFixedCellHeight(30);
         list.setFont(new Font("Arial",Font.PLAIN,20));
         panel_resultArea.add(new JScrollPane(list));
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println(list.getSelectedValue());
-                showBookDetail(list.getSelectedValue().toString());
+                if(list.getModel().getSize()>0) {
+                    showBookDetail(list.getSelectedIndex());
+                }
             }
         });
 
@@ -437,7 +439,7 @@ public class SearchBook extends JFrame implements ActionListener {
         lb_genre.setForeground(Color.red);
         panel_bookDetails.add(lb_genre);
 
-        JLabel lb_pages = new JLabel("No. Of Pages");
+        JLabel lb_pages = new JLabel("No. Of Copies");
         lb_pages.setBounds(100,250,200,25);
         lb_pages.setFont(labelFonts);
         lb_pages.setForeground(Color.red);
@@ -457,38 +459,35 @@ public class SearchBook extends JFrame implements ActionListener {
 
     //<<<<<< Data Fetch From Database >>>>>>>>
 
-        JTextField txt_title = new JTextField();
+        txt_title = new JTextField();
         txt_title.setBounds(400,95,300,30);
         txt_title.setEditable(false);
         panel_bookDetails.add(txt_title);
 
-        JTextField txt_author = new JTextField();
+        txt_author = new JTextField();
         txt_author.setBounds(400,145,300,30);
         txt_author.setEditable(false);
         panel_bookDetails.add(txt_author);
 
-        JTextField txt_genre = new JTextField();
+        txt_genre = new JTextField();
         txt_genre.setBounds(400,195,300,30);
         txt_genre.setEditable(false);
         panel_bookDetails.add(txt_genre);
 
-        JTextField txt_pages = new JTextField();
+        txt_pages = new JTextField();
         txt_pages.setBounds(400,245,300,30);
         txt_pages.setEditable(false);
         panel_bookDetails.add(txt_pages);
 
-        JTextField txt_rating = new JTextField();
+        txt_rating = new JTextField();
         txt_rating.setBounds(400,295,300,30);
         txt_rating.setEditable(false);
         panel_bookDetails.add(txt_rating);
 
-        JTextField txt_releaseDate = new JTextField();
+        txt_releaseDate = new JTextField();
         txt_releaseDate.setBounds(400,345,300,30);
         txt_releaseDate.setEditable(false);
         panel_bookDetails.add(txt_releaseDate);
-
-
-//        title,author,genre,pages,rating,releaseDate
 
         setVisible(true);
     }
@@ -502,12 +501,27 @@ public class SearchBook extends JFrame implements ActionListener {
             }
             else
             {
-                // Fetch all the Books which matches the searched keyword
+                this.listModel.clear();
+                this.books = Driver.dataAgent.searchBooks(txt_search.getText().trim());
+                if(this.books == null) {
+                    JOptionPane.showMessageDialog(null,"No book related to your keyword exists ;(",
+                            "No result Found!",JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    for (Book book : books) {
+                        this.listModel.addElement(book.getTitle());
+                    }
+                }
             }
         }
     }
 
-    public void showBookDetail(String bookTitle){
-        // Selected Book Details from List of search results will be set in TextFields here
+    public void showBookDetail(int index){
+        this.txt_genre.setText(this.books.get(index).getGenre());
+        this.txt_rating.setText(""+this.books.get(index).getRating());
+        this.txt_title.setText(this.books.get(index).getTitle());
+        this.txt_pages.setText(""+this.books.get(index).getNoOfCopies());
+        this.txt_releaseDate.setText(this.books.get(index).getDateOfRelease());
+        this.txt_author.setText(this.books.get(index).getAuthor());
     }
 }
