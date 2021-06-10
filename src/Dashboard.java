@@ -75,7 +75,7 @@ public class Dashboard extends JFrame implements ActionListener {
 
         //<<< Row 1 >>>>
         JPanel panel_issueBook = new JPanel();
-        panel_issueBook.setBounds(100, 230, 700, 100);
+        panel_issueBook.setBounds(100, 130, 700, 100);
         panel_issueBook.setBackground(dashboardItemColor);
         panel_issueBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_issueBook.setLayout(null);
@@ -96,7 +96,7 @@ public class Dashboard extends JFrame implements ActionListener {
         panel_issueBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                new SearchBook();
             }
 
             @Override
@@ -113,7 +113,7 @@ public class Dashboard extends JFrame implements ActionListener {
         //-------------------------------------------------
 
         JPanel panel_returnBook = new JPanel();
-        panel_returnBook.setBounds(100, 380, 700, 100);
+        panel_returnBook.setBounds(100, 280, 700, 100);
         panel_returnBook.setBackground(dashboardItemColor);
         panel_returnBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_returnBook.setLayout(null);
@@ -148,29 +148,30 @@ public class Dashboard extends JFrame implements ActionListener {
         });
 
 
-        //<<< Row 2 >>>>
+        //<<< Row 1 >>>>
         JPanel panel_issuedBook = new JPanel();
-        panel_issuedBook.setBounds(100, 530, 700, 100);
+        panel_issuedBook.setBounds(100, 430, 700, 100);
         panel_issuedBook.setBackground(dashboardItemColor);
         panel_issuedBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_issuedBook.setLayout(null);
         panel_body.add(panel_issuedBook);
 
         img = new ImageIcon("img/book-log.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-        JLabel lb_icon4 = new JLabel(new ImageIcon(img));
-        lb_icon4.setBounds(595, 10, 80, 80);
-        lb_icon4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        panel_issuedBook.add(lb_icon4);
+        JLabel lb_icon3 = new JLabel(new ImageIcon(img));
+        lb_icon3.setBounds(595, 10, 80, 80);
+        lb_icon3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel_issuedBook.add(lb_icon3);
 
         JLabel lb_issuedBook = new JLabel("Book Logs");
-        lb_issuedBook.setBounds(25, 40, 200, 30);
+        lb_issuedBook.setBounds(25, 40, 200, 35);
         lb_issuedBook.setFont(new Font("Arial", Font.BOLD, 30));
         panel_issuedBook.add(lb_issuedBook);
 
         panel_issuedBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                dispose();
+                new BookLogs();
             }
 
             @Override
@@ -181,6 +182,45 @@ public class Dashboard extends JFrame implements ActionListener {
             @Override
             public void mouseExited(MouseEvent e) {
                 panel_issuedBook.setBackground(dashboardItemColor);
+            }
+        });
+
+
+
+        //<<< Row 4 >>>>
+        JPanel panel_levelDetail = new JPanel();
+        panel_levelDetail.setBounds(100, 580, 700, 100);
+        panel_levelDetail.setBackground(dashboardItemColor);
+        panel_levelDetail.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_levelDetail.setLayout(null);
+        panel_body.add(panel_levelDetail);
+
+        img = new ImageIcon("img/progress.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        JLabel lb_icon4 = new JLabel(new ImageIcon(img));
+        lb_icon4.setBounds(595, 10, 80, 80);
+        lb_icon4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel_levelDetail.add(lb_icon4);
+
+        JLabel lb_levelDetail = new JLabel("Level Detail");
+        lb_levelDetail.setBounds(25, 40, 200, 30);
+        lb_levelDetail.setFont(new Font("Arial", Font.BOLD, 30));
+        panel_levelDetail.add(lb_levelDetail);
+
+        panel_levelDetail.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new ResetPassword();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_levelDetail.setBackground(sidebarColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_levelDetail.setBackground(dashboardItemColor);
             }
         });
 
@@ -300,7 +340,8 @@ public class Dashboard extends JFrame implements ActionListener {
         panel_setting.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
+                dispose();
+                new ResetPassword();
             }
 
             @Override
@@ -316,15 +357,15 @@ public class Dashboard extends JFrame implements ActionListener {
 
         //Home Icon
         img = new ImageIcon("img/cog.jpg").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        JLabel lb_settingIcon = new JLabel(new ImageIcon(img));
-        lb_settingIcon.setBounds(0, 0, 60, 60);
-        panel_setting.add(lb_settingIcon);
+        JLabel lb_resetPassIcon = new JLabel(new ImageIcon(img));
+        lb_resetPassIcon.setBounds(0, 0, 60, 60);
+        panel_setting.add(lb_resetPassIcon);
 
         // Home Menu
-        JLabel lb_setting = new JLabel("Setting");
-        lb_setting.setBounds(70, 0, 190, 60);
-        lb_setting.setFont(sidebarMenuFont);
-        panel_setting.add(lb_setting);
+        JLabel lb_resetPassword = new JLabel("Setting");
+        lb_resetPassword.setBounds(70, 0, 190, 60);
+        lb_resetPassword.setFont(sidebarMenuFont);
+        panel_setting.add(lb_resetPassword);
 
 //<<<<< Log Out >>>>>>
         panel_logout = new JPanel();
@@ -446,5 +487,9 @@ public class Dashboard extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    public static void main(String[] args) {
+        new Dashboard();
     }
 }
