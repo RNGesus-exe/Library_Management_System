@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
 
 public class Dashboard extends JFrame implements ActionListener {
 
@@ -96,7 +97,7 @@ public class Dashboard extends JFrame implements ActionListener {
         panel_issueBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                dispose();
             }
 
             @Override
@@ -336,6 +337,7 @@ public class Dashboard extends JFrame implements ActionListener {
         panel_logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                new FileManager().deleteSharedPreferences();
                 dispose();
                 new LoginMenu();
             }

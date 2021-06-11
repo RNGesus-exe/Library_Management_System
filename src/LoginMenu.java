@@ -487,7 +487,7 @@ public class LoginMenu extends JFrame implements MouseListener {
 //-> |-| Input Validations Code |---------------------------------------------------------------------------------| <-\\
 
     protected int isDataValid() {
-        return Driver.dataAgent.getId(jTextField_username.getText().trim(),jPasswordField_pass.getText().trim());
+        return Driver.dataAgent.getId(jTextField_username.getText().trim().toLowerCase(),jPasswordField_pass.getText().trim());
     }
 
 //-> |-| Override Methods Code |----------------------------------------------------------------------------------| <-\\
@@ -501,13 +501,11 @@ public class LoginMenu extends JFrame implements MouseListener {
         } else if (e.getSource () == jButton_signIn) {
             int userId = isDataValid();
             if (userId != -1) {
-                dispose();
                 try {
-                    Driver.currentUser = Driver.dataAgent.loadUserInfoFromDataBase(new FileManager().readUserId());
-                } catch (IOException | SQLException ioException) {
+                    Driver.currentUser = Driver.dataAgent.loadUserInfoFromDataBase(userId);
+                } catch (SQLException ioException) {
                     ioException.printStackTrace();
                 }
-                new Dashboard();
                 if(jCheckBox_rememberMe.isSelected()){
                     try {
                         new FileManager().writeUserId(userId);
@@ -515,6 +513,11 @@ public class LoginMenu extends JFrame implements MouseListener {
                         ioException.printStackTrace();
                     }
                 }
+                if(Driver.dataAgent.isBookTableEmpty()){
+                    Driver.dataAgent.uploadBooksToDatabase();
+                }
+                dispose();
+                new Dashboard();
             } else {
                 JOptionPane.showMessageDialog(this,
                                               "Invalid Username or Password Entered!",

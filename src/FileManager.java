@@ -55,4 +55,8 @@ public class FileManager {
         }
     }
 
+    public void deleteSharedPreferences(){
+        file.delete();
+    }
+
 }
