@@ -396,7 +396,7 @@ public class SearchBookUI extends JFrame implements ActionListener {
         panel_body.add(panel_resultArea);
 
         JList list = new JList(listModel);
-//        this.books = Driver.dataAgent.searchBooks("");
+        this.books = Driver.dataAgent.searchBooks("");
         if(this.books == null) {
             JOptionPane.showMessageDialog(null,"No book related to your keyword exists :(",
                     "No result Found!",JOptionPane.ERROR_MESSAGE);
@@ -577,9 +577,5 @@ public class SearchBookUI extends JFrame implements ActionListener {
         this.txt_pages.setText(""+this.books.get(index).getNoOfCopies());
         this.txt_releaseDate.setText(this.books.get(index).getDateOfRelease());
         this.txt_author.setText(this.books.get(index).getAuthor());
-    }
-
-    public static void main(String[] args) {
-        new SearchBookUI();
     }
 }
