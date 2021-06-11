@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 
-public class SignUp extends JFrame implements ActionListener {
+public class SignUpUI extends JFrame implements ActionListener {
 
     private final int FRAME_WIDTH = 1200;
     private final int FRAME_HEIGHT = 830;
@@ -41,7 +41,7 @@ public class SignUp extends JFrame implements ActionListener {
     private JButton btn_cancel;
     private JButton btn_close;
     private JButton btn_minimize;
-    public SignUp() {
+    public SignUpUI() {
         init();
     }
 

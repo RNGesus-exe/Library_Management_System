@@ -2,11 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.*;
 import java.awt.geom.*;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.logging.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -507,7 +505,7 @@ public class LoginMenu extends JFrame implements MouseListener {
                 } catch (IOException | SQLException ioException) {
                     ioException.printStackTrace();
                 }
-                new Dashboard();
+                new DashboardUI();
                 if(jCheckBox_rememberMe.isSelected()){
                     try {
                         new FileManager().writeUserId(userId);
@@ -525,7 +523,7 @@ public class LoginMenu extends JFrame implements MouseListener {
             //TODO invoke ForgottenPassMenu();
         } else if (e.getSource() == jLabel_signUp) {
             dispose();
-            new SignUp();
+            new SignUpUI();
         }
         if (e.getSource() == jLabel_showPass && flag) {
             jPasswordField_pass.setEchoChar((char) 0);

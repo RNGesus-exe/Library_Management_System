@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 
-public class Dashboard extends JFrame implements ActionListener {
+public class DashboardUI extends JFrame implements ActionListener {
 
     private final int FRAME_WIDTH = 1200;
     private final int FRAME_HEIGHT = 900;
@@ -37,7 +37,7 @@ public class Dashboard extends JFrame implements ActionListener {
 
     private Image img;
 
-    public Dashboard() {
+    public DashboardUI() {
         init();
     }
 
@@ -96,7 +96,7 @@ public class Dashboard extends JFrame implements ActionListener {
         panel_issueBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new SearchBook();
+                new SearchBookUI();
             }
 
             @Override
@@ -133,7 +133,8 @@ public class Dashboard extends JFrame implements ActionListener {
         panel_returnBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                dispose();
+                new ReturnBookUI();
             }
 
             @Override
@@ -171,7 +172,7 @@ public class Dashboard extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new BookLogs();
+                new BookLogsUI();
             }
 
             @Override
@@ -210,7 +211,7 @@ public class Dashboard extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new ResetPassword();
+                new ResetPasswordUI();
             }
 
             @Override
@@ -267,7 +268,7 @@ public class Dashboard extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new SearchBook();
+                new SearchBookUI();
             }
 
             @Override
@@ -304,7 +305,7 @@ public class Dashboard extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new UserInfo();
+                new UserInfoUI();
             }
 
             @Override
@@ -341,7 +342,7 @@ public class Dashboard extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new ResetPassword();
+                new ResetPasswordUI();
             }
 
             @Override
@@ -466,7 +467,7 @@ public class Dashboard extends JFrame implements ActionListener {
         btn_minimize.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Dashboard.super.setState(JFrame.ICONIFIED);
+                DashboardUI.super.setState(JFrame.ICONIFIED);
             }
 
             @Override
@@ -490,6 +491,6 @@ public class Dashboard extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Dashboard();
+        new DashboardUI();
     }
 }

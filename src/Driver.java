@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,7 +23,7 @@ public class Driver {
                     dataAgent.uploadBooksToDatabase();
                 }
                 currentUser = dataAgent.loadUserInfoFromDataBase(new FileManager().readUserId());
-                new Dashboard();
+                new DashboardUI();
             }
         } else {   //In case Connection is not established
             JOptionPane.showMessageDialog(null, "Connection was not established!",
