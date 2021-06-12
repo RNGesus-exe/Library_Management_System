@@ -219,7 +219,9 @@ public class UserInfoUI extends JFrame implements ActionListener {
         panel_logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
+                new FileManager().deleteSharedPreferences();
+                dispose();
+                new LoginMenu();
             }
 
             @Override

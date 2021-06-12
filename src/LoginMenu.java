@@ -2,9 +2,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.*;
 import java.awt.geom.*;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -485,7 +487,7 @@ public class LoginMenu extends JFrame implements MouseListener {
 //-> |-| Input Validations Code |---------------------------------------------------------------------------------| <-\\
 
     protected int isDataValid() {
-        return Driver.dataAgent.getId(jTextField_username.getText().trim(),jPasswordField_pass.getText().trim());
+        return Driver.dataAgent.getId(jTextField_username.getText().trim().toLowerCase(),jPasswordField_pass.getText().trim());
     }
 
 //-> |-| Override Methods Code |----------------------------------------------------------------------------------| <-\\
@@ -499,13 +501,11 @@ public class LoginMenu extends JFrame implements MouseListener {
         } else if (e.getSource () == jButton_signIn) {
             int userId = isDataValid();
             if (userId != -1) {
-                dispose();
                 try {
-                    Driver.currentUser = Driver.dataAgent.loadUserInfoFromDataBase(new FileManager().readUserId());
-                } catch (IOException | SQLException ioException) {
+                    Driver.currentUser = Driver.dataAgent.loadUserInfoFromDataBase(userId);
+                } catch (SQLException ioException) {
                     ioException.printStackTrace();
                 }
-                new DashboardUI();
                 if(jCheckBox_rememberMe.isSelected()){
                     try {
                         new FileManager().writeUserId(userId);
@@ -513,6 +513,11 @@ public class LoginMenu extends JFrame implements MouseListener {
                         ioException.printStackTrace();
                     }
                 }
+                if(Driver.dataAgent.isBookTableEmpty()){
+                    Driver.dataAgent.uploadBooksToDatabase();
+                }
+                dispose();
+                new Dashboard();
             } else {
                 JOptionPane.showMessageDialog(this,
                                               "Invalid Username or Password Entered!",
@@ -523,7 +528,7 @@ public class LoginMenu extends JFrame implements MouseListener {
             //TODO invoke ForgottenPassMenu();
         } else if (e.getSource() == jLabel_signUp) {
             dispose();
-            new SignUpUI();
+            new SignUp();
         }
         if (e.getSource() == jLabel_showPass && flag) {
             jPasswordField_pass.setEchoChar((char) 0);
