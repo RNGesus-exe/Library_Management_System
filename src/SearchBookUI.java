@@ -27,10 +27,10 @@ public class SearchBookUI extends JFrame implements ActionListener {
     private JPanel panel_titleBar;
     private JPanel panel_sidebar;
     private JPanel panel_body;
-    private JPanel panel_dashboard;
-    private JPanel panel_search;
-    private JPanel panel_userinfo;
-    private JPanel panel_setting;
+    private JPanel panel_issueBook;
+    private JPanel panel_returnBook;
+    private JPanel panel_bookLogs;
+    private JPanel panel_userInfo;
     private JPanel panel_logout;
     private JLabel lb_topbarTitle;
     private JLabel lb_logo;
@@ -129,86 +129,106 @@ public class SearchBookUI extends JFrame implements ActionListener {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Sidebar Menu Items }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         //<<<<< Home >>>>>>
-        panel_dashboard = new JPanel();
-        panel_dashboard.setBounds(20,260,260,60);
-        panel_dashboard.setBackground(sidebarItemColor);
-        panel_dashboard.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_dashboard.setLayout(null);
-        panel_sidebar.add(panel_dashboard);
-        panel_dashboard.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                dispose();
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                panel_dashboard.setBackground(sidebarHoverColor);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                panel_dashboard.setBackground(sidebarItemColor);
-            }
-        });
+        panel_issueBook = new JPanel();
+        panel_issueBook.setBounds(20,260,260,60);
+        panel_issueBook.setBackground(sidebarHoverColor);
+        panel_issueBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_issueBook.setLayout(null);
+        panel_sidebar.add(panel_issueBook);
 
         //Home Icon
-        img = new ImageIcon("img/dashboard.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/book-exchange.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_homeIcon = new JLabel(new ImageIcon(img));
         lb_homeIcon.setBounds(0,0,60,60);
-        panel_dashboard.add(lb_homeIcon);
+        panel_issueBook.add(lb_homeIcon);
 
         // Home Label
-        JLabel lb_home = new JLabel("Dashboard");
+        JLabel lb_home = new JLabel("Issue Book");
         lb_home.setBounds(70,0,190, 60);
         lb_home.setFont(sidebarMenuFont);
-        panel_dashboard.add(lb_home);
+        panel_issueBook.add(lb_home);
 
-        //<<<<< Menu >>>>>>
-        panel_search = new JPanel();
-        panel_search.setBounds(20,325,260,60);
-        panel_search.setBackground(sidebarHoverColor);
-        panel_search.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_search.setLayout(null);
-        panel_sidebar.add(panel_search);
-        panel_dashboard.addMouseListener(new MouseAdapter() {
+//<<<<< Menu >>>>>>
+        panel_returnBook = new JPanel();
+        panel_returnBook.setBounds(20,325,260,60);
+        panel_returnBook.setBackground(sidebarHoverColor);
+        panel_returnBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_returnBook.setLayout(null);
+        panel_sidebar.add(panel_returnBook);
+        panel_returnBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new DashboardUI();
+                new ReturnBookUI();
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                panel_dashboard.setBackground(sidebarHoverColor);
+                panel_returnBook.setBackground(sidebarHoverColor);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                panel_dashboard.setBackground(sidebarItemColor);
+                panel_returnBook.setBackground(sidebarItemColor);
             }
         });
 
-        //Menu Icon
-        img = new ImageIcon("img/book-search.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_searchIcon = new JLabel(new ImageIcon(img));
-        lb_searchIcon.setBounds(0,0,60,60);
-        panel_search.add(lb_searchIcon);
 
-        // Menu Label
-        JLabel lb_searchBook = new JLabel("Search Book");
-        lb_searchBook.setBounds(70,0,190, 60);
-        lb_searchBook.setFont(sidebarMenuFont);
-        panel_search.add(lb_searchBook);
+        img = new ImageIcon("img/book-return.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        JLabel lb_returnBookIcon = new JLabel(new ImageIcon(img));
+        lb_returnBookIcon.setBounds(0,0,60,60);
+        panel_returnBook.add(lb_returnBookIcon);
 
-        //<<<<< User Info >>>>>>
-        panel_userinfo = new JPanel();
-        panel_userinfo.setBounds(20,390,260,60);
-        panel_userinfo.setBackground(sidebarItemColor);
-        panel_userinfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_userinfo.setLayout(null);
-        panel_sidebar.add(panel_userinfo);
-        panel_userinfo.addMouseListener(new MouseAdapter() {
+        JLabel lb_returnBook = new JLabel("Return Book");
+        lb_returnBook.setBounds(70,0,190, 60);
+        lb_returnBook.setFont(sidebarMenuFont);
+        panel_returnBook.add(lb_returnBook);
+
+//<<<<< Book Logs >>>>>>
+        panel_bookLogs = new JPanel();
+        panel_bookLogs.setBounds(20,390,260,60);
+        panel_bookLogs.setBackground(sidebarItemColor);
+        panel_bookLogs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_bookLogs.setLayout(null);
+        panel_sidebar.add(panel_bookLogs);
+        panel_bookLogs.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new BookLogsUI();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_bookLogs.setBackground(sidebarHoverColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_bookLogs.setBackground(sidebarItemColor);
+            }
+        });
+
+
+        img = new ImageIcon("img/book-log.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        JLabel lb_bookLogsIcon = new JLabel(new ImageIcon(img));
+        lb_bookLogsIcon.setBounds(0,0,60,60);
+        panel_bookLogs.add(lb_bookLogsIcon);
+
+
+        JLabel lb_bookLogs = new JLabel("Book Logs");
+        lb_bookLogs.setBounds(70,0,190, 60);
+        lb_bookLogs.setFont(sidebarMenuFont);
+        panel_bookLogs.add(lb_bookLogs);
+
+//<<<<< User Info >>>>>>
+        panel_userInfo = new JPanel();
+        panel_userInfo.setBounds(20,455,260,60);
+        panel_userInfo.setBackground(sidebarItemColor);
+        panel_userInfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_userInfo.setLayout(null);
+        panel_sidebar.add(panel_userInfo);
+        panel_userInfo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
@@ -217,63 +237,25 @@ public class SearchBookUI extends JFrame implements ActionListener {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                panel_userinfo.setBackground(sidebarHoverColor);
+                panel_userInfo.setBackground(sidebarHoverColor);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                panel_userinfo.setBackground(sidebarItemColor);
+                panel_userInfo.setBackground(sidebarItemColor);
             }
         });
 
-        //Home Icon
-        img = new ImageIcon("img/user-info.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_infoIcon = new JLabel(new ImageIcon(img));
-        lb_infoIcon.setBounds(0,0,60,60);
-        panel_userinfo.add(lb_infoIcon);
 
-        // Home Menu
+        img = new ImageIcon("img/user-info.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        JLabel lb_UserInfoIcon = new JLabel(new ImageIcon(img));
+        lb_UserInfoIcon.setBounds(0,0,60,60);
+        panel_userInfo.add(lb_UserInfoIcon);
+
         JLabel lb_userInfo = new JLabel("User Info");
         lb_userInfo.setBounds(70,0,190, 60);
         lb_userInfo.setFont(sidebarMenuFont);
-        panel_userinfo.add(lb_userInfo);
-
-//<<<<< Settings >>>>>>
-        panel_setting = new JPanel();
-        panel_setting.setBounds(20,455,260,60);
-        panel_setting.setBackground(sidebarItemColor);
-        panel_setting.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_setting.setLayout(null);
-        panel_sidebar.add(panel_setting);
-        panel_setting.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                dispose();
-                new ResetPasswordUI();
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                panel_setting.setBackground(sidebarHoverColor);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                panel_setting.setBackground(sidebarItemColor);
-            }
-        });
-
-        //Home Icon
-        img = new ImageIcon("img/cog.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_settingIcon = new JLabel(new ImageIcon(img));
-        lb_settingIcon.setBounds(0,0,60,60);
-        panel_setting.add(lb_settingIcon);
-
-        // Home Menu
-        JLabel lb_setting = new JLabel("Setting");
-        lb_setting.setBounds(70,0,190, 60);
-        lb_setting.setFont(sidebarMenuFont);
-        panel_setting.add(lb_setting);
+        panel_userInfo.add(lb_userInfo);
 
 //<<<<< Log Out >>>>>>
         panel_logout = new JPanel();
@@ -300,13 +282,12 @@ public class SearchBookUI extends JFrame implements ActionListener {
             }
         });
 
-        //Home Icon
+
         img = new ImageIcon("img/logout.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_logoutIcon = new JLabel(new ImageIcon(img));
         lb_logoutIcon.setBounds(0,0,60,60);
         panel_logout.add(lb_logoutIcon);
 
-        // Home Menu
         JLabel lb_logout = new JLabel("Log Out");
         lb_logout.setBounds(70,0,190, 60);
         lb_logout.setFont(sidebarMenuFont);
@@ -396,7 +377,7 @@ public class SearchBookUI extends JFrame implements ActionListener {
         panel_body.add(panel_resultArea);
 
         JList list = new JList(listModel);
-        this.books = Driver.dataAgent.searchBooks("");
+//        this.books = Driver.dataAgent.searchBooks("");
         if(this.books == null) {
             JOptionPane.showMessageDialog(null,"No book related to your keyword exists :(",
                     "No result Found!",JOptionPane.ERROR_MESSAGE);
@@ -577,5 +558,9 @@ public class SearchBookUI extends JFrame implements ActionListener {
         this.txt_pages.setText(""+this.books.get(index).getNoOfCopies());
         this.txt_releaseDate.setText(this.books.get(index).getDateOfRelease());
         this.txt_author.setText(this.books.get(index).getAuthor());
+    }
+
+    public static void main(String[] args) {
+        new SearchBookUI();
     }
 }
