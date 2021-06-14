@@ -127,7 +127,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new SearchBookUI();
+                new IssueBookUI();
             }
 
             @Override

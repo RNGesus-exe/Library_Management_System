@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 
-public class SearchBookUI extends JFrame implements ActionListener {
+public class IssueBookUI extends JFrame implements ActionListener {
 
     private final int FRAME_WIDTH = 1200;
     private final int FRAME_HEIGHT = 900;
@@ -55,7 +55,7 @@ public class SearchBookUI extends JFrame implements ActionListener {
 
     private Image img;
 
-    public SearchBookUI() {
+    public IssueBookUI() {
         init();
     }
 
@@ -355,7 +355,7 @@ public class SearchBookUI extends JFrame implements ActionListener {
         btn_minimize.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SearchBookUI.super.setState(JFrame.ICONIFIED);
+                IssueBookUI.super.setState(JFrame.ICONIFIED);
             }
 
             @Override
@@ -561,6 +561,6 @@ public class SearchBookUI extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new SearchBookUI();
+        new IssueBookUI();
     }
 }

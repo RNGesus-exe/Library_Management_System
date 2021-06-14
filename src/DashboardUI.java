@@ -96,7 +96,7 @@ public class DashboardUI extends JFrame implements ActionListener {
         panel_issueBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new SearchBookUI();
+                new IssueBookUI();
             }
 
             @Override
@@ -268,7 +268,7 @@ public class DashboardUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new SearchBookUI();
+                new IssueBookUI();
             }
 
             @Override

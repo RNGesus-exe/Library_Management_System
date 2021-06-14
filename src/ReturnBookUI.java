@@ -152,7 +152,7 @@ public class ReturnBookUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new SearchBookUI();
+                new IssueBookUI();
             }
 
             @Override

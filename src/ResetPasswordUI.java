@@ -154,7 +154,7 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new SearchBookUI();
+                new IssueBookUI();
             }
 
             @Override
