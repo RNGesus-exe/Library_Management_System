@@ -14,6 +14,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
     private final Font sidebarMenuFont = new Font("Arial", Font.BOLD, 26);
 
     private DefaultListModel<String> listModel = new DefaultListModel<>();
+    private JList list = null;
 
     private ArrayList<Book> books = null;
 
@@ -374,7 +375,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_resultArea.setBackground(Color.lightGray);
         panel_body.add(panel_resultArea);
 
-        JList list = new JList(listModel);
+        list = new JList(listModel);
         this.books = Driver.dataAgent.searchBooks("");
         if(this.books == null) {
             JOptionPane.showMessageDialog(null,"No book related to your keyword exists :(",
@@ -501,13 +502,14 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_bookDetails.add(btn_issueBook);
         btn_issueBook.addMouseListener(new MouseAdapter() {   // Button get highlighted when Cursor hover over Login Button
             public void mouseClicked(MouseEvent e){
-                if(txt_title.getText().trim().isEmpty()){
+                if(list.getSelectedIndex()==-1){
                     JOptionPane.showMessageDialog(null,"No Book Selected! Please select Book after Searching to Issue Book","Error",JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     // addIssueBookReceipt()  Function Call here
                     Driver.dataAgent.addIssueBookReceipt(Driver.currentUser.getUser_id(),books.get(list.getSelectedIndex()).getBook_id());
                     JOptionPane.showMessageDialog(null,"Book issued successfully","Information",JOptionPane.INFORMATION_MESSAGE);
+                    list.clearSelection();
                 }
             }
 
