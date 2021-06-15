@@ -239,7 +239,7 @@ public class BookLogsUI extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 new FileManager().deleteSharedPreferences();
                 dispose();
-                new LoginMenu();
+                new LoginUI();
             }
 
             @Override

@@ -267,7 +267,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new LoginMenu();
+                new LoginUI();
             }
 
             @Override

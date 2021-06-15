@@ -16,14 +16,14 @@ public class Driver {
             dataAgent = new DatabaseManager(connectionAgent);
             dataAgent.createTables();
             if(new FileManager().readUserId() == -1){
-                new LoginMenu();
+                new LoginUI();
             }
             else{
                 if(dataAgent.isBookTableEmpty()){
                     dataAgent.uploadBooksToDatabase();
                 }
                 currentUser = dataAgent.loadUserInfoFromDataBase(new FileManager().readUserId());
-                new DashboardUI();
+                new IssueBookUI();
             }
         } else {   //In case Connection is not established
             JOptionPane.showMessageDialog(null, "Connection was not established!",

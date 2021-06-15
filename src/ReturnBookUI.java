@@ -246,7 +246,7 @@ public class ReturnBookUI extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 new FileManager().deleteSharedPreferences();
                 dispose();
-                new LoginMenu();
+                new LoginUI();
             }
 
             @Override

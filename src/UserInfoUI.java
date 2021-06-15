@@ -219,7 +219,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 new FileManager().deleteSharedPreferences();
                 dispose();
-                new LoginMenu();
+                new LoginUI();
             }
 
             @Override
