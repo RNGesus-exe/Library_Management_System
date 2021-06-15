@@ -427,7 +427,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         panel_userInfo.add(txt_password);
 
         JLabel lb_changePassword = new JLabel("Change Password?");
-        lb_changePassword.setBounds(600,400,120,20);
+        lb_changePassword.setBounds(590,400,120,20);
         lb_changePassword.setForeground(sidebarColor);
         lb_changePassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_userInfo.add(lb_changePassword);
