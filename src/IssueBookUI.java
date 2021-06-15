@@ -301,7 +301,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Topbar Title }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-        lb_topbarTitle = new JLabel("Search Books");
+        lb_topbarTitle = new JLabel("Issue Book");
         lb_topbarTitle.setBounds(320,20,300,30);
         lb_topbarTitle.setForeground(Color.WHITE);
         lb_topbarTitle.setFont(new Font("Arial", Font.BOLD, 34));
@@ -386,7 +386,6 @@ public class IssueBookUI extends JFrame implements ActionListener {
             }
         }
 
-        //       list.setFixedCellWidth(100);
         list.setFixedCellHeight(30);
         list.setFont(new Font("Arial",Font.PLAIN,20));
         panel_resultArea.add(new JScrollPane(list));
@@ -526,6 +525,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        clearAllFields();
         if(e.getSource()==btn_search){
             if(txt_search.getText().matches("(?=.*[~!@#$%^&*()_-]).*")) {
                 JOptionPane.showMessageDialog(null,"Invalid Keyword Search","Invalid Search",JOptionPane.ERROR_MESSAGE);
@@ -548,6 +548,15 @@ public class IssueBookUI extends JFrame implements ActionListener {
                 }
             }
         }
+    }
+
+    public void clearAllFields(){
+        txt_title.setText(null);
+        txt_author.setText(null);
+        txt_genre.setText(null);
+        txt_pages.setText(null);
+        txt_rating.setText(null);
+        txt_releaseDate.setText(null);
     }
 
     public void showBookDetail(int index){
