@@ -19,6 +19,7 @@ public class ReturnBookUI extends JFrame implements ActionListener {
     private JTable table = null;
 
     private ArrayList<Book> books = null;
+    private ArrayList<IssueBook> issuedBooks = null;
 
     private JTextField txt_releaseDate = null;
     private JTextField txt_rating = null;
@@ -91,6 +92,12 @@ public class ReturnBookUI extends JFrame implements ActionListener {
         panel_body.setLayout(null);
         panel_body.setBackground(Color.decode("#ebebeb"));
         add(panel_body);
+        panel_body.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                table.clearSelection();
+            }
+        });
 
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Logo }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -129,13 +136,11 @@ public class ReturnBookUI extends JFrame implements ActionListener {
             }
         });
 
-        //Home Icon
         img = new ImageIcon("img/book-exchange.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_issueBookIcon = new JLabel(new ImageIcon(img));
         lb_issueBookIcon.setBounds(0,0,60,60);
         panel_issueBook.add(lb_issueBookIcon);
 
-        // Home Label
         JLabel lb_issueBook = new JLabel("Issue Book");
         lb_issueBook.setBounds(70,0,190, 60);
         lb_issueBook.setFont(sidebarMenuFont);
@@ -184,13 +189,11 @@ public class ReturnBookUI extends JFrame implements ActionListener {
             }
         });
 
-        //Home Icon
         img = new ImageIcon("img/book-log.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_bookLogIcon = new JLabel(new ImageIcon(img));
         lb_bookLogIcon.setBounds(0,0,60,60);
         panel_bookLogs.add(lb_bookLogIcon);
 
-        // Home Menu
         JLabel lb_bookLog = new JLabel("Book Logs");
         lb_bookLog.setBounds(70,0,190, 60);
         lb_bookLog.setFont(sidebarMenuFont);
@@ -241,6 +244,7 @@ public class ReturnBookUI extends JFrame implements ActionListener {
         panel_logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                new FileManager().deleteSharedPreferences();
                 dispose();
                 new LoginMenu();
             }
@@ -295,7 +299,6 @@ public class ReturnBookUI extends JFrame implements ActionListener {
         btn_close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_close.setFocusPainted(false);
         btn_close.setFont(new Font("Arial", Font.BOLD, 20));
-//        btn_close.addActionListener(this);
         panel_titleBar.add(btn_close);
         btn_close.addMouseListener(new MouseAdapter() {
             @Override
@@ -368,11 +371,11 @@ public class ReturnBookUI extends JFrame implements ActionListener {
         tableModel.setColumnIdentifiers(columnsNames);
 
         try {
-            ArrayList<IssueBook> issuedBooks = Driver.dataAgent.getIssuedBooks();
+            issuedBooks = Driver.dataAgent.getIssuedBooks();
             Object[] row;
 
             if(issuedBooks==null){
-                JOptionPane.showMessageDialog(null,"No Issued Books","Message",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"You have not issued any book. No book to return","Information",JOptionPane.INFORMATION_MESSAGE);
             }
             else{
                 for (IssueBook issuedBook : issuedBooks) {
