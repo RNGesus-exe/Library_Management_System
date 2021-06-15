@@ -136,22 +136,20 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_issueBook.setLayout(null);
         panel_sidebar.add(panel_issueBook);
 
-        //Home Icon
         img = new ImageIcon("img/book-exchange.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_homeIcon = new JLabel(new ImageIcon(img));
         lb_homeIcon.setBounds(0,0,60,60);
         panel_issueBook.add(lb_homeIcon);
 
-        // Home Label
         JLabel lb_home = new JLabel("Issue Book");
         lb_home.setBounds(70,0,190, 60);
         lb_home.setFont(sidebarMenuFont);
         panel_issueBook.add(lb_home);
 
-//<<<<< Menu >>>>>>
+//<<<<< Return Book >>>>>>
         panel_returnBook = new JPanel();
         panel_returnBook.setBounds(20,325,260,60);
-        panel_returnBook.setBackground(sidebarHoverColor);
+        panel_returnBook.setBackground(sidebarItemColor);
         panel_returnBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_returnBook.setLayout(null);
         panel_sidebar.add(panel_returnBook);
@@ -427,7 +425,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_bookDetails.add(lb_title);
 
         txt_title = new JTextField();
-        txt_title.setBounds(400,65,300,30);
+        txt_title.setBounds(330,65,370,30);
         txt_title.setEditable(false);
         panel_bookDetails.add(txt_title);
 
@@ -439,7 +437,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_bookDetails.add(lb_author);
 
         txt_author = new JTextField();
-        txt_author.setBounds(400,115,300,30);
+        txt_author.setBounds(330,115,370,30);
         txt_author.setEditable(false);
         panel_bookDetails.add(txt_author);
 
@@ -452,7 +450,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_bookDetails.add(lb_genre);
 
         txt_genre = new JTextField();
-        txt_genre.setBounds(400,165,300,30);
+        txt_genre.setBounds(330,165,370,30);
         txt_genre.setEditable(false);
         panel_bookDetails.add(txt_genre);
 
@@ -464,7 +462,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_bookDetails.add(lb_pages);
 
         txt_pages = new JTextField();
-        txt_pages.setBounds(400,215,300,30);
+        txt_pages.setBounds(330,215,370,30);
         txt_pages.setEditable(false);
         panel_bookDetails.add(txt_pages);
 
@@ -476,7 +474,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_bookDetails.add(lb_rating);
 
         txt_rating = new JTextField();
-        txt_rating.setBounds(400,265,300,30);
+        txt_rating.setBounds(330,265,370,30);
         txt_rating.setEditable(false);
         panel_bookDetails.add(txt_rating);
 
@@ -488,7 +486,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_bookDetails.add(lb_releaseDate);
 
         txt_releaseDate = new JTextField();
-        txt_releaseDate.setBounds(400,315,300,30);
+        txt_releaseDate.setBounds(330,315,370,30);
         txt_releaseDate.setEditable(false);
         panel_bookDetails.add(txt_releaseDate);
 
@@ -509,7 +507,8 @@ public class IssueBookUI extends JFrame implements ActionListener {
                 }
                 else{
                     // addIssueBookReceipt()  Function Call here
-                    System.out.println("Book Issued Successfully");
+                    Driver.dataAgent.addIssueBookReceipt(Driver.currentUser.getUser_id(),books.get(list.getSelectedIndex()).getBook_id());
+                    JOptionPane.showMessageDialog(null,"Book issued successfully","Information",JOptionPane.INFORMATION_MESSAGE);
                 }
             }
 
