@@ -105,7 +105,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         });
 
         //Icon
-        img = new ImageIcon("img/books.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/book-exchange.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_issueBookIcon = new JLabel(new ImageIcon(img));
         lb_issueBookIcon.setBounds(0,0,60,60);
         panel_issueBook.add(lb_issueBookIcon);
