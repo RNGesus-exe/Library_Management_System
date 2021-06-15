@@ -7,6 +7,8 @@ public class User {
     private String mobileNumber;
     private String cnic;
     private String password;
+    private int securityQuestion;
+    private String securityQestionAnswer;
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@( Parameterized Constructor )@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -19,12 +21,14 @@ public class User {
         this.mobileNumber = "";
         this.cnic = "";
         this.password = "";
+        this.securityQuestion = -1;
+        this.securityQestionAnswer = "";
     }
 
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@( Parameterized Constructor )@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-    public User(int user_id,String firstName, String lastName, String email, String address, String mobileNumber, String cnic, String password) {
+    public User(int user_id,String firstName, String lastName, String email, String address, String mobileNumber, String cnic, String password, int securityQuestion, String securityQestionAnswer) {
         this.user_id = user_id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,6 +37,8 @@ public class User {
         this.mobileNumber = mobileNumber;
         this.cnic = cnic;
         this.password = password;
+        this.securityQuestion = securityQuestion;
+        this.securityQestionAnswer = securityQestionAnswer;
     }
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@( Setters )@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -40,6 +46,22 @@ public class User {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public int getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(int securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+
+    public String getSecurityQestionAnswer() {
+        return securityQestionAnswer;
+    }
+
+    public void setSecurityQestionAnswer(String securityQestionAnswer) {
+        this.securityQestionAnswer = securityQestionAnswer;
     }
 
     public void setFirstName(String firstName) {

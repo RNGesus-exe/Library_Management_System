@@ -2,12 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
-import java.io.IOException;
 
 public class SignUpUI extends JFrame implements ActionListener {
 
     private final int FRAME_WIDTH = 1200;
-    private final int FRAME_HEIGHT = 830;
+    private final int FRAME_HEIGHT = 900;
     private final ImageIcon bgIcon = new ImageIcon("img/bg8.jpg");
     private final Font textFieldFont = new Font("Arial", Font.PLAIN, 16);
     private final Font labelFont = new Font("Arial", Font.BOLD, 16);
@@ -36,11 +35,22 @@ public class SignUpUI extends JFrame implements ActionListener {
     private JTextField txt_cnic;
     private JPasswordField txt_password;
     private JPasswordField txt_confirmPassword;
+    private JTextField txt_securityQuestionAnswer;
 
     private JButton btn_signUp;
-    private JButton btn_cancel;
     private JButton btn_close;
     private JButton btn_minimize;
+
+    JComboBox cmbx_securityQuestion;
+    
+    public static String[] securityQuestions = {
+            "--Select One--",
+            "What is your hobby?","What is your favourite color?",
+            "Who is your best friend?","What is your lucky number?"
+    };
+    
+    
+    
     public SignUpUI() {
         init();
     }
@@ -136,7 +146,7 @@ public class SignUpUI extends JFrame implements ActionListener {
         panel_personalInfo = new JPanel();
         panel_personalInfo.setLayout(null);
         panel_personalInfo.setBackground(Color.white);
-        panel_personalInfo.setBounds(650, 70, 500, 640);
+        panel_personalInfo.setBounds(650, 35, 500, 800);
         lb_background.add(panel_personalInfo);
 
 
@@ -255,10 +265,19 @@ public class SignUpUI extends JFrame implements ActionListener {
         txt_confirmPassword.setFont(textFieldFont);
         panel_personalInfo.add(txt_confirmPassword);
 
+        JLabel lb_securityQestion = new JLabel("Security Question");
+        lb_securityQestion.setBounds(60,551,150,30);
+        lb_securityQestion.setFont(labelFont);
+        panel_personalInfo.add(lb_securityQestion);
+
+        cmbx_securityQuestion = new JComboBox(securityQuestions);
+        cmbx_securityQuestion.setBounds(220,550,220,30);
+        panel_personalInfo.add(cmbx_securityQuestion);
+
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Sign Up Button }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         btn_signUp = new JButton("Sign Up");
-        btn_signUp.setBounds(60, 550, 380, 35);
+        btn_signUp.setBounds(60, 700, 380, 35);
         btn_signUp.setFocusPainted(false);
         btn_signUp.setBackground(Color.decode("#1877EB"));
         btn_signUp.setForeground(Color.white);
@@ -276,15 +295,34 @@ public class SignUpUI extends JFrame implements ActionListener {
         });
         btn_signUp.addActionListener(this);
 
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Log In Menu Label }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Security Question Field }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+        JLabel lb_securityAnswer = new JLabel("Security Question Answer");
+        lb_securityAnswer.setBounds(60, 600, 380, 30);
+        lb_securityAnswer.setFont(labelFont);
+        panel_personalInfo.add(lb_securityAnswer);
+
+        txt_securityQuestionAnswer = new JTextField();
+        txt_securityQuestionAnswer.setBounds(60, 630, 380, 30);
+        txt_securityQuestionAnswer.setFont(textFieldFont);
+        panel_personalInfo.add(txt_securityQuestionAnswer);
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Sign In link }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         lb_alreadyAccount = new JLabel("Already have an account?");
-        lb_alreadyAccount.setBounds(60,595,200,15);
+        lb_alreadyAccount.setBounds(60,740,200,15);
         lb_alreadyAccount.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lb_alreadyAccount.setFont(new Font("Arial", Font.BOLD, 16));
         lb_alreadyAccount.setForeground(Color.decode("#bf1b1b"));
         panel_personalInfo.add(lb_alreadyAccount);
         lb_alreadyAccount.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e){
+                dispose();
+                new LoginUI();
+            }
+
             @Override
             public void mouseEntered(MouseEvent e) {
                 lb_alreadyAccount.setForeground(Color.decode("#f01616"));
@@ -293,13 +331,6 @@ public class SignUpUI extends JFrame implements ActionListener {
             @Override
             public void mouseExited(MouseEvent e) {
                 lb_alreadyAccount.setForeground(Color.decode("#bf1b1b"));
-            }
-        });
-        lb_alreadyAccount.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                dispose();
-                new LoginMenu();
             }
         });
 
@@ -392,6 +423,8 @@ public class SignUpUI extends JFrame implements ActionListener {
         user.setCnic(txt_cnic.getText().trim());
         user.setEmail(txt_email.getText().trim());
         user.setPassword(txt_password.getText().trim());
+        user.setSecurityQuestion(cmbx_securityQuestion.getSelectedIndex());
+        user.setSecurityQestionAnswer(txt_securityQuestionAnswer.getText().trim());
 
         return user;
     }
@@ -429,6 +462,9 @@ public class SignUpUI extends JFrame implements ActionListener {
         else if(Driver.dataAgent.checkCnicRepetition(txt_cnic.getText().trim())) {
             JOptionPane.showMessageDialog(null,"CNIC already exits","CNIC Duplication",JOptionPane.ERROR_MESSAGE);
         }
+        else if(cmbx_securityQuestion.getSelectedIndex()==0){
+            JOptionPane.showMessageDialog(null, "Please select your security question for password recovery.", "Incomplete Information", JOptionPane.ERROR_MESSAGE);
+        }
         else
         {
                 return true;
@@ -443,14 +479,12 @@ public class SignUpUI extends JFrame implements ActionListener {
             dispose();
         }else if(e.getSource()==btn_minimize){
             super.setState(JFrame.ICONIFIED);
-        }else if(e.getSource()==btn_cancel){
-            clearAllFields();
         }else if(e.getSource()==btn_signUp){
             if(isSignUpValid()){
                 Driver.dataAgent.addUser(createUser());
                 JOptionPane.showMessageDialog(null,"Sign Up completed successfully","Sign Up Successful",JOptionPane.INFORMATION_MESSAGE);
                 dispose();
-                new LoginMenu();
+                new LoginUI();
             }
         }
 

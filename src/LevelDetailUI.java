@@ -150,7 +150,7 @@ public class LevelDetailUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new DashboardUI();
+//                new DashboardUI();
             }
 
             @Override
@@ -261,7 +261,7 @@ public class LevelDetailUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new LoginMenu();
+                new LoginUI();
             }
 
             @Override
