@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.SQLException;
 
 public class ResetPasswordUI extends JFrame implements ActionListener {
 
@@ -32,10 +33,10 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
     private JPanel panel_titleBar;
     private JPanel panel_sidebar;
     private JPanel panel_body;
-    private JPanel panel_dashboard;
-    private JPanel panel_search;
-    private JPanel panel_userinfo;
-    private JPanel panel_setting;
+    private JPanel panel_issueBook;
+    private JPanel panel_returnBook;
+    private JPanel panel_bookLogs;
+    private JPanel panel_userInfo;
     private JPanel panel_logout;
     private JLabel lb_topbarTitle;
     private JLabel lb_logo;
@@ -105,52 +106,14 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Sidebar Menu Items }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-        //<<<<< Home >>>>>>
-        panel_dashboard = new JPanel();
-        panel_dashboard.setBounds(20,260,260,60);
-        panel_dashboard.setBackground(sidebarItemColor);
-        panel_dashboard.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_dashboard.setLayout(null);
-        panel_sidebar.add(panel_dashboard);
-        panel_dashboard.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                dispose();
-                new DashboardUI();
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                panel_dashboard.setBackground(sidebarHoverColor);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                panel_dashboard.setBackground(sidebarItemColor);
-            }
-        });
-
-        //Home Icon
-        img = new ImageIcon("img/dashboard.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_homeIcon = new JLabel(new ImageIcon(img));
-        lb_homeIcon.setBounds(0,0,60,60);
-        panel_dashboard.add(lb_homeIcon);
-
-        // Home Label
-        JLabel lb_home = new JLabel("Dashboard");
-        lb_home.setBounds(70,0,190, 60);
-        lb_home.setFont(sidebarMenuFont);
-        panel_dashboard.add(lb_home);
-
-
-        //<<<<< Search >>>>>>
-        panel_search = new JPanel();
-        panel_search.setBounds(20,325,260,60);
-        panel_search.setBackground(sidebarItemColor);
-        panel_search.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_search.setLayout(null);
-        panel_sidebar.add(panel_search);
-        panel_search.addMouseListener(new MouseAdapter() {
+//<<<<< Issue Book >>>>>>
+        panel_issueBook = new JPanel();
+        panel_issueBook.setBounds(20,260,260,60);
+        panel_issueBook.setBackground(sidebarItemColor);
+        panel_issueBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_issueBook.setLayout(null);
+        panel_sidebar.add(panel_issueBook);
+        panel_issueBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
@@ -159,36 +122,105 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                panel_search.setBackground(sidebarHoverColor);
+                panel_issueBook.setBackground(sidebarHoverColor);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                panel_search.setBackground(sidebarItemColor);
+                panel_issueBook.setBackground(sidebarItemColor);
+            }
+        });
+
+        img = new ImageIcon("img/book-exchange.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        JLabel lb_issueBookIcon = new JLabel(new ImageIcon(img));
+        lb_issueBookIcon.setBounds(0,0,60,60);
+        panel_issueBook.add(lb_issueBookIcon);
+
+        JLabel lb_issueBook = new JLabel("Issue Book");
+        lb_issueBook.setBounds(70,0,190, 60);
+        lb_issueBook.setFont(sidebarMenuFont);
+        panel_issueBook.add(lb_issueBook);
+
+
+//<<<<< Return Book >>>>>>
+        panel_returnBook = new JPanel();
+        panel_returnBook.setBounds(20,325,260,60);
+        panel_returnBook.setBackground(sidebarItemColor);
+        panel_returnBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_returnBook.setLayout(null);
+        panel_sidebar.add(panel_returnBook);
+        panel_returnBook.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new ReturnBookUI();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_returnBook.setBackground(sidebarHoverColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_returnBook.setBackground(sidebarItemColor);
             }
         });
 
 
-        //Search Icon
-        img = new ImageIcon("img/book-search.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_searchIcon = new JLabel(new ImageIcon(img));
-        lb_searchIcon.setBounds(0,0,60,60);
-        panel_search.add(lb_searchIcon);
+        img = new ImageIcon("img/book-return.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        JLabel lb_returnBookIcon = new JLabel(new ImageIcon(img));
+        lb_returnBookIcon.setBounds(0,0,60,60);
+        panel_returnBook.add(lb_returnBookIcon);
 
-        // Search Label
-        JLabel lb_searchBook = new JLabel("Search Book");
-        lb_searchBook.setBounds(70,0,190, 60);
-        lb_searchBook.setFont(sidebarMenuFont);
-        panel_search.add(lb_searchBook);
+        JLabel lb_returnBook = new JLabel("Return Book");
+        lb_returnBook.setBounds(70,0,190, 60);
+        lb_returnBook.setFont(sidebarMenuFont);
+        panel_returnBook.add(lb_returnBook);
 
-        //<<<<< User Info >>>>>>
-        panel_userinfo = new JPanel();
-        panel_userinfo.setBounds(20,390,260,60);
-        panel_userinfo.setBackground(sidebarItemColor);
-        panel_userinfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_userinfo.setLayout(null);
-        panel_sidebar.add(panel_userinfo);
-        panel_userinfo.addMouseListener(new MouseAdapter() {
+        //<<<<< Book Logs >>>>>>
+        panel_bookLogs = new JPanel();
+        panel_bookLogs.setBounds(20,390,260,60);
+        panel_bookLogs.setBackground(sidebarItemColor);
+        panel_bookLogs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_bookLogs.setLayout(null);
+        panel_sidebar.add(panel_bookLogs);
+        panel_bookLogs.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new BookLogsUI();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_bookLogs.setBackground(sidebarHoverColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_bookLogs.setBackground(sidebarItemColor);
+            }
+        });
+
+        img = new ImageIcon("img/book-log.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        JLabel lb_bookLogsIcon = new JLabel(new ImageIcon(img));
+        lb_bookLogsIcon.setBounds(0,0,60,60);
+        panel_bookLogs.add(lb_bookLogsIcon);
+
+        JLabel lb_bookLogs = new JLabel("Book logs");
+        lb_bookLogs.setBounds(70,0,190, 60);
+        lb_bookLogs.setFont(sidebarMenuFont);
+        panel_bookLogs.add(lb_bookLogs);
+
+//<<<<< User Info >>>>>>
+        panel_userInfo = new JPanel();
+        panel_userInfo.setBounds(20,455,260,60);
+        panel_userInfo.setBackground(sidebarItemColor);
+        panel_userInfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_userInfo.setLayout(null);
+        panel_sidebar.add(panel_userInfo);
+        panel_userInfo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
@@ -197,47 +229,24 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                panel_userinfo.setBackground(sidebarHoverColor);
+                panel_userInfo.setBackground(sidebarHoverColor);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                panel_userinfo.setBackground(sidebarItemColor);
+                panel_userInfo.setBackground(sidebarItemColor);
             }
         });
 
-        //Home Icon
         img = new ImageIcon("img/user-info.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_infoIcon = new JLabel(new ImageIcon(img));
-        lb_infoIcon.setBounds(0,0,60,60);
-        panel_userinfo.add(lb_infoIcon);
+        JLabel lb_userInfoIcon = new JLabel(new ImageIcon(img));
+        lb_userInfoIcon.setBounds(0,0,60,60);
+        panel_userInfo.add(lb_userInfoIcon);
 
-        // Home Menu
         JLabel lb_userInfo = new JLabel("User Info");
         lb_userInfo.setBounds(70,0,190, 60);
         lb_userInfo.setFont(sidebarMenuFont);
-        panel_userinfo.add(lb_userInfo);
-
-//<<<<< Settings >>>>>>
-        panel_setting = new JPanel();
-        panel_setting.setBounds(20,455,260,60);
-        panel_setting.setBackground(sidebarHoverColor);
-        panel_setting.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_setting.setLayout(null);
-        panel_sidebar.add(panel_setting);
-
-
-        //Home Icon
-        img = new ImageIcon("img/cog.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_settingIcon = new JLabel(new ImageIcon(img));
-        lb_settingIcon.setBounds(0,0,60,60);
-        panel_setting.add(lb_settingIcon);
-
-        // Home Menu
-        JLabel lb_setting = new JLabel("Setting");
-        lb_setting.setBounds(70,0,190, 60);
-        lb_setting.setFont(sidebarMenuFont);
-        panel_setting.add(lb_setting);
+        panel_userInfo.add(lb_userInfo);
 
 //<<<<< Log Out >>>>>>
         panel_logout = new JPanel();
@@ -249,6 +258,7 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
         panel_logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                new FileManager().deleteSharedPreferences();
                 dispose();
                 new LoginMenu();
             }
@@ -408,7 +418,7 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
         btn_save = new JButton("Save Changes");
         btn_save.setBounds(635, 250, 150, 35);
         btn_save.setFocusPainted(false);
-        btn_save.setBackground(Color.decode("#1877EB"));
+        btn_save.setBackground(Color.decode("#32a852"));
         btn_save.setForeground(Color.white);
         btn_save.setFont(new Font("Arial", Font.BOLD, 16));
         btn_save.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -429,7 +439,14 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Error! Your password must contain Uppercase Lowercase and Special Characters\nFor Example, ABCde12@", "Weak Password!", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
-                    // resetPassword(String newPassword);
+                    JOptionPane.showMessageDialog(null,"Password changed successfully","Information", JOptionPane.INFORMATION_MESSAGE);
+                    /*try {
+                        Driver.dataAgent.resetPassword(txt_newPassword.getText().trim());
+                        dispose();
+                        new UserInfoUI();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }*/
                 }
             }
 
