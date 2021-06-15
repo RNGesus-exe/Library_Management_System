@@ -69,6 +69,28 @@ public class DatabaseManager {
         }
     }
 
+    public int getIssuedBooks(int user_id) {
+        String query = """
+                SELECT COUNT(*)
+                FROM IssuedBook
+                WHERE IssuedBook.user_id = ? AND IssuedBook.borrow_id NOT IN (
+                        SELECT ReturnedBook.borrow_id
+                		FROM ReturnedBook);""";
+        try {
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ppStatement.setInt(1, user_id);
+            ResultSet rs = ppStatement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                return -1;
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     public void increaseLevelExperience(int user_id) throws SQLException {
         String query = "UPDATE Levels " +
                 "SET level_experience = level_experience + 2 " +
@@ -133,7 +155,7 @@ public class DatabaseManager {
         PreparedStatement  ppStatement = connection.prepareStatement(query);
         ppStatement.setString(1,password);
         ppStatement.setInt(2,Driver.currentUser.getUser_id());
-        ppStatement.executeQuery();
+        ppStatement.executeUpdate();
     }
 
     public void decreaseBookCopy(int book_id) throws SQLException {
@@ -265,13 +287,14 @@ public class DatabaseManager {
     }
 
     //Reference
-    public int getUserLevel(String username){
+    public int getUserExperience(int user_id){
         String query = """
-                SELECT Users.user_id
-                FROM Users\s
-                INNER JOIN Levels ON Levels.user_id = Users.user_id""";
+                SELECT Levels.level_experience
+                FROM Levels\s
+                WHERE Levels.user_id = ?""";
         try {
             PreparedStatement ppStatement = connection.prepareStatement(query);
+            ppStatement.setInt(1,user_id);
             ResultSet rs = ppStatement.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);

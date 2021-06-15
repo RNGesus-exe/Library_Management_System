@@ -334,7 +334,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ User Info }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         JPanel panel_bookDetails = new JPanel();
-        panel_bookDetails.setBounds(50,115,800,420);
+        panel_bookDetails.setBounds(50,0,800,800);
         panel_bookDetails.setBackground(dashboardItemColor);
         panel_bookDetails.setLayout(null);
         panel_body.add(panel_bookDetails);
@@ -366,19 +366,19 @@ public class UserInfoUI extends JFrame implements ActionListener {
         panel_bookDetails.add(lb_address);
 
         JLabel lb_cnic = new JLabel("CNIC");
-        lb_cnic.setBounds(100,250,200,25);
+        lb_cnic.setBounds(100,265,200,25);
         lb_cnic.setFont(labelFonts);
         lb_cnic.setForeground(Color.red);
         panel_bookDetails.add(lb_cnic);
 
         JLabel lb_email = new JLabel("Email");
-        lb_email.setBounds(100,300,200,25);
+        lb_email.setBounds(100,315,200,25);
         lb_email.setFont(labelFonts);
         lb_email.setForeground(Color.red);
         panel_bookDetails.add(lb_email);
 
         JLabel lb_password = new JLabel("Password");
-        lb_password.setBounds(100,350,200,25);
+        lb_password.setBounds(100,365,200,25);
         lb_password.setFont(labelFonts);
         lb_password.setForeground(Color.red);
         panel_bookDetails.add(lb_password);
@@ -390,6 +390,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_name.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_name.setEditable(false);
         txt_name.setText(Driver.currentUser.getFirstName()+Driver.currentUser.getLastName());
+        txt_name.setHorizontalAlignment(JTextField.CENTER);
         panel_bookDetails.add(txt_name);
 
         JTextField txt_mobileNumber = new JTextField();
@@ -397,6 +398,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_mobileNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_mobileNumber.setEditable(false);
         txt_mobileNumber.setText(Driver.currentUser.getMobileNumber());
+        txt_mobileNumber.setHorizontalAlignment(JTextField.CENTER);
         panel_bookDetails.add(txt_mobileNumber);
 
         JTextArea textArea_address = new JTextArea();
@@ -411,6 +413,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_cnic.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_cnic.setEditable(false);
         txt_cnic.setText(Driver.currentUser.getCnic());
+        txt_cnic.setHorizontalAlignment(JTextField.CENTER);
         panel_bookDetails.add(txt_cnic);
 
         JTextField txt_email = new JTextField();
@@ -418,6 +421,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_email.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_email.setEditable(false);
         txt_email.setText(Driver.currentUser.getEmail());
+        txt_email.setHorizontalAlignment(JTextField.CENTER);
         panel_bookDetails.add(txt_email);
 
         JPasswordField txt_password = new JPasswordField();
@@ -425,9 +429,53 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_password.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_password.setEditable(false);
         txt_password.setText(Driver.currentUser.getEmail());
+        txt_password.setHorizontalAlignment(JTextField.CENTER);
         panel_bookDetails.add(txt_password);
 
 
+//================================LEVEL DETAIL UI=============
+
+        JLabel lb_level_rank = new JLabel("Rank");
+        lb_level_rank.setBounds(100,415,200,25);
+        lb_level_rank.setFont(labelFonts);
+        lb_level_rank.setForeground(Color.red);
+        panel_bookDetails.add(lb_level_rank);
+
+        JTextField txt_level_rank = new JTextField();
+        txt_level_rank.setBounds(400,415,300,30);
+        txt_level_rank.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        txt_level_rank.setEditable(false);
+        txt_level_rank.setText(Driver.levels[Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())-1]);
+        txt_level_rank.setHorizontalAlignment(JTextField.CENTER);
+        panel_bookDetails.add(txt_level_rank);
+
+        JLabel lb_book_issue_limit = new JLabel("Book Issue Limit");
+        lb_book_issue_limit.setBounds(100,465,200,25);
+        lb_book_issue_limit.setFont(labelFonts);
+        lb_book_issue_limit.setForeground(Color.red);
+        panel_bookDetails.add(lb_book_issue_limit);
+
+        JTextField txt_book_issue_limit = new JTextField();
+        txt_book_issue_limit.setBounds(400,465,300,30);
+        txt_book_issue_limit.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        txt_book_issue_limit.setEditable(false);
+        txt_book_issue_limit.setText(""+Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())*2);
+        txt_book_issue_limit.setHorizontalAlignment(JTextField.CENTER);
+        panel_bookDetails.add(txt_book_issue_limit);
+
+        JLabel lb_books_issued = new JLabel("Books Currently Issued");
+        lb_books_issued.setBounds(100,515,200,25);
+        lb_books_issued.setFont(labelFonts);
+        lb_books_issued.setForeground(Color.red);
+        panel_bookDetails.add(lb_books_issued);
+
+        JTextField txt_books_issued = new JTextField();
+        txt_books_issued.setBounds(400,515,300,30);
+        txt_books_issued.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        txt_books_issued.setEditable(false);
+        txt_books_issued.setText(""+Driver.dataAgent.getIssuedBooks(Driver.currentUser.getUser_id()));
+        txt_books_issued.setHorizontalAlignment(JTextField.CENTER);
+        panel_bookDetails.add(txt_books_issued);
 
         setVisible(true);
     }

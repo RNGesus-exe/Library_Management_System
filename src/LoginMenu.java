@@ -517,7 +517,7 @@ public class LoginMenu extends JFrame implements MouseListener {
                     Driver.dataAgent.uploadBooksToDatabase();
                 }
                 dispose();
-                new Dashboard();
+                new DashboardUI();
             } else {
                 JOptionPane.showMessageDialog(this,
                                               "Invalid Username or Password Entered!",
@@ -528,7 +528,7 @@ public class LoginMenu extends JFrame implements MouseListener {
             //TODO invoke ForgottenPassMenu();
         } else if (e.getSource() == jLabel_signUp) {
             dispose();
-            new SignUp();
+            new SignUpUI();
         }
         if (e.getSource() == jLabel_showPass && flag) {
             jPasswordField_pass.setEchoChar((char) 0);

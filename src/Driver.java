@@ -7,7 +7,7 @@ public class Driver {
 
     public static DatabaseManager dataAgent = null;        //This agent helps in managing database
     public static User currentUser = null;                 //This agent holds the logged in user data
-    public static String[] levels = {"bronze","silver","gold","diamond"};  //This is for accessing ranks with ease
+    public static String[] levels = {"BRONZE","SILVER","GOLD","DIAMOND"};  //This is for accessing ranks with ease
 
     public static void main(String[] args) throws IOException, SQLException {
 
