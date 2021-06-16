@@ -371,7 +371,7 @@ public class ReturnBookUI extends JFrame implements ActionListener {
         tableModel.setColumnIdentifiers(columnsNames);
 
         try {
-            issuedBooks = Driver.dataAgent.getIssuedBooks();
+            issuedBooks = Driver.dataAgent.getIssuedBooks(Driver.currentUser.getUser_id());
             Object[] row;
 
             if(issuedBooks==null){

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class IssueBookUI extends JFrame implements ActionListener {
@@ -79,6 +80,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Sidebar }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         panel_sidebar = new JPanel();
+        //new SiderBar().getpanel();
         panel_sidebar.setLayout(null);
         panel_sidebar.setBackground(sidebarColor);
         panel_sidebar.setBounds(0, 0, 300, 900);
@@ -266,6 +268,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                new FileManager().deleteSharedPreferences();
                 dispose();
                 new LoginUI();
             }
@@ -501,15 +504,24 @@ public class IssueBookUI extends JFrame implements ActionListener {
         btn_issueBook.addActionListener(this);
         panel_bookDetails.add(btn_issueBook);
         btn_issueBook.addMouseListener(new MouseAdapter() {   // Button get highlighted when Cursor hover over Login Button
-            public void mouseClicked(MouseEvent e){
+            public void mouseClicked(MouseEvent e) {
                 if(list.getSelectedIndex()==-1){
                     JOptionPane.showMessageDialog(null,"No Book Selected! Please select Book after Searching to Issue Book","Error",JOptionPane.ERROR_MESSAGE);
                 }
                 else{
-                    // addIssueBookReceipt()  Function Call here
-                    Driver.dataAgent.addIssueBookReceipt(Driver.currentUser.getUser_id(),books.get(list.getSelectedIndex()).getBook_id());
-                    JOptionPane.showMessageDialog(null,"Book issued successfully","Information",JOptionPane.INFORMATION_MESSAGE);
-                    list.clearSelection();
+                    try {
+                        if(Driver.dataAgent.isBookIssued(books.get(list.getSelectedIndex()).getBook_id())==0) {
+                            Driver.dataAgent.addIssueBookReceipt(Driver.currentUser.getUser_id(), books.get(list.getSelectedIndex()).getBook_id());
+                            Driver.dataAgent.decreaseBookCopy(books.get(list.getSelectedIndex()).getBook_id());
+                            JOptionPane.showMessageDialog(null,"Book issued successfully","Information",JOptionPane.INFORMATION_MESSAGE);
+                            list.clearSelection();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"You have already issued this book","Book Re-Issue Error",JOptionPane.ERROR_MESSAGE);
+                        }
+                    }catch(SQLException error){
+                        error.printStackTrace();
+                    }
                 }
             }
 

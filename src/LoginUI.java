@@ -152,7 +152,7 @@ public class LoginUI extends JFrame {
         txt_username = new JTextField();
         txt_username.setBounds(450,300,300,40);
         txt_username.setFont(new Font("Arial",Font.PLAIN,16));
-//        txt_username.setUI(new HintTextFieldUI("Enter Username",false));
+//      txt_username.setUI(new HintTextFieldUI("Enter Username",false));
         add(txt_username);
 
         //<<<<<< Password >>>>>>>
@@ -177,7 +177,7 @@ public class LoginUI extends JFrame {
         add(lb_rememberMe);
 
         chkbx_showPassword = new JCheckBox();
-        chkbx_showPassword.setBounds(630,420,20,20);
+        chkbx_showPassword.setBounds(610,420,20,20);
         add(chkbx_showPassword);
         chkbx_showPassword.addActionListener(ae -> {
             JCheckBox c = (JCheckBox) ae.getSource();
@@ -185,7 +185,7 @@ public class LoginUI extends JFrame {
         });
 
         JLabel lb_showPassword = new JLabel("Show Password");
-        lb_showPassword.setBounds(650,420,100,20);
+        lb_showPassword.setBounds(630,420,150,20);
         add(lb_showPassword);
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Login Button }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

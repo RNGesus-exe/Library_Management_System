@@ -90,7 +90,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new DashboardUI();
+                new IssueBookUI();
             }
 
             @Override
@@ -127,7 +127,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new SearchBookUI();
+                new ReturnBookUI();
             }
 
             @Override
@@ -221,7 +221,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 new FileManager().deleteSharedPreferences();
                 dispose();
-                new LoginMenu();
+                new LoginUI();
             }
 
             @Override
@@ -473,7 +473,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_books_issued.setBounds(400,515,300,30);
         txt_books_issued.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_books_issued.setEditable(false);
-        txt_books_issued.setText(""+Driver.dataAgent.getIssuedBooks(Driver.currentUser.getUser_id()));
+        txt_books_issued.setText(""+Driver.dataAgent.getIssuedBooksCount(Driver.currentUser.getUser_id()));
         txt_books_issued.setHorizontalAlignment(JTextField.CENTER);
         panel_bookDetails.add(txt_books_issued);
 

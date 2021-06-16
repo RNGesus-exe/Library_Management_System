@@ -45,8 +45,10 @@ public class SignUpUI extends JFrame implements ActionListener {
     
     public static String[] securityQuestions = {
             "--Select One--",
-            "What is your hobby?","What is your favourite color?",
-            "Who is your best friend?","What is your lucky number?"
+            "What is your hobby?",
+            "What is your favourite color?",
+            "Who is your best friend?",
+            "What is your lucky number?"
     };
     
     
@@ -481,7 +483,7 @@ public class SignUpUI extends JFrame implements ActionListener {
             super.setState(JFrame.ICONIFIED);
         }else if(e.getSource()==btn_signUp){
             if(isSignUpValid()){
-                Driver.dataAgent.addUser(createUser());
+                Driver.dataAgent.addUser(createUser(),txt_securityQuestionAnswer.getText().trim(),cmbx_securityQuestion.getSelectedIndex());
                 JOptionPane.showMessageDialog(null,"Sign Up completed successfully","Sign Up Successful",JOptionPane.INFORMATION_MESSAGE);
                 dispose();
                 new LoginUI();
