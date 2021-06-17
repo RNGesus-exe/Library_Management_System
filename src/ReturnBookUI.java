@@ -422,9 +422,10 @@ public class ReturnBookUI extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null,"No Book Selected! Please select Book which you want to return","Error",JOptionPane.ERROR_MESSAGE);
             }
             else{
-                System.out.println("Issue Date : "+(tableModel.getValueAt(table.getSelectedRow(),0)));
-                System.out.println("Book Title : "+(tableModel.getValueAt(table.getSelectedRow(),1)));
-                System.out.println("Due Date : "+(tableModel.getValueAt(table.getSelectedRow(),2)));
+                Driver.dataAgent.addReturnReceipt(new IssueBook((String) tableModel.getValueAt(table.getSelectedRow(),0),(String)tableModel.getValueAt(table.getSelectedRow(),1),(String)tableModel.getValueAt(table.getSelectedRow(),2)));
+                JOptionPane.showMessageDialog(null,"Book returned successfully","Information",JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+                new ReturnBookUI();
             }
         }
     }

@@ -413,11 +413,11 @@ public class BookLogsUI extends JFrame {
             Object[] row;
 
             if(returnedBooks==null){
-//                JOptionPane.showMessageDialog(null,"No Issued Books","Message",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"No Issued Books","Message",JOptionPane.INFORMATION_MESSAGE);
             }
             else{
                 for (ReturnBook returnedBook : returnedBooks) {
-                    row = new Object[]{returnedBook.getIssue_date(), returnedBook.getBook_title(), returnedBook.getDue_date()};
+                    row = new Object[]{returnedBook.getIssue_date(), returnedBook.getBook_title(), returnedBook.getDue_date(),returnedBook.getDate_of_return()};
                     tableModel2.addRow(row);
                 }
             }

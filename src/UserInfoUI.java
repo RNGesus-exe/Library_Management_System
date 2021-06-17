@@ -16,10 +16,10 @@ public class UserInfoUI extends JFrame implements ActionListener {
     private JPanel panel_titleBar;
     private JPanel panel_sidebar;
     private JPanel panel_body;
-    private JPanel panel_home;
-    private JPanel panel_search;
+    private JPanel panel_issueBook;
+    private JPanel panel_returnBook;
+    private JPanel panel_booksLogs;
     private JPanel panel_userInfo;
-    private JPanel panel_setting;
     private JPanel panel_logout;
     private JLabel lb_topbarTitle;
     private JLabel lb_logo;
@@ -79,14 +79,14 @@ public class UserInfoUI extends JFrame implements ActionListener {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Sidebar Menu Items }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-//<<<<< Dashboard >>>>>>
-        panel_home = new JPanel();
-        panel_home.setBounds(20,260,260,60);
-        panel_home.setBackground(sidebarItemColor);
-        panel_home.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_home.setLayout(null);
-        panel_sidebar.add(panel_home);
-        panel_home.addMouseListener(new MouseAdapter() {
+//<<<<< Issue Book >>>>>>
+        panel_issueBook = new JPanel();
+        panel_issueBook.setBounds(20,260,260,60);
+        panel_issueBook.setBackground(sidebarItemColor);
+        panel_issueBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_issueBook.setLayout(null);
+        panel_sidebar.add(panel_issueBook);
+        panel_issueBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
@@ -95,35 +95,35 @@ public class UserInfoUI extends JFrame implements ActionListener {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                panel_home.setBackground(sidebarHoverColor);
+                panel_issueBook.setBackground(sidebarHoverColor);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                panel_home.setBackground(sidebarItemColor);
+                panel_issueBook.setBackground(sidebarItemColor);
             }
         });
 
         //Icon
-        img = new ImageIcon("img/dashboard.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_dashboardIcon = new JLabel(new ImageIcon(img));
-        lb_dashboardIcon.setBounds(0,0,60,60);
-        panel_home.add(lb_dashboardIcon);
+        img = new ImageIcon("img/book-exchange.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        JLabel lb_issueBookIcon = new JLabel(new ImageIcon(img));
+        lb_issueBookIcon.setBounds(0,0,60,60);
+        panel_issueBook.add(lb_issueBookIcon);
 
         // Label
-        JLabel lb_dashboard = new JLabel("Dashboard");
-        lb_dashboard.setBounds(70,0,190, 60);
-        lb_dashboard.setFont(sidebarMenuFont);
-        panel_home.add(lb_dashboard);
+        JLabel lb_issueBook = new JLabel("Issue Book");
+        lb_issueBook.setBounds(70,0,190, 60);
+        lb_issueBook.setFont(sidebarMenuFont);
+        panel_issueBook.add(lb_issueBook);
 
 //<<<<< Search Book >>>>>>
-        panel_search = new JPanel();
-        panel_search.setBounds(20,325,260,60);
-        panel_search.setBackground(sidebarHoverColor);
-        panel_search.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_search.setLayout(null);
-        panel_sidebar.add(panel_search);
-        panel_search.addMouseListener(new MouseAdapter() {
+        panel_returnBook = new JPanel();
+        panel_returnBook.setBounds(20,325,260,60);
+        panel_returnBook.setBackground(sidebarItemColor);
+        panel_returnBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_returnBook.setLayout(null);
+        panel_sidebar.add(panel_returnBook);
+        panel_returnBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
@@ -132,82 +132,80 @@ public class UserInfoUI extends JFrame implements ActionListener {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                panel_search.setBackground(sidebarHoverColor);
+                panel_returnBook.setBackground(sidebarHoverColor);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                panel_search.setBackground(sidebarItemColor);
+                panel_returnBook.setBackground(sidebarItemColor);
             }
         });
 
         //Menu Icon
-        img = new ImageIcon("img/menu.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_searchIcon = new JLabel(new ImageIcon(img));
-        lb_searchIcon.setBounds(0,0,60,60);
-        panel_search.add(lb_searchIcon);
+        img = new ImageIcon("img/book-return.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        JLabel lb_returnBookIcon = new JLabel(new ImageIcon(img));
+        lb_returnBookIcon.setBounds(0,0,60,60);
+        panel_returnBook.add(lb_returnBookIcon);
 
         // Menu Label
-        JLabel lb_searchBook = new JLabel("Search Book");
-        lb_searchBook.setBounds(70,0,190, 60);
-        lb_searchBook.setFont(sidebarMenuFont);
-        panel_search.add(lb_searchBook);
+        JLabel lb_returnBook = new JLabel("Return Book");
+        lb_returnBook.setBounds(70,0,190, 60);
+        lb_returnBook.setFont(sidebarMenuFont);
+        panel_returnBook.add(lb_returnBook);
 
-//<<<<< User User Info >>>>>>
+//<<<<< Book Logs >>>>>>
+        panel_booksLogs = new JPanel();
+        panel_booksLogs.setBounds(20,390,260,60);
+        panel_booksLogs.setBackground(sidebarItemColor);
+        panel_booksLogs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_booksLogs.setLayout(null);
+        panel_sidebar.add(panel_booksLogs);
+        panel_booksLogs.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new FileManager().deleteSharedPreferences();
+                dispose();
+                new BookLogsUI();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panel_booksLogs.setBackground(sidebarHoverColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panel_booksLogs.setBackground(sidebarItemColor);
+            }
+        });
+
+        img = new ImageIcon("img/book-log.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        JLabel lb_bookLogsIcon = new JLabel(new ImageIcon(img));
+        lb_bookLogsIcon.setBounds(0,0,60,60);
+        panel_booksLogs.add(lb_bookLogsIcon);
+
+        JLabel lb_bookLogs = new JLabel("Book Logs");
+        lb_bookLogs.setBounds(70,0,190, 60);
+        lb_bookLogs.setFont(sidebarMenuFont);
+        panel_booksLogs.add(lb_bookLogs);
+
+//<<<<< User Info >>>>>>
         panel_userInfo = new JPanel();
-        panel_userInfo.setBounds(20,390,260,60);
+        panel_userInfo.setBounds(20,455,260,60);
         panel_userInfo.setBackground(sidebarHoverColor);
         panel_userInfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         panel_userInfo.setLayout(null);
         panel_sidebar.add(panel_userInfo);
 
-        //User Info Icon
         img = new ImageIcon("img/user-info.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_userInfoIcon = new JLabel(new ImageIcon(img));
         lb_userInfoIcon.setBounds(0,0,60,60);
         panel_userInfo.add(lb_userInfoIcon);
 
-        // User Info Menu
         JLabel lb_userInfo = new JLabel("User Info");
         lb_userInfo.setBounds(70,0,190, 60);
         lb_userInfo.setFont(sidebarMenuFont);
         panel_userInfo.add(lb_userInfo);
-
-//<<<<< Settings >>>>>>
-        panel_setting = new JPanel();
-        panel_setting.setBounds(20,455,260,60);
-        panel_setting.setBackground(sidebarItemColor);
-        panel_setting.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        panel_setting.setLayout(null);
-        panel_sidebar.add(panel_setting);
-        panel_setting.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                panel_setting.setBackground(sidebarHoverColor);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                panel_setting.setBackground(sidebarItemColor);
-            }
-        });
-
-        // Icon
-        img = new ImageIcon("img/cog.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        JLabel lb_settingIcon = new JLabel(new ImageIcon(img));
-        lb_settingIcon.setBounds(0,0,60,60);
-        panel_setting.add(lb_settingIcon);
-
-        // Label
-        JLabel lb_setting = new JLabel("Setting");
-        lb_setting.setBounds(70,0,190, 60);
-        lb_setting.setFont(sidebarMenuFont);
-        panel_setting.add(lb_setting);
 
 //<<<<< Log Out >>>>>>
         panel_logout = new JPanel();
@@ -235,13 +233,11 @@ public class UserInfoUI extends JFrame implements ActionListener {
             }
         });
 
-        //Home Icon
         img = new ImageIcon("img/logout.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_logoutIcon = new JLabel(new ImageIcon(img));
         lb_logoutIcon.setBounds(0,0,60,60);
         panel_logout.add(lb_logoutIcon);
 
-        // Home Menu
         JLabel lb_logout = new JLabel("Log Out");
         lb_logout.setBounds(70,0,190, 60);
         lb_logout.setFont(sidebarMenuFont);
@@ -274,7 +270,6 @@ public class UserInfoUI extends JFrame implements ActionListener {
         btn_close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_close.setFocusPainted(false);
         btn_close.setFont(new Font("Arial", Font.BOLD, 20));
-//        btn_close.addActionListener(this);
         panel_titleBar.add(btn_close);
         btn_close.addMouseListener(new MouseAdapter() {
             @Override
@@ -333,149 +328,172 @@ public class UserInfoUI extends JFrame implements ActionListener {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ User Info }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-        JPanel panel_bookDetails = new JPanel();
-        panel_bookDetails.setBounds(50,0,800,800);
-        panel_bookDetails.setBackground(dashboardItemColor);
-        panel_bookDetails.setLayout(null);
-        panel_body.add(panel_bookDetails);
+        JPanel panel_userInfo = new JPanel();
+        panel_userInfo.setBounds(50,90,800,620);
+        panel_userInfo.setBackground(dashboardItemColor);
+        panel_userInfo.setLayout(null);
+        panel_body.add(panel_userInfo);
 
 
         JLabel lb_bookDetail = new JLabel("User Information");
         lb_bookDetail.setBounds(300,20,250,32);
         lb_bookDetail.setFont(new Font("Arial",Font.BOLD,30));
-        panel_bookDetails.add(lb_bookDetail);
+        panel_userInfo.add(lb_bookDetail);
 
-        //<<<<<< Details >>>>>>>>
+//<<<<<< Details >>>>>>>>
 
+        // Name
         JLabel lb_name = new JLabel("Name");
         lb_name.setBounds(100,100,200,25);
         lb_name.setFont(labelFonts);
         lb_name.setForeground(Color.red);
-        panel_bookDetails.add(lb_name);
-
-        JLabel lb_mobileNumber = new JLabel("Mobile Number");
-        lb_mobileNumber.setBounds(100,150,200,25);
-        lb_mobileNumber.setFont(labelFonts);
-        lb_mobileNumber.setForeground(Color.red);
-        panel_bookDetails.add(lb_mobileNumber);
-
-        JLabel lb_address = new JLabel("Address");
-        lb_address.setBounds(100,200,200,25);
-        lb_address.setFont(labelFonts);
-        lb_address.setForeground(Color.red);
-        panel_bookDetails.add(lb_address);
-
-        JLabel lb_cnic = new JLabel("CNIC");
-        lb_cnic.setBounds(100,265,200,25);
-        lb_cnic.setFont(labelFonts);
-        lb_cnic.setForeground(Color.red);
-        panel_bookDetails.add(lb_cnic);
-
-        JLabel lb_email = new JLabel("Email");
-        lb_email.setBounds(100,315,200,25);
-        lb_email.setFont(labelFonts);
-        lb_email.setForeground(Color.red);
-        panel_bookDetails.add(lb_email);
-
-        JLabel lb_password = new JLabel("Password");
-        lb_password.setBounds(100,365,200,25);
-        lb_password.setFont(labelFonts);
-        lb_password.setForeground(Color.red);
-        panel_bookDetails.add(lb_password);
-
-        //<<<<<< Data Fetch From Database >>>>>>>>
+        panel_userInfo.add(lb_name);
 
         JTextField txt_name = new JTextField();
         txt_name.setBounds(400,95,300,30);
         txt_name.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_name.setEditable(false);
-        txt_name.setText(Driver.currentUser.getFirstName()+Driver.currentUser.getLastName());
-        txt_name.setHorizontalAlignment(JTextField.CENTER);
-        panel_bookDetails.add(txt_name);
+        txt_name.setText(Driver.currentUser.getFirstName()+" "+Driver.currentUser.getLastName());
+        panel_userInfo.add(txt_name);
+
+        // Mobile Number
+        JLabel lb_mobileNumber = new JLabel("Mobile Number");
+        lb_mobileNumber.setBounds(100,150,200,25);
+        lb_mobileNumber.setFont(labelFonts);
+        lb_mobileNumber.setForeground(Color.red);
+        panel_userInfo.add(lb_mobileNumber);
 
         JTextField txt_mobileNumber = new JTextField();
         txt_mobileNumber.setBounds(400,145,300,30);
         txt_mobileNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_mobileNumber.setEditable(false);
         txt_mobileNumber.setText(Driver.currentUser.getMobileNumber());
-        txt_mobileNumber.setHorizontalAlignment(JTextField.CENTER);
-        panel_bookDetails.add(txt_mobileNumber);
+        panel_userInfo.add(txt_mobileNumber);
+
+        // Address
+        JLabel lb_address = new JLabel("Address");
+        lb_address.setBounds(100,200,200,25);
+        lb_address.setFont(labelFonts);
+        lb_address.setForeground(Color.red);
+        panel_userInfo.add(lb_address);
 
         JTextArea textArea_address = new JTextArea();
         textArea_address.setBounds(400,195,300,50);
         textArea_address.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         textArea_address.setEditable(false);
         textArea_address.setText(Driver.currentUser.getAddress());
-        panel_bookDetails.add(textArea_address);
+        panel_userInfo.add(textArea_address);
+
+        // CNIC
+        JLabel lb_cnic = new JLabel("CNIC");
+        lb_cnic.setBounds(100,275,200,25);
+        lb_cnic.setFont(labelFonts);
+        lb_cnic.setForeground(Color.red);
+        panel_userInfo.add(lb_cnic);
 
         JTextField txt_cnic = new JTextField();
-        txt_cnic.setBounds(400,265,300,30);
+        txt_cnic.setBounds(400,270,300,30);
         txt_cnic.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_cnic.setEditable(false);
         txt_cnic.setText(Driver.currentUser.getCnic());
-        txt_cnic.setHorizontalAlignment(JTextField.CENTER);
-        panel_bookDetails.add(txt_cnic);
+        panel_userInfo.add(txt_cnic);
+
+        // Email
+        JLabel lb_email = new JLabel("Email");
+        lb_email.setBounds(100,325,200,25);
+        lb_email.setFont(labelFonts);
+        lb_email.setForeground(Color.red);
+        panel_userInfo.add(lb_email);
 
         JTextField txt_email = new JTextField();
-        txt_email.setBounds(400,315,300,30);
+        txt_email.setBounds(400,320,300,30);
         txt_email.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_email.setEditable(false);
         txt_email.setText(Driver.currentUser.getEmail());
-        txt_email.setHorizontalAlignment(JTextField.CENTER);
-        panel_bookDetails.add(txt_email);
+        panel_userInfo.add(txt_email);
+
+        // Password
+        JLabel lb_password = new JLabel("Password");
+        lb_password.setBounds(100,375,200,25);
+        lb_password.setFont(labelFonts);
+        lb_password.setForeground(Color.red);
+        panel_userInfo.add(lb_password);
 
         JPasswordField txt_password = new JPasswordField();
-        txt_password.setBounds(400,365,300,30);
+        txt_password.setBounds(400,370,300,30);
         txt_password.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_password.setEditable(false);
         txt_password.setText(Driver.currentUser.getEmail());
-        txt_password.setHorizontalAlignment(JTextField.CENTER);
-        panel_bookDetails.add(txt_password);
+        panel_userInfo.add(txt_password);
+
+        JLabel lb_changePassword = new JLabel("Change Password?");
+        lb_changePassword.setBounds(590,400,120,20);
+        lb_changePassword.setForeground(sidebarColor);
+        lb_changePassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        panel_userInfo.add(lb_changePassword);
+        lb_changePassword.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new ResetPasswordUI();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                lb_changePassword.setForeground(sidebarHoverColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                lb_changePassword.setForeground(sidebarColor);
+            }
+        });
+
+        // User Rank
+        JLabel lb_rank = new JLabel("Rank");
+        lb_rank.setBounds(100,435,200,25);
+        lb_rank.setFont(labelFonts);
+        lb_rank.setForeground(Color.red);
+        panel_userInfo.add(lb_rank);
+
+        JTextField txt_rank = new JTextField();
+        txt_rank.setBounds(400,440,300,30);
+        txt_rank.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        txt_rank.setEditable(false);
+        Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id());
+        System.out.println(Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id()));
+        txt_rank.setText(Driver.levels[(Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())/2)-1]);
+        panel_userInfo.add(txt_rank);
+
+        // Book Issue Limit
+        JLabel lb_limit = new JLabel("Book Issue Limit");
+        lb_limit.setBounds(100,485,200,25);
+        lb_limit.setFont(labelFonts);
+        lb_limit.setForeground(Color.red);
+        panel_userInfo.add(lb_limit);
+
+        JTextField txt_limit = new JTextField();
+        txt_limit.setBounds(400,490,300,30);
+        txt_limit.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        txt_limit.setEditable(false);
+        txt_limit.setText(""+Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())*2);
+        panel_userInfo.add(txt_limit);
 
 
-//================================LEVEL DETAIL UI=============
+        // Current Issued Books
+        JLabel lb_NoOfIssuedBooks = new JLabel("Current Issued Books");
+        lb_NoOfIssuedBooks.setBounds(100,535,250,25);
+        lb_NoOfIssuedBooks.setFont(labelFonts);
+        lb_NoOfIssuedBooks.setForeground(Color.red);
+        panel_userInfo.add(lb_NoOfIssuedBooks);
 
-        JLabel lb_level_rank = new JLabel("Rank");
-        lb_level_rank.setBounds(100,415,200,25);
-        lb_level_rank.setFont(labelFonts);
-        lb_level_rank.setForeground(Color.red);
-        panel_bookDetails.add(lb_level_rank);
+        JTextField txt_NoOfIssuedBooks = new JTextField();
+        txt_NoOfIssuedBooks.setBounds(400,540,300,30);
+        txt_NoOfIssuedBooks.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        txt_NoOfIssuedBooks.setEditable(false);
+        txt_NoOfIssuedBooks.setText(""+Driver.dataAgent.getIssuedBooksCount(Driver.currentUser.getUser_id()));
+        panel_userInfo.add(txt_NoOfIssuedBooks);
 
-        JTextField txt_level_rank = new JTextField();
-        txt_level_rank.setBounds(400,415,300,30);
-        txt_level_rank.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_level_rank.setEditable(false);
-        txt_level_rank.setText(Driver.levels[Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())-1]);
-        txt_level_rank.setHorizontalAlignment(JTextField.CENTER);
-        panel_bookDetails.add(txt_level_rank);
-
-        JLabel lb_book_issue_limit = new JLabel("Book Issue Limit");
-        lb_book_issue_limit.setBounds(100,465,200,25);
-        lb_book_issue_limit.setFont(labelFonts);
-        lb_book_issue_limit.setForeground(Color.red);
-        panel_bookDetails.add(lb_book_issue_limit);
-
-        JTextField txt_book_issue_limit = new JTextField();
-        txt_book_issue_limit.setBounds(400,465,300,30);
-        txt_book_issue_limit.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_book_issue_limit.setEditable(false);
-        txt_book_issue_limit.setText(""+Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())*2);
-        txt_book_issue_limit.setHorizontalAlignment(JTextField.CENTER);
-        panel_bookDetails.add(txt_book_issue_limit);
-
-        JLabel lb_books_issued = new JLabel("Books Currently Issued");
-        lb_books_issued.setBounds(100,515,200,25);
-        lb_books_issued.setFont(labelFonts);
-        lb_books_issued.setForeground(Color.red);
-        panel_bookDetails.add(lb_books_issued);
-
-        JTextField txt_books_issued = new JTextField();
-        txt_books_issued.setBounds(400,515,300,30);
-        txt_books_issued.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_books_issued.setEditable(false);
-        txt_books_issued.setText(""+Driver.dataAgent.getIssuedBooksCount(Driver.currentUser.getUser_id()));
-        txt_books_issued.setHorizontalAlignment(JTextField.CENTER);
-        panel_bookDetails.add(txt_books_issued);
 
         setVisible(true);
     }

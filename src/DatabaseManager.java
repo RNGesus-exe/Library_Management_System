@@ -245,6 +245,7 @@ public class DatabaseManager {
                 returned_book.setBook_title(rs.getString(1));
                 returned_book.setIssue_date(rs.getString(2));
                 returned_book.setDue_date(rs.getString(3));
+                returned_book.setDate_of_return(rs.getString(4));
                 returned_books.add(returned_book);
             }while (rs.next());
             return returned_books;
@@ -435,7 +436,7 @@ public class DatabaseManager {
         try {
             PreparedStatement ppStatement = connection.prepareStatement(query);
             ppStatement.setInt(1, getId(user.getEmail(),user.getPassword()));
-            ppStatement.setInt(3, 2);
+            ppStatement.setInt(2, 2);
             ppStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

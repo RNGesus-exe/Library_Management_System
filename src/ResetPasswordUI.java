@@ -440,13 +440,13 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Password changed successfully","Information", JOptionPane.INFORMATION_MESSAGE);
-                    /*try {
+                    try {
                         Driver.dataAgent.resetPassword(txt_newPassword.getText().trim());
                         dispose();
                         new UserInfoUI();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
-                    }*/
+                    }
                 }
             }
 
