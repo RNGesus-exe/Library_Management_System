@@ -255,7 +255,8 @@ public class LoginUI extends JFrame {
         lb_forgotPassword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Forgot Password Code
+                dispose();
+                new ForgotPasswordUI();
             }
 
             @Override
