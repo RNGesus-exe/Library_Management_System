@@ -374,14 +374,14 @@ public class ReturnBookUI extends JFrame implements ActionListener {
             issuedBooks = Driver.dataAgent.getIssuedBooks(Driver.currentUser.getUser_id());
             Object[] row;
 
-            if(issuedBooks==null){
-                JOptionPane.showMessageDialog(null,"You have not issued any book. No book to return","Information",JOptionPane.INFORMATION_MESSAGE);
-            }
-            else{
+            if(issuedBooks!=null){
                 for (IssueBook issuedBook : issuedBooks) {
                     row = new Object[]{issuedBook.getIssue_date(), issuedBook.getBook_title(), issuedBook.getDue_date()};
                     tableModel.addRow(row);
                 }
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"You have not issued any book. No book to return","Information",JOptionPane.INFORMATION_MESSAGE);
             }
 
         } catch (SQLException throwables) {
