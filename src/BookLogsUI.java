@@ -367,15 +367,12 @@ public class BookLogsUI extends JFrame {
             ArrayList<IssueBook> issuedBooks = Driver.dataAgent.getIssuedBooks(Driver.currentUser.getUser_id());
             Object[] row;
 
-            if(issuedBooks==null){
-//                JOptionPane.showMessageDialog(null,"No Issued Books","Message",JOptionPane.INFORMATION_MESSAGE);
-            }
-            else{
+                //Populating Data into Table of Issued Books
                 for (IssueBook issuedBook : issuedBooks) {
                     row = new Object[]{issuedBook.getIssue_date(), issuedBook.getBook_title(), issuedBook.getDue_date()};
                     tableModel1.addRow(row);
                 }
-            }
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -412,15 +409,15 @@ public class BookLogsUI extends JFrame {
             ArrayList<ReturnBook> returnedBooks = Driver.dataAgent.getReturnedBooks();
             Object[] row;
 
-            if(returnedBooks==null){
-                JOptionPane.showMessageDialog(null,"No Issued Books","Message",JOptionPane.INFORMATION_MESSAGE);
-            }
-            else{
+            if(returnedBooks!=null){
+                //Populating Returned Books Detail in Table
                 for (ReturnBook returnedBook : returnedBooks) {
                     row = new Object[]{returnedBook.getIssue_date(), returnedBook.getBook_title(), returnedBook.getDue_date(),returnedBook.getDate_of_return()};
                     tableModel2.addRow(row);
                 }
             }
+
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
