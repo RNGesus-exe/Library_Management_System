@@ -72,6 +72,88 @@ public class DatabaseManager {
         }
     }
 
+    public boolean recoverPassword(String username, int securityQuestion, String answer){
+        String query = "SELECT * " +
+                "FROM Users " +
+                "WHERE username = ? AND securityQuestion = ? AND securityAnswer = ?;";
+        try {
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ppStatement.setString(1, username);
+            ppStatement.setInt(2,securityQuestion);
+            ppStatement.setString(3,answer);
+            ResultSet rs = ppStatement.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void removeUser(int user_id) throws SQLException {
+        String query = """
+                DELETE FROM Users
+                WHERE Users.user_id = ?;
+                """;
+        PreparedStatement ppStatement = connection.prepareStatement(query);
+        ppStatement.setInt(1, user_id);
+        ppStatement.executeUpdate();
+    }
+
+    public void updateUser(int user_id,String first_name,String last_name,String address) throws SQLException {
+        String query = "UPDATE Users " +
+                "SET first_name = ? AND last_name = ? AND address = ? " +
+                "WHERE user_id = ?";
+        PreparedStatement ppStatement = connection.prepareStatement(query);
+        ppStatement.setInt(4, user_id);
+        ppStatement.setString(1,first_name);
+        ppStatement.setString(2, last_name);
+        ppStatement.setString(3, address);
+        ppStatement.executeUpdate();
+    }
+
+    public void addBook(Book book) throws IOException{
+        String query = "INSERT INTO Users (book_title,book_author,book_genre,book_copies_sold,book_rating,book_release_year)" +
+                " VALUES(?,?,?,?,?,?)";
+        try {
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ppStatement.setString(1, book.getTitle());
+            ppStatement.setString(2, book.getAuthor());
+            ppStatement.setString(3, book.getGenre());
+            ppStatement.setInt(4, book.getNoOfCopies());
+            ppStatement.setFloat(5, book.getRating());
+            ppStatement.setString(6, book.getDateOfRelease());
+            ppStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        new FileManager().writeBook(book);
+    }
+
+    public void removeBook(int book_id) throws SQLException {
+        String query = """
+                DELETE FROM Books
+                WHERE Books.book_id = ?;
+                """;
+        PreparedStatement ppStatement = connection.prepareStatement(query);
+        ppStatement.setInt(1,book_id);
+        ppStatement.executeUpdate();
+    }
+
+    public void updateBook(int book_id,String book_title,String book_author,String book_genre, int copies, float rating, int release_year) throws SQLException {
+        String query = "UPDATE Books " +
+                "SET book_title = ? AND book_author = ? AND book_genre = ? AND book_copies_sold = ? AND book_rating AND book_release_year = ? " +
+                "WHERE book_id = ?";
+        PreparedStatement ppStatement = connection.prepareStatement(query);
+        ppStatement.setInt(7, book_id);
+        ppStatement.setString(1, book_title);
+        ppStatement.setString(2, book_author);
+        ppStatement.setString(3, book_genre);
+        ppStatement.setInt(4, copies);
+        ppStatement.setFloat(5, rating);
+        ppStatement.setInt(6, release_year);
+        ppStatement.executeUpdate();
+    }
+
     public ArrayList<IssueBook> getIssuedBooks(int user_id) throws SQLException {
         String query = """
                 SELECT IssuedBook.issue_time,Books.book_title,IssuedBook.due_time
@@ -156,6 +238,15 @@ public class DatabaseManager {
         ppStatement.executeUpdate();
     }
 
+    public void decreaseLevelExperience(int user_id) throws SQLException {
+        String query = "UPDATE Levels " +
+                "SET level_experience = level_experience - 2 " +
+                "WHERE user_id = ?";
+        PreparedStatement ppStatement = connection.prepareStatement(query);
+        ppStatement.setInt(1, user_id);
+        ppStatement.executeUpdate();
+    }
+
     public void addIssueBookReceipt(int user_id,int book_id){
         String query = "INSERT INTO IssuedBook (user_id,book_id) VALUES(?,?)";
         try {
@@ -168,31 +259,6 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
-    }
-
-    public ArrayList<IssueBook> getIssuedBooksCount() throws SQLException {
-        String query = """
-                SELECT Books.book_title,IssuedBook.issue_time,IssuedBook.due_time\s
-                FROM IssuedBook
-                INNER JOIN Books\s
-                ON IssuedBook.book_id = Books.book_id
-                WHERE IssuedBook.user_id = ?;""";
-        PreparedStatement ppStatement = connection.prepareStatement(query);
-        ppStatement.setInt(1,Driver.currentUser.getUser_id());
-        ResultSet rs = ppStatement.executeQuery();
-        ArrayList<IssueBook> issued_books = new ArrayList<>();
-        IssueBook issued_book = null;
-        if(rs.next()) {
-            do{
-                issued_book = new IssueBook();
-                issued_book.setBook_title(rs.getString(1));
-                issued_book.setIssue_date(rs.getString(2));
-                issued_book.setDue_date(rs.getString(3));
-                issued_books.add(issued_book);
-            }while (rs.next());
-            return issued_books;
-        }
-        return null;
     }
 
     public void resetPassword(String password) throws SQLException {
@@ -222,7 +288,7 @@ public class DatabaseManager {
                 WHERE book_id = ?;""";
         PreparedStatement ppStatement = connection.prepareStatement(query);
         ppStatement.setInt(1, book_id);
-        ResultSet rs = ppStatement.executeQuery();
+        ppStatement.executeUpdate();
     }
 
     public ArrayList<ReturnBook> getReturnedBooks() throws SQLException {
@@ -296,18 +362,50 @@ public class DatabaseManager {
         return -1;
     }
 
+    public Timestamp getBookReturnTime(int borrow_id){
+        String query = """
+                SELECT ReturnedBook.returned_time
+                FROM ReturnedBook
+                WHERE ReturnedBook.borrow_id = ?;""";
+        try {
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ppStatement.setInt(1, borrow_id);
+            ResultSet rs = ppStatement.executeQuery();
+            if (rs.next()) {
+                return rs.getTimestamp(1);
+            } else {
+                return null;
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void addReturnReceipt(IssueBook book){
         String query = "INSERT INTO ReturnedBook(ReturnedBook.borrow_id) VALUES (?)";
         try {
             PreparedStatement ppStatement = connection.prepareStatement(query);
             ppStatement.setInt(1,this.getBorrowId(book));
             ppStatement.execute();
-            this.increaseLevelExperience(Driver.currentUser.getUser_id());
+            this.increaseBookCopy(this.getBookId(book.getBook_title()));
+            Timestamp returnTime = this.getBookReturnTime(this.getBorrowId(book));
+            Timestamp dueTime = Timestamp.valueOf(book.getDue_date());
+            int user_xp = this.getUserExperience(Driver.currentUser.getUser_id());
+            if(returnTime.compareTo(dueTime) > 0){
+                if(user_xp - 2 != 0) {
+                    this.decreaseLevelExperience(Driver.currentUser.getUser_id());
+                }
+            }
+            else{
+                if(user_xp + 2 != 10 ) {
+                    this.increaseLevelExperience(Driver.currentUser.getUser_id());
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
     //Reference SearchBook
     public ArrayList<Book> searchBooks(String keyword){
@@ -355,7 +453,6 @@ public class DatabaseManager {
         return false;
     }
 
-    //INSERT all books into mySQL Books Table
     //Reference Driver
     public void uploadBooksToDatabase(){
         FileManager fileManager = new FileManager();
@@ -409,7 +506,6 @@ public class DatabaseManager {
         }
         return -1;
     }
-
 
     // Reference SignUp
     public void addUser(User user,String securityAnswer,int securityQuestion) {

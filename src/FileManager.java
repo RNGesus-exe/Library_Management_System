@@ -55,6 +55,14 @@ public class FileManager {
         }
     }
 
+    public void writeBook(Book book) throws IOException {
+        FileWriter fileWriter =  new FileWriter("books_data.csv",true);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.write('\n'+book.getDateOfRelease()+";"+book.getTitle()+";"+book.getAuthor()+";"+book.getRating()
+                +";"+book.getGenre()+";"+book.getNoOfCopies());
+        bufferedWriter.close();
+    }
+
     public void deleteSharedPreferences(){
         file.delete();
     }

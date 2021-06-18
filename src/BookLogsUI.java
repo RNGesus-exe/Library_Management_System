@@ -364,7 +364,7 @@ public class BookLogsUI extends JFrame {
 
         // Populating Issued Books Detail in Table
         try {
-            ArrayList<IssueBook> issuedBooks = Driver.dataAgent.getIssuedBooksCount();
+            ArrayList<IssueBook> issuedBooks = Driver.dataAgent.getIssuedBooks(Driver.currentUser.getUser_id());
             Object[] row;
 
             if(issuedBooks==null){
