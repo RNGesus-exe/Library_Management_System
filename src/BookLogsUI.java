@@ -367,10 +367,12 @@ public class BookLogsUI extends JFrame {
             ArrayList<IssueBook> issuedBooks = Driver.dataAgent.getIssuedBooks(Driver.currentUser.getUser_id());
             Object[] row;
 
-                //Populating Data into Table of Issued Books
-                for (IssueBook issuedBook : issuedBooks) {
-                    row = new Object[]{issuedBook.getIssue_date(), issuedBook.getBook_title(), issuedBook.getDue_date()};
-                    tableModel1.addRow(row);
+                if(issuedBooks!=null){
+                    //Populating Data into Table of Issued Books
+                    for (IssueBook issuedBook : issuedBooks) {
+                        row = new Object[]{issuedBook.getIssue_date(), issuedBook.getBook_title(), issuedBook.getDue_date()};
+                        tableModel1.addRow(row);
+                    }
                 }
 
 
