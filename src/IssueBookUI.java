@@ -13,6 +13,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
     private final int FRAME_WIDTH = 1200;
     private final int FRAME_HEIGHT = 900;
     private final Font sidebarMenuFont = new Font("Arial", Font.BOLD, 26);
+    private final Font textFieldFont = new Font("Arial",Font.PLAIN,18);
 
     private DefaultListModel<String> listModel = new DefaultListModel<>();
     private JList list = null;
@@ -42,6 +43,8 @@ public class IssueBookUI extends JFrame implements ActionListener {
 
     private JTextField txt_search;
 
+    private JComboBox cmbx_searchFilter;
+    public static String[] filters = {"Search by Title","Search by Author Name","Search by Genre","Search by Year of Release","Search by Rating"};
 
     private JButton btn_close;
     private JButton btn_minimize;
@@ -99,6 +102,11 @@ public class IssueBookUI extends JFrame implements ActionListener {
         txt_search.setFont(new Font("Arial",Font.PLAIN,20));
         txt_search.setUI(new HintTextFieldUI("Search Book...",true));
         panel_body.add(txt_search);
+
+        cmbx_searchFilter = new JComboBox(filters);
+        cmbx_searchFilter.setBounds(50, 100, 200, 35);
+        cmbx_searchFilter.setFont(new Font("Arial",Font.PLAIN,16));
+        panel_body.add(cmbx_searchFilter);
 
         btn_search = new JButton("Search");
         btn_search.setBounds(730, 100, 120, 35);
@@ -430,6 +438,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         txt_title = new JTextField();
         txt_title.setBounds(330,65,370,30);
         txt_title.setEditable(false);
+        txt_title.setFont(textFieldFont);
         panel_bookDetails.add(txt_title);
 
         //<<<<<< Author >>>>>>>
@@ -442,6 +451,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         txt_author = new JTextField();
         txt_author.setBounds(330,115,370,30);
         txt_author.setEditable(false);
+        txt_author.setFont(textFieldFont);
         panel_bookDetails.add(txt_author);
 
 
@@ -455,6 +465,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         txt_genre = new JTextField();
         txt_genre.setBounds(330,165,370,30);
         txt_genre.setEditable(false);
+        txt_genre.setFont(textFieldFont);
         panel_bookDetails.add(txt_genre);
 
         //<<<<<< Pages >>>>>>>
@@ -467,6 +478,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         txt_pages = new JTextField();
         txt_pages.setBounds(330,215,370,30);
         txt_pages.setEditable(false);
+        txt_pages.setFont(textFieldFont);
         panel_bookDetails.add(txt_pages);
 
         //<<<<<< Rating >>>>>>>
@@ -479,6 +491,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         txt_rating = new JTextField();
         txt_rating.setBounds(330,265,370,30);
         txt_rating.setEditable(false);
+        txt_rating.setFont(textFieldFont);
         panel_bookDetails.add(txt_rating);
 
         //<<<<<< Release Date >>>>>>>
@@ -491,6 +504,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         txt_releaseDate = new JTextField();
         txt_releaseDate.setBounds(330,315,370,30);
         txt_releaseDate.setEditable(false);
+        txt_releaseDate.setFont(textFieldFont);
         panel_bookDetails.add(txt_releaseDate);
 
 
