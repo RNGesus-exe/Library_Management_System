@@ -291,6 +291,30 @@ public class ForgotPasswordUI extends JFrame {
         });
 
 
+        JButton btn_back = new JButton("Back");
+        btn_back.setBounds(30,650,100,35);
+        btn_back.setFont(new Font("Arial",Font.BOLD,18));
+        btn_back.setBackground(Color.RED);
+        add(btn_back);
+        btn_back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new LoginUI();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btn_back.setBackground(Color.decode("#cc1006"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btn_back.setBackground(Color.RED);
+            }
+        });
+
+
         setVisible(true);
     }
 
