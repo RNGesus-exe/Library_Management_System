@@ -36,6 +36,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
     private Color topbarColor = Color.decode("#ede2e1");
 
     private Font labelFonts = new Font("Arial",Font.BOLD,20);
+    private Font textFieldFont = new Font("Arial",Font.BOLD,18);
 
     private Image img;
 
@@ -353,6 +354,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_name.setBounds(400,95,300,30);
         txt_name.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_name.setEditable(false);
+        txt_name.setFont(textFieldFont);
         txt_name.setText(Driver.currentUser.getFirstName()+" "+Driver.currentUser.getLastName());
         panel_userInfo.add(txt_name);
 
@@ -367,6 +369,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_mobileNumber.setBounds(400,145,300,30);
         txt_mobileNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_mobileNumber.setEditable(false);
+        txt_mobileNumber.setFont(textFieldFont);
         txt_mobileNumber.setText(Driver.currentUser.getMobileNumber());
         panel_userInfo.add(txt_mobileNumber);
 
@@ -381,6 +384,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         textArea_address.setBounds(400,195,300,50);
         textArea_address.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         textArea_address.setEditable(false);
+        textArea_address.setFont(textFieldFont);
         textArea_address.setText(Driver.currentUser.getAddress());
         panel_userInfo.add(textArea_address);
 
@@ -395,6 +399,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_cnic.setBounds(400,270,300,30);
         txt_cnic.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_cnic.setEditable(false);
+        txt_cnic.setFont(textFieldFont);
         txt_cnic.setText(Driver.currentUser.getCnic());
         panel_userInfo.add(txt_cnic);
 
@@ -409,6 +414,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_email.setBounds(400,320,300,30);
         txt_email.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_email.setEditable(false);
+        txt_email.setFont(textFieldFont);
         txt_email.setText(Driver.currentUser.getEmail());
         panel_userInfo.add(txt_email);
 
@@ -423,6 +429,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_password.setBounds(400,370,300,30);
         txt_password.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_password.setEditable(false);
+        txt_password.setFont(textFieldFont);
         txt_password.setText(Driver.currentUser.getEmail());
         panel_userInfo.add(txt_password);
 
@@ -460,6 +467,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_rank.setBounds(400,440,300,30);
         txt_rank.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_rank.setEditable(false);
+        txt_rank.setFont(textFieldFont);
         Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id());
         System.out.println(Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id()));
         txt_rank.setText(Driver.levels[(Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())/2)-1]);
@@ -476,6 +484,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_limit.setBounds(400,490,300,30);
         txt_limit.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_limit.setEditable(false);
+        txt_limit.setFont(textFieldFont);
         txt_limit.setText(""+Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())*2);
         panel_userInfo.add(txt_limit);
 
@@ -491,6 +500,7 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_NoOfIssuedBooks.setBounds(400,540,300,30);
         txt_NoOfIssuedBooks.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txt_NoOfIssuedBooks.setEditable(false);
+        txt_NoOfIssuedBooks.setFont(textFieldFont);
         txt_NoOfIssuedBooks.setText(""+Driver.dataAgent.getIssuedBooksCount(Driver.currentUser.getUser_id()));
         panel_userInfo.add(txt_NoOfIssuedBooks);
 
