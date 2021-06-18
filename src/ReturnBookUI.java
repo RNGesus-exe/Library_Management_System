@@ -380,9 +380,7 @@ public class ReturnBookUI extends JFrame implements ActionListener {
                     tableModel.addRow(row);
                 }
             }
-            else{
-                JOptionPane.showMessageDialog(null,"You have not issued any book. No book to return","Information",JOptionPane.INFORMATION_MESSAGE);
-            }
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
