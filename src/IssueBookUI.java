@@ -430,26 +430,26 @@ public class IssueBookUI extends JFrame implements ActionListener {
 
         //<<<<<< Book Title >>>>>>>
         JLabel lb_title = new JLabel("Book Title");
-        lb_title.setBounds(100,70,200,25);
+        lb_title.setBounds(50,70,150,25);
         lb_title.setFont(labelFonts);
         lb_title.setForeground(Color.red);
         panel_bookDetails.add(lb_title);
 
         txt_title = new JTextField();
-        txt_title.setBounds(330,65,370,30);
+        txt_title.setBounds(270,65,480,30);
         txt_title.setEditable(false);
         txt_title.setFont(textFieldFont);
         panel_bookDetails.add(txt_title);
 
         //<<<<<< Author >>>>>>>
         JLabel lb_author = new JLabel("Author Name");
-        lb_author.setBounds(100,120,200,25);
+        lb_author.setBounds(50,120,200,25);
         lb_author.setFont(labelFonts);
         lb_author.setForeground(Color.red);
         panel_bookDetails.add(lb_author);
 
         txt_author = new JTextField();
-        txt_author.setBounds(330,115,370,30);
+        txt_author.setBounds(270,115,480,30);
         txt_author.setEditable(false);
         txt_author.setFont(textFieldFont);
         panel_bookDetails.add(txt_author);
@@ -457,52 +457,52 @@ public class IssueBookUI extends JFrame implements ActionListener {
 
         //<<<<<< Genre >>>>>>>
         JLabel lb_genre = new JLabel("Genre");
-        lb_genre.setBounds(100,170,200,25);
+        lb_genre.setBounds(50,170,200,25);
         lb_genre.setFont(labelFonts);
         lb_genre.setForeground(Color.red);
         panel_bookDetails.add(lb_genre);
 
         txt_genre = new JTextField();
-        txt_genre.setBounds(330,165,370,30);
+        txt_genre.setBounds(270,165,480,30);
         txt_genre.setEditable(false);
         txt_genre.setFont(textFieldFont);
         panel_bookDetails.add(txt_genre);
 
         //<<<<<< Pages >>>>>>>
         JLabel lb_pages = new JLabel("No. Of Copies");
-        lb_pages.setBounds(100,220,200,25);
+        lb_pages.setBounds(50,220,200,25);
         lb_pages.setFont(labelFonts);
         lb_pages.setForeground(Color.red);
         panel_bookDetails.add(lb_pages);
 
         txt_pages = new JTextField();
-        txt_pages.setBounds(330,215,370,30);
+        txt_pages.setBounds(270,215,480,30);
         txt_pages.setEditable(false);
         txt_pages.setFont(textFieldFont);
         panel_bookDetails.add(txt_pages);
 
         //<<<<<< Rating >>>>>>>
         JLabel lb_rating = new JLabel("Rating");
-        lb_rating.setBounds(100,270,200,25);
+        lb_rating.setBounds(50,270,200,25);
         lb_rating.setFont(labelFonts);
         lb_rating.setForeground(Color.red);
         panel_bookDetails.add(lb_rating);
 
         txt_rating = new JTextField();
-        txt_rating.setBounds(330,265,370,30);
+        txt_rating.setBounds(270,265,480,30);
         txt_rating.setEditable(false);
         txt_rating.setFont(textFieldFont);
         panel_bookDetails.add(txt_rating);
 
         //<<<<<< Release Date >>>>>>>
-        JLabel lb_releaseDate = new JLabel("Book Title");
-        lb_releaseDate.setBounds(100,320,200,25);
+        JLabel lb_releaseDate = new JLabel("Date of Release");
+        lb_releaseDate.setBounds(50,320,150,25);
         lb_releaseDate.setFont(labelFonts);
         lb_releaseDate.setForeground(Color.red);
         panel_bookDetails.add(lb_releaseDate);
 
         txt_releaseDate = new JTextField();
-        txt_releaseDate.setBounds(330,315,370,30);
+        txt_releaseDate.setBounds(270,315,480,30);
         txt_releaseDate.setEditable(false);
         txt_releaseDate.setFont(textFieldFont);
         panel_bookDetails.add(txt_releaseDate);
