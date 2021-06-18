@@ -361,6 +361,9 @@ public class SignUpUI extends JFrame implements ActionListener {
         else if(firstName.matches("(?=.*[~!@#$%^&*()_-]).*") || lastName.matches("(?=.*[~!@#$%^&*()_-]).*")){
             return false;
         }
+        else if(firstName.length()>30 || lastName.length()>30){
+            return false;
+        }
         else{
             return true;
         }
@@ -393,7 +396,10 @@ public class SignUpUI extends JFrame implements ActionListener {
     }
 
     public boolean isPasswordStrong(String str){
-        if(str.matches("(.*)[A-Z](.*)")) // Uppercase Checking
+        if(str.length()<8 || str.length()>30){
+            return false;
+        }
+        else if(str.matches("(.*)[A-Z](.*)")) // Uppercase Checking
         {
             if(str.matches("(.*)[a-z](.*)"))  // Lowercase Checking
             {
@@ -440,7 +446,8 @@ public class SignUpUI extends JFrame implements ActionListener {
                 txt_cnic.getText().trim().isEmpty() ||
                 txt_email.getText().trim().isEmpty() ||
                 txt_password.getText().trim().isEmpty() ||
-                txt_confirmPassword.getText().trim().isEmpty()) {
+                txt_confirmPassword.getText().trim().isEmpty() ||
+                txt_securityQuestionAnswer.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null,"Please Fill all the Fields","Incomplete Information",JOptionPane.ERROR_MESSAGE);
         }
         else if(!isUsernameValid(txt_firstName.getText().trim(), txt_lastName.getText().trim())){
@@ -466,6 +473,9 @@ public class SignUpUI extends JFrame implements ActionListener {
         }
         else if(cmbx_securityQuestion.getSelectedIndex()==0){
             JOptionPane.showMessageDialog(null, "Please select your security question for password recovery.", "Incomplete Information", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(txt_securityQuestionAnswer.getText().length()>30){
+            JOptionPane.showMessageDialog(null, "Invalid Answer of Security Question! Your answer must be <30 characters", "Incomplete Information", JOptionPane.ERROR_MESSAGE);
         }
         else
         {
