@@ -510,7 +510,10 @@ public class IssueBookUI extends JFrame implements ActionListener {
                 }
                 else{
                     try {
-                        if(Driver.dataAgent.isBookIssued(books.get(list.getSelectedIndex()).getBook_id())==0) {
+                        if(Driver.dataAgent.getIssuedBooksCount(Driver.currentUser.getUser_id())>=Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())*2){
+                            JOptionPane.showMessageDialog(null,"You can't issue book. You have reached the Issue Book Limit. Please return previous issued books first to issue new books.","Limit Reached",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        else if(Driver.dataAgent.isBookIssued(books.get(list.getSelectedIndex()).getBook_id())==0) {
                             Driver.dataAgent.addIssueBookReceipt(Driver.currentUser.getUser_id(), books.get(list.getSelectedIndex()).getBook_id());
                             Driver.dataAgent.decreaseBookCopy(books.get(list.getSelectedIndex()).getBook_id());
                             JOptionPane.showMessageDialog(null,"Book issued successfully","Information",JOptionPane.INFORMATION_MESSAGE);
