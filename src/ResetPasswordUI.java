@@ -439,9 +439,11 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Error! Your password must contain Uppercase Lowercase and Special Characters\nFor Example, ABCde12@", "Weak Password!", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"Password changed successfully","Information", JOptionPane.INFORMATION_MESSAGE);
+
                     try {
+
                         Driver.dataAgent.resetPassword(txt_newPassword.getText().trim());
+                        JOptionPane.showMessageDialog(null,"Password changed successfully","Information", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                         new UserInfoUI();
                     } catch (SQLException throwables) {

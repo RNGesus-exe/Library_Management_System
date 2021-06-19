@@ -469,7 +469,6 @@ public class UserInfoUI extends JFrame implements ActionListener {
         txt_rank.setEditable(false);
         txt_rank.setFont(textFieldFont);
         Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id());
-        System.out.println(Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id()));
         txt_rank.setText(Driver.levels[(Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())/2)-1]);
         panel_userInfo.add(txt_rank);
 
@@ -511,5 +510,9 @@ public class UserInfoUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    public static void main(String[] args) {
+        new UserInfoUI();
     }
 }

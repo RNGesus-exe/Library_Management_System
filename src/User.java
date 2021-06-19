@@ -127,6 +127,12 @@ public class User {
         return password;
     }
 
+    public Object[] getUserObject() {
+        Object[] userInfo = {user_id, firstName + " " + lastName, mobileNumber, cnic, email};
+
+        return userInfo;
+    }
+
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@( Data String )@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     public String toString(){

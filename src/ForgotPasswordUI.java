@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -185,17 +186,19 @@ public class ForgotPasswordUI extends JFrame {
                 }
                 else{
                     // Here password will be recovered after matching provided data in DB
-                    if(true/*recoverPassword(txt_username.getText().trim(),cmbx_securityQuestion.getSelectedIndex(),txt_answer.getText().trim())*/){
+                    if(Driver.dataAgent.recoverPassword(txt_username.getText().trim(), cmbx_securityQuestion.getSelectedIndex(), txt_answer.getText().trim())){
                         JOptionPane.showMessageDialog(null,"User verified successfully! Please enter you new Password and save it","Password Recovery",JOptionPane.INFORMATION_MESSAGE);
                         txt_password.setEditable(true);
                         txt_confirmPassword.setEditable(true);
-                        btn_savePassword.setEnabled(true);
+                        btn_savePassword.setVisible(true);
                         txt_username.setEditable(false);
-                        cmbx_securityQuestion.setEditable(false);
-
+                        cmbx_securityQuestion.setEnabled(false);
                         txt_answer.setEditable(false);
-                        btn_generatePassword.setEnabled(false);
                         txt_password.grabFocus();
+                        System.out.println("clicked");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"User Verification Failed! Incorrect credentials","Verification Failed",JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -248,7 +251,7 @@ public class ForgotPasswordUI extends JFrame {
         btn_savePassword.setBackground(Color.decode("#25c455"));
         btn_savePassword.setFont(new Font("Arial",Font.BOLD,18));
         btn_savePassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn_savePassword.setEnabled(false);
+        btn_savePassword.setVisible(false);
         btn_savePassword.setFocusPainted(false);
         panel_resetPassword.add(btn_savePassword);
         btn_savePassword.addMouseListener(new MouseAdapter() {
@@ -264,18 +267,14 @@ public class ForgotPasswordUI extends JFrame {
                     JOptionPane.showMessageDialog(null, "Error! Your password must contain Uppercase Lowercase and Special Characters and length should be between 8-30\nFor Example, ABCde12@", "Weak Password!", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
+                    try {
 
-                   // try {
+                        Driver.dataAgent.resetPassword(txt_password.getText().trim());
+                        JOptionPane.showMessageDialog(null, "Password changed successfully", "Password Recovery", JOptionPane.INFORMATION_MESSAGE);
 
-//                        Driver.dataAgent.resetPassword(txt_password.getText().trim());
-                        JOptionPane.showMessageDialog(null,"Password recovered successfully","Password Recovery",JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
-                        new LoginUI();
-
-                  //  } catch (SQLException throwables) {
-                   //     throwables.printStackTrace();
-                 //   }
-
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                 }
             }
 
@@ -295,6 +294,7 @@ public class ForgotPasswordUI extends JFrame {
         btn_back.setBounds(30,650,100,35);
         btn_back.setFont(new Font("Arial",Font.BOLD,18));
         btn_back.setBackground(Color.RED);
+        btn_back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         add(btn_back);
         btn_back.addMouseListener(new MouseAdapter() {
             @Override
