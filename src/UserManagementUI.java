@@ -135,7 +135,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
         cmbx_filter = new JComboBox(userSearchFilter);
         cmbx_filter.setBounds(50,100,200,35);
         cmbx_filter.setFont(new Font("Arial",Font.PLAIN,16));
-        panel_body.add(cmbx_filter);
+//        panel_body.add(cmbx_filter);
 
 
         JButton btn_editUser = new JButton("Edit User");
