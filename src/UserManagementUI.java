@@ -36,18 +36,17 @@ public class UserManagementUI extends JFrame implements ActionListener {
     private JPanel panel_issueBook;
     private JPanel panel_returnBook;
     private JPanel panel_bookLogs;
-    private JPanel panel_userInfo;
-    private JPanel panel_logout;
     private JLabel lb_topbarTitle;
     private JLabel lb_logo;
 
     private JButton btn_search;
-    private JButton btn_issueBook;
 
     private JTextField txt_search;
 
     private JButton btn_close;
     private JButton btn_minimize;
+    String[] userSearchFilter = {"Search by ID","Search by Name","Search by Email"};
+    private JComboBox cmbx_filter;
 
     private Color sidebarItemColor = Color.decode("#1568cf");
     private Color sidebarHoverColor = Color.decode("#0753b0");
@@ -101,6 +100,12 @@ public class UserManagementUI extends JFrame implements ActionListener {
         panel_body.setLayout(null);
         panel_body.setBackground(Color.decode("#ebebeb"));
         add(panel_body);
+        panel_body.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                table.clearSelection();
+            }
+        });
 
         txt_search = new JTextField();
         txt_search.setBounds(50,50,800,35);
@@ -127,6 +132,11 @@ public class UserManagementUI extends JFrame implements ActionListener {
             }
         });
 
+        cmbx_filter = new JComboBox(userSearchFilter);
+        cmbx_filter.setBounds(50,100,200,35);
+        cmbx_filter.setFont(new Font("Arial",Font.PLAIN,16));
+        panel_body.add(cmbx_filter);
+
 
         JButton btn_editUser = new JButton("Edit User");
         btn_editUser.setBounds(730,700,120,35);
@@ -138,10 +148,12 @@ public class UserManagementUI extends JFrame implements ActionListener {
         btn_editUser.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (table.getSelectedRow() == -1) {
+
+                if (table.getSelectedRow()==-1) {
                     JOptionPane.showMessageDialog(null,"No User selected! Please select a user from table","Error Message",JOptionPane.ERROR_MESSAGE);
                 } else{
 
+                    selectedUser = new User();
                     selectedUser.setUser_id(users.get(table.getSelectedRow()).getUser_id());
                     selectedUser.setFirstName(users.get(table.getSelectedRow()).getFirstName());
                     selectedUser.setLastName(users.get(table.getSelectedRow()).getLastName());
@@ -223,7 +235,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
         panel_issueBook.setLayout(null);
         panel_sidebar.add(panel_issueBook);
 
-        img = new ImageIcon("img/users.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/users.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_homeIcon = new JLabel(new ImageIcon(img));
         lb_homeIcon.setBounds(0,0,60,60);
         panel_issueBook.add(lb_homeIcon);
@@ -244,7 +256,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new ReturnBookUI();
+                new BookManagementUI();
             }
 
             @Override
@@ -295,13 +307,13 @@ public class UserManagementUI extends JFrame implements ActionListener {
         });
 
 
-        img = new ImageIcon("img/logout.png").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        img = new ImageIcon("img/logout.jpg").getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         JLabel lb_bookLogsIcon = new JLabel(new ImageIcon(img));
         lb_bookLogsIcon.setBounds(0,0,60,60);
         panel_bookLogs.add(lb_bookLogsIcon);
 
 
-        JLabel lb_bookLogs = new JLabel("Book Logs");
+        JLabel lb_bookLogs = new JLabel("Log Out");
         lb_bookLogs.setBounds(70,0,190, 60);
         lb_bookLogs.setFont(sidebarMenuFont);
         panel_bookLogs.add(lb_bookLogs);
@@ -389,6 +401,12 @@ public class UserManagementUI extends JFrame implements ActionListener {
         panel_resultArea.setBounds(50,150,800,500);
         panel_resultArea.setBackground(Color.lightGray);
         panel_body.add(panel_resultArea);
+        panel_resultArea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                table.clearSelection();
+            }
+        });
 
         table = new JTable();
         table.setFont(new Font("Arial",Font.PLAIN,20));
@@ -400,7 +418,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
         Object[] columnsNames = {"ID","Username","Mobile No","CNIC","Email"};
         tableModel.setColumnIdentifiers(columnsNames);
 
-        /*try{
+        try{
 
             users = Driver.dataAgent.getAllUsers();
 
@@ -413,7 +431,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
 
         } catch(SQLException e){
             e.printStackTrace();
-        }*/
+        }
 
         panel_resultArea.add(new JScrollPane(table));
 

@@ -7,11 +7,18 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 
-public class EditUserUI extends JFrame implements ActionListener {
+public class EditBookUI extends JFrame implements ActionListener {
 
     private final int FRAME_WIDTH = 1200;
     private final int FRAME_HEIGHT = 900;
     private final Font sidebarMenuFont = new Font("Arial", Font.BOLD, 26);
+
+    private JTextField txt_releaseDate = null;
+    private JTextField txt_rating = null;
+    private JTextField txt_pages = null;
+    private JTextField txt_genre = null;
+    private JTextField txt_author = null;
+    private JTextField txt_title = null;
 
 
     private JPanel panel_titleBar;
@@ -41,7 +48,7 @@ public class EditUserUI extends JFrame implements ActionListener {
 
     private Image img;
 
-    public EditUserUI() {
+    public EditBookUI() {
         init();
     }
 
@@ -200,7 +207,7 @@ public class EditUserUI extends JFrame implements ActionListener {
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Topbar Title }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-        lb_topbarTitle = new JLabel("Edit User");
+        lb_topbarTitle = new JLabel("Edit Book");
         lb_topbarTitle.setBounds(320,20,300,30);
         lb_topbarTitle.setForeground(Color.WHITE);
         lb_topbarTitle.setFont(new Font("Arial", Font.BOLD, 34));
@@ -251,7 +258,7 @@ public class EditUserUI extends JFrame implements ActionListener {
         btn_minimize.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                EditUserUI.super.setState(JFrame.ICONIFIED);
+                EditBookUI.super.setState(JFrame.ICONIFIED);
             }
 
             @Override
@@ -273,195 +280,132 @@ public class EditUserUI extends JFrame implements ActionListener {
         panel_body.setBackground(Color.decode("#ebebeb"));
         add(panel_body);
 
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ User Info }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Book Information }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-        JPanel panel_userInfo = new JPanel();
-        panel_userInfo.setBounds(50,90,800,660);
-        panel_userInfo.setBackground(dashboardItemColor);
-        panel_userInfo.setLayout(null);
-        panel_body.add(panel_userInfo);
+        JPanel panel_bookDetails = new JPanel();
+        panel_bookDetails.setBounds(50,90,800,435);
+        panel_bookDetails.setBackground(dashboardItemColor);
+        panel_bookDetails.setLayout(null);
+        panel_body.add(panel_bookDetails);
 
 
-        JLabel lb_bookDetail = new JLabel("User Information");
-        lb_bookDetail.setBounds(300,20,250,32);
+        JLabel lb_bookDetail = new JLabel("Book Details");
+        lb_bookDetail.setBounds(300,20,200,32);
         lb_bookDetail.setFont(new Font("Arial",Font.BOLD,30));
-//        panel_userInfo.add(lb_bookDetail);
+//        panel_bookDetails.add(lb_bookDetail);
 
-//<<<<<< Details >>>>>>>>
+        //<<<<<<( Book Details )>>>>>>>>
 
-        JLabel lb_fname = new JLabel("First Name");
-        lb_fname.setBounds(100,50,200,25);
-        lb_fname.setFont(labelFonts);
-        lb_fname.setForeground(Color.red);
-        panel_userInfo.add(lb_fname);
+        //<<<<<< Book Title >>>>>>>
+        JLabel lb_title = new JLabel("Book Title");
+        lb_title.setBounds(50,70,150,25);
+        lb_title.setFont(labelFonts);
+        lb_title.setForeground(Color.red);
+        panel_bookDetails.add(lb_title);
 
-        JTextField txt_fname = new JTextField();
-        txt_fname.setBounds(400,45,300,30);
-        txt_fname.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_fname.setEditable(false);
-        txt_fname.setFont(textFieldFont);
-        txt_fname.setText(UserManagementUI.selectedUser.getFirstName());
-        panel_userInfo.add(txt_fname);
+        txt_title = new JTextField();
+        txt_title.setBounds(270,65,480,30);
+        txt_title.setEditable(false);
+        txt_title.setFont(textFieldFont);
+        txt_title.setText(BookManagementUI.selectedBook.getTitle());
+        panel_bookDetails.add(txt_title);
 
-        // Name
-        JLabel lb_lname = new JLabel("Last Name");
-        lb_lname.setBounds(100,100,200,25);
-        lb_lname.setFont(labelFonts);
-        lb_lname.setForeground(Color.red);
-        panel_userInfo.add(lb_lname);
+        //<<<<<< Author >>>>>>>
+        JLabel lb_author = new JLabel("Author Name");
+        lb_author.setBounds(50,120,200,25);
+        lb_author.setFont(labelFonts);
+        lb_author.setForeground(Color.red);
+        panel_bookDetails.add(lb_author);
 
-        JTextField txt_lname = new JTextField();
-        txt_lname.setBounds(400,95,300,30);
-        txt_lname.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_lname.setEditable(false);
-        txt_lname.setFont(textFieldFont);
-        txt_lname.setText(UserManagementUI.selectedUser.getLastName());
-        panel_userInfo.add(txt_lname);
-
-        // Mobile Number
-        JLabel lb_mobileNumber = new JLabel("Mobile Number");
-        lb_mobileNumber.setBounds(100,150,200,25);
-        lb_mobileNumber.setFont(labelFonts);
-        lb_mobileNumber.setForeground(Color.red);
-        panel_userInfo.add(lb_mobileNumber);
-
-        JTextField txt_mobileNumber = new JTextField();
-        txt_mobileNumber.setBounds(400,145,300,30);
-        txt_mobileNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_mobileNumber.setEditable(false);
-        txt_mobileNumber.setFont(textFieldFont);
-        txt_mobileNumber.setText(UserManagementUI.selectedUser.getMobileNumber());
-        panel_userInfo.add(txt_mobileNumber);
-
-        // Address
-        JLabel lb_address = new JLabel("Address");
-        lb_address.setBounds(100,200,200,25);
-        lb_address.setFont(labelFonts);
-        lb_address.setForeground(Color.red);
-        panel_userInfo.add(lb_address);
-
-        JTextArea textArea_address = new JTextArea();
-        textArea_address.setBounds(400,195,300,50);
-        textArea_address.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        textArea_address.setEditable(false);
-        textArea_address.setFont(textFieldFont);
-        textArea_address.setText(UserManagementUI.selectedUser.getAddress());
-        panel_userInfo.add(textArea_address);
-
-        // CNIC
-        JLabel lb_cnic = new JLabel("CNIC");
-        lb_cnic.setBounds(100,275,200,25);
-        lb_cnic.setFont(labelFonts);
-        lb_cnic.setForeground(Color.red);
-        panel_userInfo.add(lb_cnic);
-
-        JTextField txt_cnic = new JTextField();
-        txt_cnic.setBounds(400,270,300,30);
-        txt_cnic.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_cnic.setEditable(false);
-        txt_cnic.setFont(textFieldFont);
-        txt_cnic.setText(UserManagementUI.selectedUser.getCnic());
-        panel_userInfo.add(txt_cnic);
-
-        // Email
-        JLabel lb_email = new JLabel("Email");
-        lb_email.setBounds(100,325,200,25);
-        lb_email.setFont(labelFonts);
-        lb_email.setForeground(Color.red);
-        panel_userInfo.add(lb_email);
-
-        JTextField txt_email = new JTextField();
-        txt_email.setBounds(400,320,300,30);
-        txt_email.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_email.setEditable(false);
-        txt_email.setFont(textFieldFont);
-        txt_email.setText(UserManagementUI.selectedUser.getEmail());
-        panel_userInfo.add(txt_email);
-
-        // Password
-        JLabel lb_password = new JLabel("Password");
-        lb_password.setBounds(100,375,200,25);
-        lb_password.setFont(labelFonts);
-        lb_password.setForeground(Color.red);
-        panel_userInfo.add(lb_password);
-
-        JPasswordField txt_password = new JPasswordField();
-        txt_password.setBounds(400,370,300,30);
-        txt_password.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_password.setEditable(false);
-        txt_password.setFont(textFieldFont);
-        txt_password.setText(UserManagementUI.selectedUser.getEmail());
-        panel_userInfo.add(txt_password);
-
-        // User Rank
-        JLabel lb_rank = new JLabel("Rank");
-        lb_rank.setBounds(100,435,200,25);
-        lb_rank.setFont(labelFonts);
-        lb_rank.setForeground(Color.red);
-        panel_userInfo.add(lb_rank);
-
-        JTextField txt_rank = new JTextField();
-        txt_rank.setBounds(400,440,300,30);
-        txt_rank.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_rank.setEditable(false);
-        txt_rank.setFont(textFieldFont);
-        txt_rank.setText(Driver.levels[(Driver.dataAgent.getUserExperience(UserManagementUI.selectedUser.getUser_id())/2)-1]);
-        panel_userInfo.add(txt_rank);
-
-        // Book Issue Limit
-        JLabel lb_limit = new JLabel("Book Issue Limit");
-        lb_limit.setBounds(100,485,200,25);
-        lb_limit.setFont(labelFonts);
-        lb_limit.setForeground(Color.red);
-        panel_userInfo.add(lb_limit);
-
-        JTextField txt_limit = new JTextField();
-        txt_limit.setBounds(400,490,300,30);
-        txt_limit.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_limit.setEditable(false);
-        txt_limit.setFont(textFieldFont);
-        txt_limit.setText(""+Driver.dataAgent.getUserExperience(UserManagementUI.selectedUser.getUser_id())*2);
-        panel_userInfo.add(txt_limit);
+        txt_author = new JTextField();
+        txt_author.setBounds(270,115,480,30);
+        txt_author.setEditable(false);
+        txt_author.setFont(textFieldFont);
+        txt_author.setText(BookManagementUI.selectedBook.getAuthor());
+        panel_bookDetails.add(txt_author);
 
 
-        // Current Issued Books
-        JLabel lb_NoOfIssuedBooks = new JLabel("Current Issued Books");
-        lb_NoOfIssuedBooks.setBounds(100,535,250,25);
-        lb_NoOfIssuedBooks.setFont(labelFonts);
-        lb_NoOfIssuedBooks.setForeground(Color.red);
-        panel_userInfo.add(lb_NoOfIssuedBooks);
+        //<<<<<< Genre >>>>>>>
+        JLabel lb_genre = new JLabel("Genre");
+        lb_genre.setBounds(50,170,200,25);
+        lb_genre.setFont(labelFonts);
+        lb_genre.setForeground(Color.red);
+        panel_bookDetails.add(lb_genre);
 
-        JTextField txt_NoOfIssuedBooks = new JTextField();
-        txt_NoOfIssuedBooks.setBounds(400,540,300,30);
-        txt_NoOfIssuedBooks.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        txt_NoOfIssuedBooks.setEditable(false);
-        txt_NoOfIssuedBooks.setFont(textFieldFont);
-        txt_NoOfIssuedBooks.setText(""+Driver.dataAgent.getIssuedBooksCount(UserManagementUI.selectedUser.getUser_id()));
-        panel_userInfo.add(txt_NoOfIssuedBooks);
+        txt_genre = new JTextField();
+        txt_genre.setBounds(270,165,480,30);
+        txt_genre.setEditable(false);
+        txt_genre.setFont(textFieldFont);
+        txt_genre.setText(BookManagementUI.selectedBook.getGenre());
+        panel_bookDetails.add(txt_genre);
+
+        //<<<<<< Pages >>>>>>>
+        JLabel lb_pages = new JLabel("No. Of Copies");
+        lb_pages.setBounds(50,220,200,25);
+        lb_pages.setFont(labelFonts);
+        lb_pages.setForeground(Color.red);
+        panel_bookDetails.add(lb_pages);
+
+        txt_pages = new JTextField();
+        txt_pages.setBounds(270,215,480,30);
+        txt_pages.setEditable(false);
+        txt_pages.setFont(textFieldFont);
+        txt_pages.setText(""+BookManagementUI.selectedBook.getNoOfCopies());
+        panel_bookDetails.add(txt_pages);
+
+        //<<<<<< Rating >>>>>>>
+        JLabel lb_rating = new JLabel("Rating");
+        lb_rating.setBounds(50,270,200,25);
+        lb_rating.setFont(labelFonts);
+        lb_rating.setForeground(Color.red);
+        panel_bookDetails.add(lb_rating);
+
+        txt_rating = new JTextField();
+        txt_rating.setBounds(270,265,480,30);
+        txt_rating.setEditable(false);
+        txt_rating.setFont(textFieldFont);
+        txt_rating.setText(""+BookManagementUI.selectedBook.getRating());
+        panel_bookDetails.add(txt_rating);
+
+        //<<<<<< Release Date >>>>>>>
+        JLabel lb_releaseDate = new JLabel("Date of Release");
+        lb_releaseDate.setBounds(50,320,150,25);
+        lb_releaseDate.setFont(labelFonts);
+        lb_releaseDate.setForeground(Color.red);
+        panel_bookDetails.add(lb_releaseDate);
+
+        txt_releaseDate = new JTextField();
+        txt_releaseDate.setBounds(270,315,480,30);
+        txt_releaseDate.setEditable(false);
+        txt_releaseDate.setFont(textFieldFont);
+        txt_releaseDate.setText(BookManagementUI.selectedBook.getDateOfRelease());
+        panel_bookDetails.add(txt_releaseDate);
 
 
         JButton btn_save = new JButton("Save Changes");
-        btn_save.setBounds(630,610,150,35);
-        btn_save.setBackground(Color.decode("#31ad50"));
-        btn_save.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn_save.setFont(new Font("Arial", Font.BOLD, 16));
+        btn_save.setBounds(630,385,150,35);
         btn_save.setFocusPainted(false);
-        panel_userInfo.add(btn_save);
+        btn_save.setBackground(Color.decode("#31ad50"));
+        btn_save.setForeground(Color.white);
+        btn_save.setFont(new Font("Arial", Font.BOLD, 16));
+        btn_save.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btn_save.addActionListener(this);
+        panel_bookDetails.add(btn_save);
         btn_save.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(!isUsernameValid(txt_fname.getText(),txt_lname.getText())){
-                    JOptionPane.showMessageDialog(null,"Invalid First Name or Last Name. Don't use Spcial Characters or Numbers in Name. Length should be <=20","Invalid Username",JOptionPane.ERROR_MESSAGE);
-                }else if(!isMobileNumberValid(txt_mobileNumber.getText().trim())){
-                    JOptionPane.showMessageDialog(null,"Invalid Mobile Number! Length should be 11 Digits and No Special Characters e.g. \"-\"","Invalid Mobile Number",JOptionPane.ERROR_MESSAGE);
+                if(txt_title.getText().isEmpty() || txt_author.getText().isEmpty() || txt_genre.getText().isEmpty() || txt_pages.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Please fill all the fields","Error",JOptionPane.ERROR_MESSAGE);
+                }else if(txt_releaseDate.getText().length()>4 || Integer.parseInt(txt_releaseDate.getText())>2021){
+                    JOptionPane.showMessageDialog(null,"Invalid Entry! Please enter valid Release Year","Invalid Entry",JOptionPane.ERROR_MESSAGE);
                 }else{
 
                     try {
 
-                        Driver.dataAgent.updateUser(UserManagementUI.selectedUser.getUser_id(),txt_fname.getText().trim(),txt_lname.getText().trim(),txt_mobileNumber.getText().trim(),textArea_address.getText().trim());
-                        JOptionPane.showMessageDialog(null,"User updated sucessfully","Updation",JOptionPane.INFORMATION_MESSAGE);
+                        Driver.dataAgent.updateBook(BookManagementUI.selectedBook.getBook_id(),txt_title.getText().trim(),txt_author.getText().trim(),txt_genre.getText().trim(),Integer.parseInt(txt_pages.getText().trim()),Float.parseFloat(txt_rating.getText().trim()),Integer.parseInt(txt_releaseDate.getText().trim()));
+                        JOptionPane.showMessageDialog(null,"Book updated sucessfully","Updation",JOptionPane.INFORMATION_MESSAGE);
                         dispose();
-                        new UserManagementUI();
+                        new BookManagementUI();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -480,21 +424,24 @@ public class EditUserUI extends JFrame implements ActionListener {
             }
         });
 
+
         JButton btn_edit = new JButton("Edit");
-        btn_edit.setBounds(520,610,100,35);
+        btn_edit.setBounds(520,385,100,35);
+        btn_edit.setFocusPainted(false);
+        btn_edit.setBackground(Color.decode("#1877EB"));
+        btn_edit.setForeground(Color.white);
         btn_edit.setFont(new Font("Arial", Font.BOLD, 16));
         btn_edit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn_edit.setFocusPainted(false);
-        btn_edit.setBackground(Color.decode("#fc0303"));
-        panel_userInfo.add(btn_edit);
+        btn_edit.addActionListener(this);
+        panel_bookDetails.add(btn_edit);
         btn_edit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                txt_fname.setEditable(true);
-                txt_fname.grabFocus();
-                txt_lname.setEditable(true);
-                txt_mobileNumber.setEditable(true);
-                textArea_address.setEditable(true);
+                txt_title.setEditable(true);
+                txt_title.grabFocus();
+                txt_author.setEditable(true);
+                txt_genre.setEditable(true);
+                txt_pages.setEditable(true);
             }
 
             @Override
@@ -508,38 +455,9 @@ public class EditUserUI extends JFrame implements ActionListener {
             }
         });
 
-
-
         setVisible(true);
     }
 
-    public boolean isUsernameValid(String firstName, String lastName){
-        if(firstName.matches("(.*)[0-9](.*)") || lastName.matches("(.*)[0-9](.*)")){
-            System.out.println("Yes");
-            return false;
-        }
-        else if(firstName.matches("(?=.*[~!@#$%^&*()_-]).*") || lastName.matches("(?=.*[~!@#$%^&*()_-]).*")){
-            return false;
-        }
-        else if(firstName.length()>20 || lastName.length()>20){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-
-    public boolean isMobileNumberValid(String mobileNumber){
-        if(mobileNumber.matches("(.*)[A-Z](.*)")
-                || mobileNumber.matches("(.*)[a-z](.*)")
-                || mobileNumber.matches("(?=.*[~!@#$%^&*()_-]).*")
-                || mobileNumber.length()!=11){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -547,6 +465,6 @@ public class EditUserUI extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new EditUserUI();
+        new EditBookUI();
     }
 }

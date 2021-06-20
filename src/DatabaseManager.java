@@ -99,15 +99,16 @@ public class DatabaseManager {
         ppStatement.executeUpdate();
     }
 
-    public void updateUser(int user_id,String first_name,String last_name,String address) throws SQLException {
+    public void updateUser(int user_id,String first_name,String last_name,String mobileNumber,String address) throws SQLException {
         String query = "UPDATE Users " +
-                "SET first_name = ? AND last_name = ? AND address = ? " +
+                "SET first_name = ?, last_name = ?,phoneNumber = ?,address = ? " +
                 "WHERE user_id = ?";
         PreparedStatement ppStatement = connection.prepareStatement(query);
-        ppStatement.setInt(4, user_id);
+        ppStatement.setInt(5, user_id);
         ppStatement.setString(1,first_name);
         ppStatement.setString(2, last_name);
-        ppStatement.setString(3, address);
+        ppStatement.setString(3,mobileNumber);
+        ppStatement.setString(4, address);
         ppStatement.executeUpdate();
     }
 
@@ -141,7 +142,7 @@ public class DatabaseManager {
 
     public void updateBook(int book_id,String book_title,String book_author,String book_genre, int copies, float rating, int release_year) throws SQLException {
         String query = "UPDATE Books " +
-                "SET book_title = ? AND book_author = ? AND book_genre = ? AND book_copies_sold = ? AND book_rating AND book_release_year = ? " +
+                "SET book_title = ?, book_author = ?, book_genre = ?, book_copies_sold = ?, book_rating, book_release_year = ? " +
                 "WHERE book_id = ?";
         PreparedStatement ppStatement = connection.prepareStatement(query);
         ppStatement.setInt(7, book_id);
@@ -286,6 +287,31 @@ public class DatabaseManager {
         }
         return null;
 
+    }
+
+    public ArrayList<Book> getAllBooks() throws SQLException {
+        String query= """
+                SELECT * FROM `Books` WHERE 1;
+                """;
+        PreparedStatement ppStatement = connection.prepareStatement(query);
+        ResultSet rs = ppStatement.executeQuery();
+        ArrayList<Book> books = new ArrayList<>();
+        Book book = null;
+        if(rs.next()) {
+            do{
+                book = new Book();
+                book.setBook_id(rs.getInt(1));
+                book.setTitle(rs.getString(2));
+                book.setAuthor(rs.getString(3));
+                book.setGenre(rs.getString(4));
+                book.setNoOfCopies(rs.getInt(5));
+                book.setRating(rs.getFloat(6));
+                book.setDateOfRelease(rs.getString(7));
+                books.add(book);
+            }while (rs.next());
+            return books;
+        }
+        return null;
     }
 
     public void resetPassword(String password) throws SQLException {

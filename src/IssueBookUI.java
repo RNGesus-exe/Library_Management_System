@@ -566,6 +566,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
             }
             else
             {
+                System.out.println(cmbx_searchFilter.getSelectedIndex());
                 this.listModel.clear();
                 this.books = Driver.dataAgent.searchBooksByTitle(txt_search.getText().trim());
                 if(this.books == null) {

@@ -21,6 +21,7 @@ public class BookManagementUI extends JFrame implements ActionListener {
     private JList list = null;
 
     private ArrayList<Book> books = null;
+    public static Book selectedBook = null;
 
     private JComboBox cmbx_searchFilter;
     public static String[] filters = {"Search by Title","Search by Author Name","Search by Genre","Search by Year of Release","Search by Rating"};
@@ -38,13 +39,10 @@ public class BookManagementUI extends JFrame implements ActionListener {
     private JPanel panel_issueBook;
     private JPanel panel_returnBook;
     private JPanel panel_bookLogs;
-    private JPanel panel_userInfo;
-    private JPanel panel_logout;
     private JLabel lb_topbarTitle;
     private JLabel lb_logo;
 
     private JButton btn_search;
-    private JButton btn_issueBook;
 
     private JTextField txt_search;
 
@@ -62,7 +60,6 @@ public class BookManagementUI extends JFrame implements ActionListener {
 
     private DefaultTableModel tableModel = new DefaultTableModel();
     private JTable table;
-    public ArrayList<User> users = null;
 
     private Image img;
 
@@ -101,6 +98,12 @@ public class BookManagementUI extends JFrame implements ActionListener {
         panel_body.setBounds(300,70,900,830);
         panel_body.setLayout(null);
         panel_body.setBackground(Color.decode("#ebebeb"));
+        panel_body.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                table.clearSelection();
+            }
+        });
         add(panel_body);
 
         txt_search = new JTextField();
@@ -131,7 +134,7 @@ public class BookManagementUI extends JFrame implements ActionListener {
         cmbx_searchFilter = new JComboBox(filters);
         cmbx_searchFilter.setBounds(50, 100, 200, 35);
         cmbx_searchFilter.setFont(new Font("Arial",Font.PLAIN,16));
-        panel_body.add(cmbx_searchFilter);
+//        panel_body.add(cmbx_searchFilter);
 
 
         JButton btn_addBook = new JButton("Add Book");
@@ -145,7 +148,8 @@ public class BookManagementUI extends JFrame implements ActionListener {
         btn_addBook.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // EditUserUI
+                dispose();
+                new AddBookUI();
             }
 
             @Override
@@ -175,10 +179,10 @@ public class BookManagementUI extends JFrame implements ActionListener {
                 }else{
                     try {
 
-                        Driver.dataAgent.removeUser((Integer) table.getValueAt(table.getSelectedRow(),0));
+                        Driver.dataAgent.removeBook(books.get(table.getSelectedRow()).getBook_id());
+                        JOptionPane.showMessageDialog(null,"Book deleted successfully","User Deletion",JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                         new BookManagementUI();
-                        JOptionPane.showMessageDialog(null,"User deleted successfully","User Deletion",JOptionPane.INFORMATION_MESSAGE);
 
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
@@ -210,18 +214,18 @@ public class BookManagementUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(table.getSelectedRow()==-1){
-                    JOptionPane.showMessageDialog(null,"No user selected! Please select a user from table to delete it","Error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"No user selected! Please select a Book from table","Error",JOptionPane.ERROR_MESSAGE);
                 }else{
-                    try {
+                    selectedBook = new Book();
+                    selectedBook.setTitle(books.get(table.getSelectedRow()).getTitle());
+                    selectedBook.setAuthor(books.get(table.getSelectedRow()).getAuthor());
+                    selectedBook.setGenre(books.get(table.getSelectedRow()).getGenre());
+                    selectedBook.setNoOfCopies(books.get(table.getSelectedRow()).getNoOfCopies());
+                    selectedBook.setRating(books.get(table.getSelectedRow()).getRating());
+                    selectedBook.setDateOfRelease(books.get(table.getSelectedRow()).getDateOfRelease());
 
-                        Driver.dataAgent.removeUser((Integer) table.getValueAt(table.getSelectedRow(),0));
-                        dispose();
-                        new BookManagementUI();
-                        JOptionPane.showMessageDialog(null,"User deleted successfully","User Deletion",JOptionPane.INFORMATION_MESSAGE);
-
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
+                    dispose();
+                    new EditBookUI();
                 }
             }
 
@@ -429,165 +433,32 @@ public class BookManagementUI extends JFrame implements ActionListener {
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setFont(new Font("Arial",Font.BOLD,20));
 
-        Object[] columnsNames = {"ISBN","Title","Author","Genre","Rating","Date of Release"};
+        Object[] columnsNames = {"Title","Author","Genre","Rating","Copies","Release Year"};
         tableModel.setColumnIdentifiers(columnsNames);
 
-        /*try{
+        try{
 
-            users = Driver.dataAgent.getAllUsers();
+            books = Driver.dataAgent.getAllBooks();
 
-            if(users!=null){
-                for (User user : users){
-                    tableModel.addRow(user.getUserObject());
+            if(books!=null){
+                for (Book book : books){
+                    tableModel.addRow(book.getBookObject());
                 }
             }
 
 
         } catch(SQLException e){
             e.printStackTrace();
-        }*/
+        }
+
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setPreferredWidth(100);
+        table.getColumnModel().getColumn(3).setPreferredWidth(5);
+        table.getColumnModel().getColumn(4).setPreferredWidth(10);
+        table.getColumnModel().getColumn(5).setPreferredWidth(10);
 
         panel_resultArea.add(new JScrollPane(table));
-
-
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Book Information }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-        JPanel panel_bookDetails = new JPanel();
-        panel_bookDetails.setBounds(50,370,800,420);
-        panel_bookDetails.setBackground(dashboardItemColor);
-        panel_bookDetails.setLayout(null);
-//        panel_body.add(panel_bookDetails);
-
-
-        JLabel lb_bookDetail = new JLabel("Book Details");
-        lb_bookDetail.setBounds(300,20,200,32);
-        lb_bookDetail.setFont(new Font("Arial",Font.BOLD,30));
-        panel_bookDetails.add(lb_bookDetail);
-
-        //<<<<<<( Book Details )>>>>>>>>
-
-        //<<<<<< Book Title >>>>>>>
-        JLabel lb_title = new JLabel("Book Title");
-        lb_title.setBounds(50,70,150,25);
-        lb_title.setFont(labelFonts);
-        lb_title.setForeground(Color.red);
-        panel_bookDetails.add(lb_title);
-
-        txt_title = new JTextField();
-        txt_title.setBounds(270,65,480,30);
-        txt_title.setEditable(false);
-        txt_title.setFont(textFieldFont);
-        panel_bookDetails.add(txt_title);
-
-        //<<<<<< Author >>>>>>>
-        JLabel lb_author = new JLabel("Author Name");
-        lb_author.setBounds(50,120,200,25);
-        lb_author.setFont(labelFonts);
-        lb_author.setForeground(Color.red);
-        panel_bookDetails.add(lb_author);
-
-        txt_author = new JTextField();
-        txt_author.setBounds(270,115,480,30);
-        txt_author.setEditable(false);
-        txt_author.setFont(textFieldFont);
-        panel_bookDetails.add(txt_author);
-
-
-        //<<<<<< Genre >>>>>>>
-        JLabel lb_genre = new JLabel("Genre");
-        lb_genre.setBounds(50,170,200,25);
-        lb_genre.setFont(labelFonts);
-        lb_genre.setForeground(Color.red);
-        panel_bookDetails.add(lb_genre);
-
-        txt_genre = new JTextField();
-        txt_genre.setBounds(270,165,480,30);
-        txt_genre.setEditable(false);
-        txt_genre.setFont(textFieldFont);
-        panel_bookDetails.add(txt_genre);
-
-        //<<<<<< Pages >>>>>>>
-        JLabel lb_pages = new JLabel("No. Of Copies");
-        lb_pages.setBounds(50,220,200,25);
-        lb_pages.setFont(labelFonts);
-        lb_pages.setForeground(Color.red);
-        panel_bookDetails.add(lb_pages);
-
-        txt_pages = new JTextField();
-        txt_pages.setBounds(270,215,480,30);
-        txt_pages.setEditable(false);
-        txt_pages.setFont(textFieldFont);
-        panel_bookDetails.add(txt_pages);
-
-        //<<<<<< Rating >>>>>>>
-        JLabel lb_rating = new JLabel("Rating");
-        lb_rating.setBounds(50,270,200,25);
-        lb_rating.setFont(labelFonts);
-        lb_rating.setForeground(Color.red);
-        panel_bookDetails.add(lb_rating);
-
-        txt_rating = new JTextField();
-        txt_rating.setBounds(270,265,480,30);
-        txt_rating.setEditable(false);
-        txt_rating.setFont(textFieldFont);
-        panel_bookDetails.add(txt_rating);
-
-        //<<<<<< Release Date >>>>>>>
-        JLabel lb_releaseDate = new JLabel("Date of Release");
-        lb_releaseDate.setBounds(50,320,150,25);
-        lb_releaseDate.setFont(labelFonts);
-        lb_releaseDate.setForeground(Color.red);
-        panel_bookDetails.add(lb_releaseDate);
-
-        txt_releaseDate = new JTextField();
-        txt_releaseDate.setBounds(270,315,480,30);
-        txt_releaseDate.setEditable(false);
-        txt_releaseDate.setFont(textFieldFont);
-        panel_bookDetails.add(txt_releaseDate);
-
-
-        btn_issueBook = new JButton("Issue Book");
-        btn_issueBook.setBounds(665, 375, 120, 35);
-        btn_issueBook.setFocusPainted(false);
-        btn_issueBook.setBackground(Color.decode("#1877EB"));
-        btn_issueBook.setForeground(Color.white);
-        btn_issueBook.setFont(new Font("Arial", Font.BOLD, 16));
-        btn_issueBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn_issueBook.addActionListener(this);
-        panel_bookDetails.add(btn_issueBook);
-        btn_issueBook.addMouseListener(new MouseAdapter() {   // Button get highlighted when Cursor hover over Login Button
-            public void mouseClicked(MouseEvent e) {
-                if(list.getSelectedIndex()==-1){
-                    JOptionPane.showMessageDialog(null,"No Book Selected! Please select Book after Searching to Issue Book","Error",JOptionPane.ERROR_MESSAGE);
-                }
-                else{
-                    try {
-                        if(Driver.dataAgent.getIssuedBooksCount(Driver.currentUser.getUser_id())>=Driver.dataAgent.getUserExperience(Driver.currentUser.getUser_id())*2){
-                            JOptionPane.showMessageDialog(null,"You can't issue book. You have reached the Issue Book Limit. Please return previous issued books first to issue new books.","Limit Reached",JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        else if(Driver.dataAgent.isBookIssued(books.get(list.getSelectedIndex()).getBook_id())==0) {
-                            Driver.dataAgent.addIssueBookReceipt(Driver.currentUser.getUser_id(), books.get(list.getSelectedIndex()).getBook_id());
-                            Driver.dataAgent.decreaseBookCopy(books.get(list.getSelectedIndex()).getBook_id());
-                            JOptionPane.showMessageDialog(null,"Book issued successfully","Information",JOptionPane.INFORMATION_MESSAGE);
-                            list.clearSelection();
-                        }
-                        else{
-                            JOptionPane.showMessageDialog(null,"You have already issued this book","Book Re-Issue Error",JOptionPane.ERROR_MESSAGE);
-                        }
-                    }catch(SQLException error){
-                        error.printStackTrace();
-                    }
-                }
-            }
-
-            public void mouseEntered(MouseEvent e) {
-                btn_issueBook.setBackground(Color.decode("#1262c4"));
-            }
-
-            public void mouseExited(MouseEvent e) {
-                btn_issueBook.setBackground(Color.decode("#1877EB"));
-            }
-        });
 
         setVisible(true);
     }
