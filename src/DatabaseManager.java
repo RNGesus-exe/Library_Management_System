@@ -420,12 +420,12 @@ public class DatabaseManager {
             Timestamp dueTime = Timestamp.valueOf(book.getDue_date());
             int user_xp = this.getUserExperience(Driver.currentUser.getUser_id());
             if(returnTime.compareTo(dueTime) > 0){
-                if(user_xp - 2 != 0) {
+                if(user_xp - 2 > 0) {
                     this.decreaseLevelExperience(Driver.currentUser.getUser_id());
                 }
             }
             else{
-                if(user_xp + 2 != 10 ) {
+                if(user_xp + 2 < 10 ) {
                     this.increaseLevelExperience(Driver.currentUser.getUser_id());
                 }
             }
