@@ -261,6 +261,33 @@ public class DatabaseManager {
 
     }
 
+    public ArrayList<User> getAllUsers() throws SQLException {
+        String query= """
+                SELECT * FROM `Users` WHERE 1;
+                """;
+        PreparedStatement ppStatement = connection.prepareStatement(query);
+        ResultSet rs = ppStatement.executeQuery();
+        ArrayList<User> users = new ArrayList<>();
+        User user = null;
+        if(rs.next()) {
+            do{
+                user = new User();
+                user.setUser_id(rs.getInt(1));
+                user.setEmail(rs.getString(8));
+                user.setPassword(rs.getString(4));
+                user.setFirstName(rs.getString(2));
+                user.setLastName(rs.getString(3));
+                user.setAddress(rs.getString(7));
+                user.setCnic(rs.getString(6));
+                user.setMobileNumber(rs.getString(9));
+                users.add(user);
+            }while (rs.next());
+            return users;
+        }
+        return null;
+
+    }
+
     public void resetPassword(String password) throws SQLException {
         String query = "UPDATE Users " +
                 "SET password = ? " +
@@ -407,8 +434,122 @@ public class DatabaseManager {
         }
     }
 
+    public ArrayList<Book> searchBooksByAuthor(String keyword){
+        String query = "SELECT * FROM Books WHERE book_author LIKE '%"+keyword+"%'";
+        try{
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ResultSet rs = ppStatement.executeQuery();
+            ArrayList<Book> books = null;
+            Book book = null;
+            if(rs.next()){
+                books = new ArrayList<>();
+                do{
+                    book = new Book();
+                    book.setBook_id(rs.getInt(1));
+                    book.setAuthor(rs.getString(3));
+                    book.setTitle(rs.getString(2));
+                    book.setGenre(rs.getString(4));
+                    book.setNoOfCopies(rs.getInt(5));
+                    book.setRating(rs.getFloat(6));
+                    book.setDateOfRelease(rs.getString(7));
+                    books.add(book);
+                }while(rs.next());
+            }
+            return books;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Book> searchBooksByGenre(String keyword){
+        String query = "SELECT * FROM Books WHERE book_genre LIKE '%"+keyword+"%'";
+        try{
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ResultSet rs = ppStatement.executeQuery();
+            ArrayList<Book> books = null;
+            Book book = null;
+            if(rs.next()){
+                books = new ArrayList<>();
+                do{
+                    book = new Book();
+                    book.setBook_id(rs.getInt(1));
+                    book.setAuthor(rs.getString(3));
+                    book.setTitle(rs.getString(2));
+                    book.setGenre(rs.getString(4));
+                    book.setNoOfCopies(rs.getInt(5));
+                    book.setRating(rs.getFloat(6));
+                    book.setDateOfRelease(rs.getString(7));
+                    books.add(book);
+                }while(rs.next());
+            }
+            return books;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Book> searchBooksByYear(int date){
+        String query = "SELECT * FROM Books WHERE book_title = ?";
+        try{
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ppStatement.setInt(1,date);
+            ResultSet rs = ppStatement.executeQuery();
+            ArrayList<Book> books = null;
+            Book book = null;
+            if(rs.next()){
+                books = new ArrayList<>();
+                do{
+                    book = new Book();
+                    book.setBook_id(rs.getInt(1));
+                    book.setAuthor(rs.getString(3));
+                    book.setTitle(rs.getString(2));
+                    book.setGenre(rs.getString(4));
+                    book.setNoOfCopies(rs.getInt(5));
+                    book.setRating(rs.getFloat(6));
+                    book.setDateOfRelease(rs.getString(7));
+                    books.add(book);
+                }while(rs.next());
+            }
+            return books;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Book> searchBooksByRating(float rating){
+        String query = "SELECT * FROM Books WHERE book_rating = ?";
+        try{
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ppStatement.setFloat(1,rating);
+            ResultSet rs = ppStatement.executeQuery();
+            ArrayList<Book> books = null;
+            Book book = null;
+            if(rs.next()){
+                books = new ArrayList<>();
+                do{
+                    book = new Book();
+                    book.setBook_id(rs.getInt(1));
+                    book.setAuthor(rs.getString(3));
+                    book.setTitle(rs.getString(2));
+                    book.setGenre(rs.getString(4));
+                    book.setNoOfCopies(rs.getInt(5));
+                    book.setRating(rs.getFloat(6));
+                    book.setDateOfRelease(rs.getString(7));
+                    books.add(book);
+                }while(rs.next());
+            }
+            return books;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     //Reference SearchBook
-    public ArrayList<Book> searchBooks(String keyword){
+    public ArrayList<Book> searchBooksByTitle(String keyword){
         String query = "SELECT * FROM Books WHERE book_title LIKE '%"+keyword+"%'";
         try{
             PreparedStatement ppStatement = connection.prepareStatement(query);

@@ -387,7 +387,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
         panel_body.add(panel_resultArea);
 
         list = new JList(listModel);
-        this.books = Driver.dataAgent.searchBooks("");
+        this.books = Driver.dataAgent.searchBooksByTitle("");
         if(this.books == null) {
             JOptionPane.showMessageDialog(null,"No book related to your keyword exists :(",
                     "No result Found!",JOptionPane.ERROR_MESSAGE);
@@ -567,7 +567,7 @@ public class IssueBookUI extends JFrame implements ActionListener {
             else
             {
                 this.listModel.clear();
-                this.books = Driver.dataAgent.searchBooks(txt_search.getText().trim());
+                this.books = Driver.dataAgent.searchBooksByTitle(txt_search.getText().trim());
                 if(this.books == null) {
                     JOptionPane.showMessageDialog(null,"No book related to your keyword exists ;(",
                             "No result Found!",JOptionPane.ERROR_MESSAGE);

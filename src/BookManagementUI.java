@@ -605,7 +605,7 @@ public class BookManagementUI extends JFrame implements ActionListener {
             else
             {
                 this.listModel.clear();
-                this.books = Driver.dataAgent.searchBooks(txt_search.getText().trim());
+                this.books = Driver.dataAgent.searchBooksByTitle(txt_search.getText().trim());
                 if(this.books == null) {
                     JOptionPane.showMessageDialog(null,"No book related to your keyword exists ;(",
                             "No result Found!",JOptionPane.ERROR_MESSAGE);
