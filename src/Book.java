@@ -76,6 +76,10 @@ public class Book {
         this.noOfCopies = noOfCopies;
     }
 
+    public Object[] getBookObject(){
+        Object[] bookInfo = {title,author,genre,rating,noOfCopies,dateOfRelease};
+        return bookInfo;
+    }
     @Override
     public String toString() {
         return "Book{" +
