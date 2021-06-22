@@ -399,8 +399,9 @@ public class AddBookUI extends JFrame implements ActionListener {
                         book.setDateOfRelease(txt_releaseDate.getText().trim());
 
                         Driver.dataAgent.addBook(book);
-                        JOptionPane.showMessageDialog(null,"Book updated sucessfully","Updation",JOptionPane.INFORMATION_MESSAGE);
                         dispose();
+                        new BookManagementUI();
+                        JOptionPane.showMessageDialog(null,"New Book added sucessfully","Information",JOptionPane.INFORMATION_MESSAGE);
 
                         new BookManagementUI();
                     } catch (IOException throwables) {
