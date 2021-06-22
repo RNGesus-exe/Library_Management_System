@@ -2,15 +2,12 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BookManagementUI extends JFrame implements ActionListener {
+public class BookManagementUI extends JFrame implements ActionListener{
 
     private final int FRAME_WIDTH = 1200;
     private final int FRAME_HEIGHT = 900;
@@ -122,6 +119,7 @@ public class BookManagementUI extends JFrame implements ActionListener {
         btn_search.addActionListener(this);
         panel_body.add(btn_search);
         btn_search.addMouseListener(new MouseAdapter() {   // Button get highlighted when Cursor hover over Login Button
+
             public void mouseEntered(MouseEvent e) {
                 btn_search.setBackground(Color.decode("#198035"));
             }
@@ -134,7 +132,7 @@ public class BookManagementUI extends JFrame implements ActionListener {
         cmbx_searchFilter = new JComboBox(filters);
         cmbx_searchFilter.setBounds(50, 100, 200, 35);
         cmbx_searchFilter.setFont(new Font("Arial",Font.PLAIN,16));
-//        panel_body.add(cmbx_searchFilter);
+        panel_body.add(cmbx_searchFilter);
 
 
         JButton btn_addBook = new JButton("Add Book");
@@ -202,7 +200,7 @@ public class BookManagementUI extends JFrame implements ActionListener {
         });
 
 
-        JButton btn_editBook = new JButton("Edit Book");
+        JButton btn_editBook = new JButton("Show Book");
         btn_editBook.setBounds(410,700,130,35);
         btn_editBook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_editBook.setBackground(Color.decode("#32a852"));
@@ -433,6 +431,7 @@ public class BookManagementUI extends JFrame implements ActionListener {
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setFont(new Font("Arial",Font.BOLD,20));
 
+
         Object[] columnsNames = {"Title","Author","Genre","Rating","Copies","Release Year"};
         tableModel.setColumnIdentifiers(columnsNames);
 
@@ -451,6 +450,7 @@ public class BookManagementUI extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 
+        // Columns Widths
         table.getColumnModel().getColumn(0).setPreferredWidth(100);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -458,14 +458,17 @@ public class BookManagementUI extends JFrame implements ActionListener {
         table.getColumnModel().getColumn(4).setPreferredWidth(10);
         table.getColumnModel().getColumn(5).setPreferredWidth(10);
 
-        panel_resultArea.add(new JScrollPane(table));
+
+        JScrollPane tableScroller = new JScrollPane(table);
+        tableScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        panel_resultArea.add(tableScroller);
 
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        clearAllFields();
+
         if(e.getSource()==btn_search){
             if(txt_search.getText().matches("(?=.*[~!@#$%^&*()_-]).*")) {
                 JOptionPane.showMessageDialog(null,"Invalid Keyword Search","Invalid Search",JOptionPane.ERROR_MESSAGE);
@@ -475,39 +478,42 @@ public class BookManagementUI extends JFrame implements ActionListener {
             }
             else
             {
-                this.listModel.clear();
-                this.books = Driver.dataAgent.searchBooksByTitle(txt_search.getText().trim());
+                switch(cmbx_searchFilter.getSelectedIndex()){
+                    case(0):
+                        this.books = Driver.dataAgent.searchBooksByTitle(txt_search.getText().trim());
+                        break;
+                    case(1):
+                        this.books = Driver.dataAgent.searchBooksByAuthor(txt_search.getText().trim());
+                        break;
+                    case(2):
+                        this.books = Driver.dataAgent.searchBooksByGenre(txt_search.getText().trim());
+                        break;
+                    case(3):
+                        this.books = Driver.dataAgent.searchBooksByYear(Integer.parseInt(txt_search.getText().trim()));
+                        break;
+                    case(5):
+                        this.books = Driver.dataAgent.searchBooksByRating(Float.parseFloat(txt_search.getText().trim()));
+                        break;
+                }
                 if(this.books == null) {
-                    JOptionPane.showMessageDialog(null,"No book related to your keyword exists ;(",
+                    JOptionPane.showMessageDialog(null,"No book related to your keyword exists :(",
                             "No result Found!",JOptionPane.ERROR_MESSAGE);
                 }
                 else {
+                    tableModel.setRowCount(0);
                     for (Book book : books) {
-                        this.listModel.addElement(book.getTitle());
+                        tableModel.addRow(book.getBookObject());
                     }
+
+
                 }
             }
         }
     }
 
-    public void clearAllFields(){
-        txt_title.setText(null);
-        txt_author.setText(null);
-        txt_genre.setText(null);
-        txt_pages.setText(null);
-        txt_rating.setText(null);
-        txt_releaseDate.setText(null);
-    }
+    public void searchBooks(){
 
-    public void showBookDetail(int index){
-        this.txt_genre.setText(this.books.get(index).getGenre());
-        this.txt_rating.setText(""+this.books.get(index).getRating());
-        this.txt_title.setText(this.books.get(index).getTitle());
-        this.txt_pages.setText(""+this.books.get(index).getNoOfCopies());
-        this.txt_releaseDate.setText(this.books.get(index).getDateOfRelease());
-        this.txt_author.setText(this.books.get(index).getAuthor());
     }
-
     public static void main(String[] args) {
         new BookManagementUI();
     }
