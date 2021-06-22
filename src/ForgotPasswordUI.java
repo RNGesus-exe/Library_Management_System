@@ -4,8 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ForgotPasswordUI extends JFrame {
 
@@ -242,7 +240,7 @@ public class ForgotPasswordUI extends JFrame {
 
         txt_confirmPassword = new JPasswordField();
         txt_confirmPassword.setBounds(50,230,300,30);
-        txt_confirmPassword.setFont(new Font("Arial",Font.PLAIN,18));
+        txt_confirmPassword.setFont(new Font("Arial",Font.PLAIN,20));
         txt_confirmPassword.setEditable(false);
         panel_resetPassword.add(txt_confirmPassword);
 
@@ -268,9 +266,10 @@ public class ForgotPasswordUI extends JFrame {
                 }
                 else{
                     try {
-
-                        Driver.dataAgent.resetPassword(txt_password.getText().trim());
+                        Driver.dataAgent.resetPassword(txt_username.getText().trim(),txt_password.getText().trim());
                         JOptionPane.showMessageDialog(null, "Password changed successfully", "Password Recovery", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                        new LoginUI();
 
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();

@@ -223,6 +223,7 @@ public class LoginUI extends JFrame {
                             new FileManager().writeUserId(userID);
                             Driver.currentUser = Driver.dataAgent.loadUserInfoFromDataBase(userID);
 
+
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         } catch (SQLException throwables) {
@@ -231,6 +232,11 @@ public class LoginUI extends JFrame {
                     }
 
                     dispose();
+                    try {
+                        Driver.currentUser = Driver.dataAgent.loadUserInfoFromDataBase(Driver.dataAgent.getId(txt_username.getText().trim(),txt_password.getText().trim()));
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                     new IssueBookUI();
 
                 }

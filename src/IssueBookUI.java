@@ -566,9 +566,26 @@ public class IssueBookUI extends JFrame implements ActionListener {
             }
             else
             {
-                System.out.println(cmbx_searchFilter.getSelectedIndex());
                 this.listModel.clear();
-                this.books = Driver.dataAgent.searchBooksByTitle(txt_search.getText().trim());
+
+                switch (cmbx_searchFilter.getSelectedIndex()){
+                    case(0):
+                        this.books = Driver.dataAgent.searchBooksByTitle(txt_search.getText().trim());
+                        break;
+                    case(1):
+                        this.books = Driver.dataAgent.searchBooksByAuthor(txt_search.getText().trim());
+                        break;
+                    case(2):
+                        this.books = Driver.dataAgent.searchBooksByGenre(txt_search.getText().trim());
+                        break;
+                    case(3):
+                        this.books = Driver.dataAgent.searchBooksByYear(Integer.parseInt(txt_search.getText().trim()));
+                        break;
+                    case(4):
+                        this.books = Driver.dataAgent.searchBooksByRating(Float.parseFloat(txt_search.getText().trim()));
+                        break;
+                }
+
                 if(this.books == null) {
                     JOptionPane.showMessageDialog(null,"No book related to your keyword exists ;(",
                             "No result Found!",JOptionPane.ERROR_MESSAGE);

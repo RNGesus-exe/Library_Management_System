@@ -42,7 +42,7 @@ public class DatabaseManager {
                                        ,book_author VARCHAR(255) NOT NULL
                                        ,book_genre VARCHAR(20) NOT NULL
                                        ,book_copies_sold VARCHAR(20)
-                                       ,book_rating FLOAT
+                                       ,book_rating DOUBLE
                                        ,book_release_year INT);""");
             //Levels Table
             statement.execute("""
@@ -72,6 +72,16 @@ public class DatabaseManager {
         }
     }
 
+    public void resetPassword(String username,String password) throws SQLException {
+        String query = "UPDATE Users " +
+                "SET password = ? " +
+                "WHERE username = ?";
+        PreparedStatement  ppStatement = connection.prepareStatement(query);
+        ppStatement.setString(1,password);
+        ppStatement.setString(2,username);
+        ppStatement.executeUpdate();
+    }
+
     public boolean recoverPassword(String username, int securityQuestion, String answer){
         String query = "SELECT * " +
                 "FROM Users " +
@@ -87,6 +97,64 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ArrayList<User> searchUserByName(String name){
+        String query = "SELECT * FROM Users WHERE first_name LIKE '%"+name+"%' OR last_name LIKE '%"+name+"%'";
+        try{
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ResultSet rs = ppStatement.executeQuery();
+            ArrayList<User> users = null;
+            User user = null;
+            if(rs.next()){
+                users = new ArrayList<>();
+                do{
+                    user = new User();
+                    user.setUser_id(rs.getInt(1));
+                    user.setEmail(rs.getString(8));
+                    user.setPassword(rs.getString(4));
+                    user.setFirstName(rs.getString(2));
+                    user.setLastName(rs.getString(3));
+                    user.setAddress(rs.getString(7));
+                    user.setCnic(rs.getString(6));
+                    user.setMobileNumber(rs.getString(9));
+                    users.add(user);
+                }while(rs.next());
+            }
+            return users;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<User> searchUserByUsername(String username){
+        String query = "SELECT * FROM Users WHERE username LIKE '%"+username+"%'";
+        try{
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ResultSet rs = ppStatement.executeQuery();
+            ArrayList<User> users = null;
+            User user = null;
+            if(rs.next()){
+                users = new ArrayList<>();
+                do{
+                    user = new User();
+                    user.setUser_id(rs.getInt(1));
+                    user.setEmail(rs.getString(8));
+                    user.setPassword(rs.getString(4));
+                    user.setFirstName(rs.getString(2));
+                    user.setLastName(rs.getString(3));
+                    user.setAddress(rs.getString(7));
+                    user.setCnic(rs.getString(6));
+                    user.setMobileNumber(rs.getString(9));
+                    users.add(user);
+                }while(rs.next());
+            }
+            return users;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void removeUser(int user_id) throws SQLException {
@@ -113,7 +181,7 @@ public class DatabaseManager {
     }
 
     public void addBook(Book book) throws IOException{
-        String query = "INSERT INTO Users (book_title,book_author,book_genre,book_copies_sold,book_rating,book_release_year)" +
+        String query = "INSERT INTO Books (book_title,book_author,book_genre,book_copies_sold,book_rating,book_release_year)" +
                 " VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement ppStatement = connection.prepareStatement(query);
@@ -314,7 +382,24 @@ public class DatabaseManager {
         return null;
     }
 
-    public void resetPassword(String password) throws SQLException {
+    public boolean isOldPassword(String password){
+        String query = """
+                SELECT *
+                FROM Users
+                WHERE password = ? AND user_id = ?""";
+        try {
+            PreparedStatement ppStatement = connection.prepareStatement(query);
+            ppStatement.setString(1, password);
+            ppStatement.setInt(2, Driver.currentUser.getUser_id());
+            ResultSet rs = ppStatement.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void resetOldPassword(String password) throws SQLException {
         String query = "UPDATE Users " +
                 "SET password = ? " +
                 "WHERE user_id = ?";
@@ -517,7 +602,7 @@ public class DatabaseManager {
     }
 
     public ArrayList<Book> searchBooksByYear(int date){
-        String query = "SELECT * FROM Books WHERE book_title = ?";
+        String query = "SELECT * FROM Books WHERE book_release_year = ?";
         try{
             PreparedStatement ppStatement = connection.prepareStatement(query);
             ppStatement.setInt(1,date);
@@ -546,10 +631,11 @@ public class DatabaseManager {
     }
 
     public ArrayList<Book> searchBooksByRating(float rating){
+        System.out.println(rating);
         String query = "SELECT * FROM Books WHERE book_rating = ?";
         try{
             PreparedStatement ppStatement = connection.prepareStatement(query);
-            ppStatement.setFloat(1,rating);
+            ppStatement.setDouble(1,rating);
             ResultSet rs = ppStatement.executeQuery();
             ArrayList<Book> books = null;
             Book book = null;

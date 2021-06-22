@@ -438,11 +438,13 @@ public class ResetPasswordUI extends JFrame implements ActionListener {
                 else if(!isPasswordStrong(txt_newPassword.getText().trim())) {
                     JOptionPane.showMessageDialog(null, "Error! Your password must contain Uppercase Lowercase and Special Characters\nFor Example, ABCde12@", "Weak Password!", JOptionPane.ERROR_MESSAGE);
                 }
+                else if(!Driver.dataAgent.isOldPassword(txt_oldPassword.getText().trim())){
+                    JOptionPane.showMessageDialog(null, "Error! The enetered password is not your old password", "Incorrect Old Password!", JOptionPane.ERROR_MESSAGE);
+                }
                 else{
-
                     try {
 
-                        Driver.dataAgent.resetPassword(txt_newPassword.getText().trim());
+                        Driver.dataAgent.resetOldPassword(txt_newPassword.getText().trim());
                         JOptionPane.showMessageDialog(null,"Password changed successfully","Information", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                         new UserInfoUI();

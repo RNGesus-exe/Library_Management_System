@@ -459,9 +459,9 @@ public class SignUpUI extends JFrame implements ActionListener {
         else if(!isCnicValid(txt_cnic.getText().trim())){
             JOptionPane.showMessageDialog(null,"Your CNIC is not valid. Don't use alphabets or special characters. Enter Valid CNIC\nExample: XXXXXXXXXXXXX","Invalid CNIC",JOptionPane.ERROR_MESSAGE);
         } // Email Validation
-        else if(!EmailValidator.isEmailValid(txt_email.getText().trim())){
+        /*else if(!EmailValidator.isEmailValid(txt_email.getText().trim())){
             JOptionPane.showMessageDialog(null,"Invalid Email Address! Please enter valid Email Address","Invalid Email Address",JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
         else if(!txt_password.getText().trim().equals(txt_confirmPassword.getText().trim())) {
             JOptionPane.showMessageDialog(null,"Password and Confirm Password not matched","Password Error",JOptionPane.ERROR_MESSAGE);
         }// Password Strength
