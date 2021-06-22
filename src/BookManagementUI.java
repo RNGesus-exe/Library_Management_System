@@ -459,9 +459,8 @@ public class BookManagementUI extends JFrame implements ActionListener{
         table.getColumnModel().getColumn(5).setPreferredWidth(10);
 
 
-        JScrollPane tableScroller = new JScrollPane(table);
-        tableScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        panel_resultArea.add(tableScroller);
+
+        panel_resultArea.add(new JScrollPane(table));
 
         setVisible(true);
     }
