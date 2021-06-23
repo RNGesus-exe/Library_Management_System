@@ -421,9 +421,9 @@ public class ReturnBookUI extends JFrame implements ActionListener {
             }
             else{
                 Driver.dataAgent.addReturnReceipt(new IssueBook((String) tableModel.getValueAt(table.getSelectedRow(),0),(String)tableModel.getValueAt(table.getSelectedRow(),1),(String)tableModel.getValueAt(table.getSelectedRow(),2)));
-                JOptionPane.showMessageDialog(null,"Book returned successfully","Information",JOptionPane.INFORMATION_MESSAGE);
                 dispose();
                 new ReturnBookUI();
+                JOptionPane.showMessageDialog(null,"Book returned successfully","Information",JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
