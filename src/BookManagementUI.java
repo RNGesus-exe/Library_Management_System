@@ -490,7 +490,7 @@ public class BookManagementUI extends JFrame implements ActionListener{
                     case(3):
                         this.books = Driver.dataAgent.searchBooksByYear(Integer.parseInt(txt_search.getText().trim()));
                         break;
-                    case(5):
+                    case(4):
                         this.books = Driver.dataAgent.searchBooksByRating(Float.parseFloat(txt_search.getText().trim()));
                         break;
                 }

@@ -368,7 +368,7 @@ public class EditBookUI extends JFrame implements ActionListener {
         panel_bookDetails.add(txt_rating);
 
         //<<<<<< Release Date >>>>>>>
-        JLabel lb_releaseDate = new JLabel("Date of Release");
+        JLabel lb_releaseDate = new JLabel("Year of Release");
         lb_releaseDate.setBounds(50,320,150,25);
         lb_releaseDate.setFont(labelFonts);
         lb_releaseDate.setForeground(Color.red);
@@ -442,6 +442,8 @@ public class EditBookUI extends JFrame implements ActionListener {
                 txt_author.setEditable(true);
                 txt_genre.setEditable(true);
                 txt_pages.setEditable(true);
+                txt_rating.setEditable(true);
+                txt_releaseDate.setEditable(true);
             }
 
             @Override
