@@ -45,7 +45,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
 
     private JButton btn_close;
     private JButton btn_minimize;
-    String[] userSearchFilter = {"Search by ID","Search by Name","Search by Email"};
+    String[] userSearchFilter = {"Search by Name","Search by Email"};
     private JComboBox cmbx_filter;
 
     private Color sidebarItemColor = Color.decode("#1568cf");
@@ -110,7 +110,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
         txt_search = new JTextField();
         txt_search.setBounds(50,50,800,35);
         txt_search.setFont(new Font("Arial",Font.PLAIN,20));
-        txt_search.setUI(new HintTextFieldUI("Search Book...",true));
+        txt_search.setUI(new HintTextFieldUI("Search User...",true));
         panel_body.add(txt_search);
 
         btn_search = new JButton("Search");
@@ -135,7 +135,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
         cmbx_filter = new JComboBox(userSearchFilter);
         cmbx_filter.setBounds(50,100,200,35);
         cmbx_filter.setFont(new Font("Arial",Font.PLAIN,16));
-//        panel_body.add(cmbx_filter);
+        panel_body.add(cmbx_filter);
 
 
         JButton btn_editUser = new JButton("Edit User");
@@ -179,7 +179,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
             }
         });
 
-        JButton btn_deleteUser = new JButton("Delete User");
+        /*JButton btn_deleteUser = new JButton("Delete User");
         btn_deleteUser.setBounds(570,700,130,35);
         btn_deleteUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_deleteUser.setBackground(Color.decode("#ff0000"));
@@ -214,7 +214,7 @@ public class UserManagementUI extends JFrame implements ActionListener {
             public void mouseExited(MouseEvent e) {
                 btn_deleteUser.setBackground(Color.decode("#ff0000"));
             }
-        });
+        });*/
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{ Logo }@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -451,7 +451,23 @@ public class UserManagementUI extends JFrame implements ActionListener {
             }
             else
             {
+                switch(cmbx_filter.getSelectedIndex()){
+                    case(0):
+                        this.users = Driver.dataAgent.searchUserByName(txt_search.getText().trim());
+                        break;
+                    case(1):
+                        this.users = Driver.dataAgent.searchUserByUsername(txt_search.getText().trim());
+                        break;
+                }
 
+                if(users==null){
+                    JOptionPane.showMessageDialog(null,"Oops! No User found on your search keyword :(", "No User",JOptionPane.ERROR_MESSAGE);
+                }else{
+                    tableModel.setRowCount(0);
+                    for (User user : users) {
+                        tableModel.addRow(user.getUserObject());
+                    }
+                }
             }
         }
     }
