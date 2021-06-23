@@ -210,7 +210,7 @@ public class DatabaseManager {
 
     public void updateBook(int book_id,String book_title,String book_author,String book_genre, int copies, float rating, int release_year) throws SQLException {
         String query = "UPDATE Books " +
-                "SET book_title = ?, book_author = ?, book_genre = ?, book_copies_sold = ?, book_rating, book_release_year = ? " +
+                "SET book_title = ? , book_author = ?, book_genre = ?, book_copies_sold = ?, book_rating = ?, book_release_year = ? " +
                 "WHERE book_id = ?";
         PreparedStatement ppStatement = connection.prepareStatement(query);
         ppStatement.setInt(7, book_id);
